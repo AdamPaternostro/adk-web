@@ -370,7 +370,9 @@
                       <div class="thought-chip">Thought</div>
                     }
                     <div>
-                      @if (message.text) {
+                      @if (message.isTable && message.htmlContent) {
+                        <div [innerHTML]="sanitizeHtml(message.htmlContent)"></div>
+                      } @else if (message.text) {
                         @if (message.isEditing) {
                           <div class="edit-message-container">
                             <textarea
