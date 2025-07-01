@@ -108,6 +108,7 @@ export class ChatComponent implements OnInit, AfterViewInit, OnDestroy {
   shouldShowEvalTab = signal(true);
   enableSseIndicator = signal(false);
   isChatMode = signal(true);
+  expectingHtmlJson = false; // Added for /displayhtml command
   isEvalCaseEditing = signal(false);
   hasEvalCaseChanged = signal(false);
   isEvalEditMode = signal(false);
@@ -398,6 +399,22 @@ export class ChatComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     }
 
+    const trimmedInput = this.userInput.trim();
+
+    // Handle /displayhtml command
+    if (trimmedInput.toLowerCase() === '/displayhtml') {
+      this.expectingHtmlJson = true;
+      this.messages.push({
+        role: 'system', // Or 'user' if preferred
+        text: 'Entered HTML display mode. Waiting for JSON data from the agent...',
+      });
+      this.messagesSubject.next(this.messages);
+      this.userInput = '';
+      this.changeDetectorRef.detectChanges();
+      return;
+    }
+
+
     // Add user message
     if (!!this.userInput.trim()) {
       this.messages.push({role: 'user', text: this.userInput});
@@ -413,6 +430,8 @@ export class ChatComponent implements OnInit, AfterViewInit, OnDestroy {
       this.messages.push({ role: 'user', attachments: messageAttachments });
       this.messagesSubject.next(this.messages);
     }
+
+    this.expectingHtmlJson = false; // Reset if it's a normal message
 
     const req: AgentRunRequest = {
       appName: this.appName,
@@ -441,7 +460,7 @@ export class ChatComponent implements OnInit, AfterViewInit, OnDestroy {
         if (chunkJson.content) {
           for (let part of chunkJson.content.parts) {
             index += 1;
-            this.processPart(chunkJson, part, index);
+            this.processPart(chunkJson, part, index); // Modified to handle HTML
             this.traceService.setEventData(this.eventData);
           }
         }
@@ -473,6 +492,29 @@ export class ChatComponent implements OnInit, AfterViewInit, OnDestroy {
   private processPart(chunkJson: any, part: any, index: number) {
     const renderedContent =
       chunkJson.groundingMetadata?.searchEntryPoint?.renderedContent;
+
+    if (this.expectingHtmlJson && part.text) {
+      try {
+        const jsonData = JSON.parse(part.text);
+        // Basic check for BigQuery-like schema
+        if (jsonData.schema && jsonData.rows) {
+          const htmlTable = this.generateTableHtml(jsonData);
+          this.insertMessageBeforeLoadingMessage({
+            role: 'bot',
+            htmlContent: htmlTable,
+            isTable: true, // Custom flag
+            eventId: chunkJson.id,
+          });
+          this.expectingHtmlJson = false; // Reset after processing
+          this.changeDetectorRef.detectChanges();
+          return; // Handled as HTML table
+        }
+      } catch (e) {
+        // Not valid JSON or not the expected format, proceed as normal text
+        console.warn('Received text while expecting JSON for HTML table, or JSON was not in the expected BigQuery format:', e);
+      }
+    }
+
 
     if (part.text) {
       this.isModelThinkingSubject.next(false);
@@ -1606,5 +1648,85 @@ export class ChatComponent implements OnInit, AfterViewInit, OnDestroy {
     this.renderer.appendChild(style, this.renderer.createText(css));
     this.renderer.appendChild(
         this.document.head, style);  // Append to the head of the document
+  }
+
+  // Sanitize HTML content before rendering
+  sanitizeHtml(html: string): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(html);
+  }
+
+  // Generates HTML table from BigQuery JSON response
+  private generateTableHtml(jsonData: any): string {
+    let htmlOutput = `
+    <style>
+        table.bq-result {
+            border-collapse: collapse;
+            width: 80%; /* Adjusted width */
+            font-family: Arial, sans-serif;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+            color: #333; /* Darker text for better readability */
+        }
+        table.bq-result th, table.bq-result td {
+            border: 1px solid #ccc; /* Lighter border */
+            text-align: left;
+            padding: 10px; /* Adjusted padding */
+        }
+        table.bq-result th {
+            background-color: #e9e9e9; /* Lighter header background */
+            text-transform: capitalize;
+            font-weight: bold; /* Bold header text */
+        }
+        table.bq-result tr:nth-child(even) {
+            background-color: #f7f7f7; /* Slightly different even row color */
+        }
+        table.bq-result tr:hover {
+            background-color: #f1f1f1; /* Hover effect for rows */
+        }
+        .no-data {
+            color: #777;
+            font-style: italic;
+        }
+    </style>`;
+
+    if (!jsonData || !jsonData.schema || !jsonData.schema.fields || !jsonData.rows) {
+      htmlOutput += "<p class='no-data'>Invalid or incomplete JSON data for table generation.</p>";
+      return htmlOutput;
+    }
+
+    const headers = jsonData.schema.fields.map((field: any) => field.name);
+    const resultRows = jsonData.rows.map((row: any) => {
+      const rowData: {[key: string]: any} = {};
+      row.f.forEach((field: any, index: number) => {
+        rowData[headers[index]] = field.v;
+      });
+      return rowData;
+    });
+
+    if (resultRows && resultRows.length > 0) {
+      htmlOutput += "<table class='bq-result'><thead><tr>";
+
+      headers.forEach((header: string) => {
+        const formattedHeader = header.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+        htmlOutput += `<th>${formattedHeader}</th>`;
+      });
+
+      htmlOutput += "</tr></thead><tbody>";
+
+      resultRows.forEach((row: any) => {
+        htmlOutput += "<tr>";
+        headers.forEach((header: string) => {
+          htmlOutput += `<td>${row[header] !== null && row[header] !== undefined ? row[header] : 'N/A'}</td>`;
+        });
+        htmlOutput += "</tr>";
+      });
+
+      htmlOutput += "</tbody></table>";
+    } else {
+      htmlOutput += "<p class='no-data'>No result data found in the provided JSON.</p>";
+    }
+
+    return htmlOutput;
   }
 }
