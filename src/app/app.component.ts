@@ -17,6 +17,8 @@
 import {Component} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {SessionService} from './core/services/session.service';
+import { MatIconRegistry } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -30,5 +32,16 @@ export class AppComponent {
   appName: string = '';
   sessionId: string = '';
 
-  constructor() {}
+  constructor(
+    private matIconRegistry: MatIconRegistry,
+    private domSanitizer: DomSanitizer
+  ) {
+    // Register the custom icon
+    // The first argument is the name you'll use in the template (e.g., 'robot_2_custom')
+    // The second argument is the path to the SVG, sanitized for security
+    this.matIconRegistry.addSvgIcon(
+      'robot_2_custom', // The name for your icon
+      this.domSanitizer.bypassSecurityTrustResourceUrl('../assets/icons/custom-robot.svg')
+    );
+  }
 }

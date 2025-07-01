@@ -1,0 +1,121 @@
+{
+  "kind": "bigquery#table",
+  "etag": "n9wh9Zs5metNSi1xeyfokw==",
+  "id": "governed-data-1pqzajgatl:governed_data_curated.customer",
+  "selfLink": "https://bigquery.googleapis.com/bigquery/v2/projects/governed-data-1pqzajgatl/datasets/governed_data_curated/tables/customer",
+  "tableReference": {
+    "projectId": "governed-data-1pqzajgatl",
+    "datasetId": "governed_data_curated",
+    "tableId": "customer"
+  },
+  "description": "Curated table containing customer information with predicted credit amount.",
+  "labels": {
+    "dataplex-dp-published-scan": "governed-data-curated-customer-profile-scan",
+    "dataplex-dp-published-project": "governed-data-1pqzajgatl",
+    "dataplex-dq-published-scan": "governed-data-curated-customer-quality-scan",
+    "dataplex-dp-published-location": "us-central1",
+    "dataplex-dq-published-project": "governed-data-1pqzajgatl",
+    "dataplex-dq-published-location": "us-central1"
+  },
+  "schema": {
+    "fields": [
+      {
+        "name": "customer_id",
+        "type": "INTEGER",
+        "description": "Unique identifier for the customer."
+      },
+      {
+        "name": "first_name",
+        "type": "STRING",
+        "description": "The first name of the customer."
+      },
+      {
+        "name": "last_name",
+        "type": "STRING",
+        "description": "The last name of the customer."
+      },
+      {
+        "name": "email",
+        "type": "STRING",
+        "description": "The email address of the customer."
+      },
+      {
+        "name": "phone",
+        "type": "STRING",
+        "description": "The phone number of the customer."
+      },
+      {
+        "name": "gender",
+        "type": "STRING",
+        "description": "The gender of the customer."
+      },
+      {
+        "name": "ip_address",
+        "type": "STRING",
+        "description": "The IP address of the customer."
+      },
+      {
+        "name": "ssn",
+        "type": "STRING",
+        "description": "The Social Security Number of the customer."
+      },
+      {
+        "name": "address",
+        "type": "STRING",
+        "description": "The street address of the customer."
+      },
+      {
+        "name": "city",
+        "type": "STRING",
+        "description": "The city of the customer."
+      },
+      {
+        "name": "state",
+        "type": "STRING",
+        "description": "The state of the customer."
+      },
+      {
+        "name": "zip",
+        "type": "INTEGER",
+        "description": "The zip code of the customer."
+      },
+      {
+        "name": "credit_card_number",
+        "type": "STRING",
+        "description": "The credit card number of the customer."
+      },
+      {
+        "name": "predicted_credit_amount",
+        "type": "FLOAT",
+        "description": "The predicted credit amount for the customer."
+      }
+    ]
+  },
+  "numBytes": "158014",
+  "numLongTermBytes": "0",
+  "numRows": "1000",
+  "creationTime": "1749737137919",
+  "lastModifiedTime": "1749741967015",
+  "type": "TABLE",
+  "location": "US",
+  "clustering": {
+    "fields": [
+      "customer_id"
+    ]
+  },
+  "numTimeTravelPhysicalBytes": "0",
+  "numTotalLogicalBytes": "158014",
+  "numActiveLogicalBytes": "158014",
+  "numLongTermLogicalBytes": "0",
+  "numTotalPhysicalBytes": "60660",
+  "numActivePhysicalBytes": "60660",
+  "numLongTermPhysicalBytes": "0",
+  "tableConstraints": {
+    "primaryKey": {
+      "columns": [
+        "customer_id"
+      ]
+    }
+  },
+  "numCurrentPhysicalBytes": "60660"
+}

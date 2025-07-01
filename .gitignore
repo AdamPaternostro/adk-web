@@ -29,3 +29,4 @@ e2e/*.map
 
 # System Files
 .DS_Store
+data_beans_agent/__pycache__/*

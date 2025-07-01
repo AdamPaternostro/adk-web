@@ -1,0 +1,1426 @@
+{
+    "results": [
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/datasets/governed_data_raw/models/gemini_model",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_raw/models/gemini_model",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-model",
+                "createTime": "2025-06-12T14:00:04.724264Z",
+                "updateTime": "2025-06-12T14:00:04.724264Z",
+                "parentEntry": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_raw",
+                "fullyQualifiedName": "bigquery:governed-data-1pqzajgatl.governed_data_raw.gemini_model",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/datasets/governed_data_raw/models/gemini_model",
+                    "system": "BIGQUERY",
+                    "displayName": "gemini_model",
+                    "ancestors": [
+                        {
+                            "name": "projects/governed-data-1pqzajgatl/datasets/governed_data_raw",
+                            "type": "dataplex-types.global.bigquery-dataset"
+                        }
+                    ],
+                    "createTime": "2025-06-12T14:00:04.232Z",
+                    "updateTime": "2025-06-12T14:00:04.280Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/datasets/governed_data_raw/models/textembedding_model",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_raw/models/textembedding_model",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-model",
+                "createTime": "2025-06-12T14:00:07.515067Z",
+                "updateTime": "2025-06-12T14:00:07.515067Z",
+                "parentEntry": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_raw",
+                "fullyQualifiedName": "bigquery:governed-data-1pqzajgatl.governed_data_raw.textembedding_model",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/datasets/governed_data_raw/models/textembedding_model",
+                    "system": "BIGQUERY",
+                    "displayName": "textembedding_model",
+                    "ancestors": [
+                        {
+                            "name": "projects/governed-data-1pqzajgatl/datasets/governed_data_raw",
+                            "type": "dataplex-types.global.bigquery-dataset"
+                        }
+                    ],
+                    "createTime": "2025-06-12T14:00:06.576Z",
+                    "updateTime": "2025-06-12T14:00:06.635Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/datasets/governed_data_curated/models/customer_credit_model",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_curated/models/customer_credit_model",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-model",
+                "createTime": "2025-06-12T14:05:35.049130Z",
+                "updateTime": "2025-06-12T14:05:35.049130Z",
+                "parentEntry": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_curated",
+                "fullyQualifiedName": "bigquery:governed-data-1pqzajgatl.governed_data_curated.customer_credit_model",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/datasets/governed_data_curated/models/customer_credit_model",
+                    "system": "BIGQUERY",
+                    "displayName": "customer_credit_model",
+                    "ancestors": [
+                        {
+                            "name": "projects/governed-data-1pqzajgatl/datasets/governed_data_curated",
+                            "type": "dataplex-types.global.bigquery-dataset"
+                        }
+                    ],
+                    "createTime": "2025-06-12T14:05:34.526Z",
+                    "updateTime": "2025-06-12T14:05:34.614Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/601982832853/locations/us/entryGroups/@bigquery",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/@bigquery_entry",
+                "entryType": "projects/655216118709/locations/global/entryTypes/entrygroup",
+                "createTime": "2025-06-12T13:58:30.649587Z",
+                "updateTime": "2025-06-12T19:32:39.966992Z",
+                "entrySource": {
+                    "resource": "projects/601982832853/locations/us/entryGroups/@bigquery",
+                    "system": "Dataplex",
+                    "createTime": "2025-06-12T19:32:38.349731Z",
+                    "updateTime": "2025-06-12T19:32:38.349731Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/datasets/governed_data_scan_quality_results/tables/data_quality_metrics",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_scan_quality_results/tables/data_quality_metrics",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-table",
+                "createTime": "2025-06-12T15:15:48.658845Z",
+                "updateTime": "2025-06-12T15:17:18.564095Z",
+                "parentEntry": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_scan_quality_results",
+                "fullyQualifiedName": "bigquery:governed-data-1pqzajgatl.governed_data_scan_quality_results.data_quality_metrics",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/datasets/governed_data_scan_quality_results/tables/data_quality_metrics",
+                    "system": "BIGQUERY",
+                    "displayName": "data_quality_metrics",
+                    "labels": {
+                        "goog-dataplex-datascan-export-table-schema-version": "1_2_0",
+                        "goog-drz-dataplex-uuid": "8919aecb-1401-4ae6-be0c-a715fc099c7f",
+                        "goog-drz-dataplex-location": "us-central1"
+                    },
+                    "ancestors": [
+                        {
+                            "name": "projects/governed-data-1pqzajgatl/datasets/governed_data_scan_quality_results",
+                            "type": "dataplex-types.global.bigquery-dataset"
+                        }
+                    ],
+                    "createTime": "2025-06-12T15:15:48.120Z",
+                    "updateTime": "2025-06-12T15:17:18.057Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/locations/us/dataPolicies/datamask_policy_ssn_null",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquerydatapolicy.googleapis.com/projects/governed-data-1pqzajgatl/locations/us/dataPolicies/datamask_policy_ssn_null",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-data-policy",
+                "createTime": "2025-06-26T23:20:16.286766Z",
+                "updateTime": "2025-06-26T23:20:16.286766Z",
+                "fullyQualifiedName": "bigquery:datapolicy:governed-data-1pqzajgatl.us.datamask_policy_ssn_null",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/locations/us/dataPolicies/datamask_policy_ssn_null",
+                    "system": "BIGQUERY",
+                    "displayName": "datamask_policy_ssn_null",
+                    "createTime": "2025-06-12T15:20:54.061550Z",
+                    "updateTime": "2025-06-12T15:20:54.061550Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/locations/us/dataPolicies/datamask_policy_address_first_four",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquerydatapolicy.googleapis.com/projects/governed-data-1pqzajgatl/locations/us/dataPolicies/datamask_policy_address_first_four",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-data-policy",
+                "createTime": "2025-06-26T23:20:16.286766Z",
+                "updateTime": "2025-06-26T23:20:16.286766Z",
+                "fullyQualifiedName": "bigquery:datapolicy:governed-data-1pqzajgatl.us.datamask_policy_address_first_four",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/locations/us/dataPolicies/datamask_policy_address_first_four",
+                    "system": "BIGQUERY",
+                    "displayName": "datamask_policy_address_first_four",
+                    "createTime": "2025-06-12T15:20:54.916774Z",
+                    "updateTime": "2025-06-12T15:20:54.916774Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/datasets/governed_data_raw/routines/gemini_model_result_as_json",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_raw/routines/gemini_model_result_as_json",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-routine",
+                "createTime": "2025-06-12T13:59:52.946227Z",
+                "updateTime": "2025-06-12T13:59:52.946227Z",
+                "parentEntry": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_raw",
+                "fullyQualifiedName": "bigquery:routine:governed-data-1pqzajgatl.governed_data_raw.gemini_model_result_as_json",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/datasets/governed_data_raw/routines/gemini_model_result_as_json",
+                    "system": "BIGQUERY",
+                    "displayName": "gemini_model_result_as_json",
+                    "ancestors": [
+                        {
+                            "name": "projects/governed-data-1pqzajgatl/datasets/governed_data_raw",
+                            "type": "dataplex-types.global.bigquery-dataset"
+                        }
+                    ],
+                    "createTime": "2025-06-12T13:59:51.806Z",
+                    "updateTime": "2025-06-12T13:59:51.806Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/datasets/governed_data_raw/routines/gemini_model_result_as_string",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_raw/routines/gemini_model_result_as_string",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-routine",
+                "createTime": "2025-06-12T13:59:54.643850Z",
+                "updateTime": "2025-06-12T13:59:54.643850Z",
+                "parentEntry": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_raw",
+                "fullyQualifiedName": "bigquery:routine:governed-data-1pqzajgatl.governed_data_raw.gemini_model_result_as_string",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/datasets/governed_data_raw/routines/gemini_model_result_as_string",
+                    "system": "BIGQUERY",
+                    "displayName": "gemini_model_result_as_string",
+                    "ancestors": [
+                        {
+                            "name": "projects/governed-data-1pqzajgatl/datasets/governed_data_raw",
+                            "type": "dataplex-types.global.bigquery-dataset"
+                        }
+                    ],
+                    "createTime": "2025-06-12T13:59:51.757Z",
+                    "updateTime": "2025-06-12T13:59:51.757Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/locations/us/dataPolicies/datamask_policy_address_last_four",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquerydatapolicy.googleapis.com/projects/governed-data-1pqzajgatl/locations/us/dataPolicies/datamask_policy_address_last_four",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-data-policy",
+                "createTime": "2025-06-26T23:20:16.286766Z",
+                "updateTime": "2025-06-26T23:20:16.286766Z",
+                "fullyQualifiedName": "bigquery:datapolicy:governed-data-1pqzajgatl.us.datamask_policy_address_last_four",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/locations/us/dataPolicies/datamask_policy_address_last_four",
+                    "system": "BIGQUERY",
+                    "displayName": "datamask_policy_address_last_four",
+                    "createTime": "2025-06-12T15:20:55.059392Z",
+                    "updateTime": "2025-06-12T15:20:55.059392Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/locations/us/dataPolicies/datamask_policy_ssn_last_four",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquerydatapolicy.googleapis.com/projects/governed-data-1pqzajgatl/locations/us/dataPolicies/datamask_policy_ssn_last_four",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-data-policy",
+                "createTime": "2025-06-26T23:20:16.286766Z",
+                "updateTime": "2025-06-26T23:20:16.286766Z",
+                "fullyQualifiedName": "bigquery:datapolicy:governed-data-1pqzajgatl.us.datamask_policy_ssn_last_four",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/locations/us/dataPolicies/datamask_policy_ssn_last_four",
+                    "system": "BIGQUERY",
+                    "displayName": "datamask_policy_ssn_last_four",
+                    "createTime": "2025-06-12T15:20:53.832784Z",
+                    "updateTime": "2025-06-12T15:20:53.832784Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/locations/us/dataPolicies/datamask_policy_email_email_mask",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquerydatapolicy.googleapis.com/projects/governed-data-1pqzajgatl/locations/us/dataPolicies/datamask_policy_email_email_mask",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-data-policy",
+                "createTime": "2025-06-26T23:20:16.286766Z",
+                "updateTime": "2025-06-26T23:20:16.286766Z",
+                "fullyQualifiedName": "bigquery:datapolicy:governed-data-1pqzajgatl.us.datamask_policy_email_email_mask",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/locations/us/dataPolicies/datamask_policy_email_email_mask",
+                    "system": "BIGQUERY",
+                    "displayName": "datamask_policy_email_email_mask",
+                    "createTime": "2025-06-12T15:20:54.772386Z",
+                    "updateTime": "2025-06-12T15:20:54.772386Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/locations/us/dataPolicies/datamask_policy_ip_address_hash",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquerydatapolicy.googleapis.com/projects/governed-data-1pqzajgatl/locations/us/dataPolicies/datamask_policy_ip_address_hash",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-data-policy",
+                "createTime": "2025-06-26T23:20:16.286766Z",
+                "updateTime": "2025-06-26T23:20:16.286766Z",
+                "fullyQualifiedName": "bigquery:datapolicy:governed-data-1pqzajgatl.us.datamask_policy_ip_address_hash",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/locations/us/dataPolicies/datamask_policy_ip_address_hash",
+                    "system": "BIGQUERY",
+                    "displayName": "datamask_policy_ip_address_hash",
+                    "createTime": "2025-06-12T15:20:54.584609Z",
+                    "updateTime": "2025-06-12T15:20:54.584609Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/datasets/governed_data_enriched/routines/transform_product",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_enriched/routines/transform_product",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-routine",
+                "createTime": "2025-06-12T13:59:52.028744Z",
+                "updateTime": "2025-06-12T13:59:52.028744Z",
+                "parentEntry": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_enriched",
+                "fullyQualifiedName": "bigquery:routine:governed-data-1pqzajgatl.governed_data_enriched.transform_product",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/datasets/governed_data_enriched/routines/transform_product",
+                    "system": "BIGQUERY",
+                    "displayName": "transform_product",
+                    "ancestors": [
+                        {
+                            "name": "projects/governed-data-1pqzajgatl/datasets/governed_data_enriched",
+                            "type": "dataplex-types.global.bigquery-dataset"
+                        }
+                    ],
+                    "createTime": "2025-06-12T13:59:51.789Z",
+                    "updateTime": "2025-06-12T13:59:51.789Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/datasets/governed_data_curated/tables/product",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_curated/tables/product",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-table",
+                "createTime": "2025-06-12T14:05:47.259926Z",
+                "updateTime": "2025-06-23T15:51:22.048122Z",
+                "parentEntry": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_curated",
+                "fullyQualifiedName": "bigquery:governed-data-1pqzajgatl.governed_data_curated.product",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/datasets/governed_data_curated/tables/product",
+                    "system": "BIGQUERY",
+                    "displayName": "product",
+                    "description": "Curated table containing product information with a primary key.",
+                    "labels": {
+                        "dataplex-dp-published-scan": "governed-data-curated-product-profile-scan",
+                        "dataplex-dp-published-project": "governed-data-1pqzajgatl",
+                        "dataplex-dq-published-scan": "governed-data-curated-product-quality-scan",
+                        "dataplex-dp-published-location": "us-central1",
+                        "dataplex-dq-published-project": "governed-data-1pqzajgatl",
+                        "dataplex-dq-published-location": "us-central1"
+                    },
+                    "ancestors": [
+                        {
+                            "name": "projects/governed-data-1pqzajgatl/datasets/governed_data_curated",
+                            "type": "dataplex-types.global.bigquery-dataset"
+                        }
+                    ],
+                    "createTime": "2025-06-12T14:05:46.732Z",
+                    "updateTime": "2025-06-12T15:26:06.787Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/locations/us/dataPolicies/datamask_policy_ip_address_last_four",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquerydatapolicy.googleapis.com/projects/governed-data-1pqzajgatl/locations/us/dataPolicies/datamask_policy_ip_address_last_four",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-data-policy",
+                "createTime": "2025-06-26T23:20:16.286766Z",
+                "updateTime": "2025-06-26T23:20:16.286766Z",
+                "fullyQualifiedName": "bigquery:datapolicy:governed-data-1pqzajgatl.us.datamask_policy_ip_address_last_four",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/locations/us/dataPolicies/datamask_policy_ip_address_last_four",
+                    "system": "BIGQUERY",
+                    "displayName": "datamask_policy_ip_address_last_four",
+                    "createTime": "2025-06-12T15:20:54.300617Z",
+                    "updateTime": "2025-06-12T15:20:54.300617Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/locations/us/dataPolicies/datamask_policy_credit_card_number_last_four",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquerydatapolicy.googleapis.com/projects/governed-data-1pqzajgatl/locations/us/dataPolicies/datamask_policy_credit_card_number_last_four",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-data-policy",
+                "createTime": "2025-06-26T23:20:16.286766Z",
+                "updateTime": "2025-06-26T23:20:16.286766Z",
+                "fullyQualifiedName": "bigquery:datapolicy:governed-data-1pqzajgatl.us.datamask_policy_credit_card_number_last_four",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/locations/us/dataPolicies/datamask_policy_credit_card_number_last_four",
+                    "system": "BIGQUERY",
+                    "displayName": "datamask_policy_credit_card_number_last_four",
+                    "createTime": "2025-06-12T15:20:53.567740Z",
+                    "updateTime": "2025-06-12T15:20:53.567740Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/datasets/governed_data_curated/tables/customer_training_data",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_curated/tables/customer_training_data",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-table",
+                "createTime": "2025-06-12T14:05:21.337880Z",
+                "updateTime": "2025-06-23T15:51:18.056935Z",
+                "parentEntry": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_curated",
+                "fullyQualifiedName": "bigquery:governed-data-1pqzajgatl.governed_data_curated.customer_training_data",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/datasets/governed_data_curated/tables/customer_training_data",
+                    "system": "BIGQUERY",
+                    "displayName": "customer_training_data",
+                    "description": "Table containing training data for the customer credit model.",
+                    "labels": {
+                        "dataplex-dp-published-scan": "governed-data-curated-customer-training-data-profile-scan",
+                        "dataplex-dp-published-project": "governed-data-1pqzajgatl",
+                        "dataplex-dq-published-scan": "governed-data-curated-customer-training-data-quality-scan",
+                        "dataplex-dp-published-location": "us-central1",
+                        "dataplex-dq-published-project": "governed-data-1pqzajgatl",
+                        "dataplex-dq-published-location": "us-central1"
+                    },
+                    "ancestors": [
+                        {
+                            "name": "projects/governed-data-1pqzajgatl/datasets/governed_data_curated",
+                            "type": "dataplex-types.global.bigquery-dataset"
+                        }
+                    ],
+                    "createTime": "2025-06-12T14:05:19.670Z",
+                    "updateTime": "2025-06-12T15:26:06.506Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/datasets/governed_data_curated/tables/order_detail",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_curated/tables/order_detail",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-table",
+                "createTime": "2025-06-12T14:05:44.983687Z",
+                "updateTime": "2025-06-23T15:51:19.364313Z",
+                "parentEntry": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_curated",
+                "fullyQualifiedName": "bigquery:governed-data-1pqzajgatl.governed_data_curated.order_detail",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/datasets/governed_data_curated/tables/order_detail",
+                    "system": "BIGQUERY",
+                    "displayName": "order_detail",
+                    "description": "Curated table containing detailed information for each item in a customer order, with primary and foreign key constraints.",
+                    "labels": {
+                        "dataplex-dp-published-scan": "governed-data-curated-order-detail-profile-scan",
+                        "dataplex-dp-published-project": "governed-data-1pqzajgatl",
+                        "dataplex-dq-published-scan": "governed-data-curated-order-detail-quality-scan",
+                        "dataplex-dp-published-location": "us-central1",
+                        "dataplex-dq-published-project": "governed-data-1pqzajgatl",
+                        "dataplex-dq-published-location": "us-central1"
+                    },
+                    "ancestors": [
+                        {
+                            "name": "projects/governed-data-1pqzajgatl/datasets/governed_data_curated",
+                            "type": "dataplex-types.global.bigquery-dataset"
+                        }
+                    ],
+                    "createTime": "2025-06-12T14:05:44.066Z",
+                    "updateTime": "2025-06-12T15:26:06.285Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/datasets/governed_data_enriched/routines/initialize",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_enriched/routines/initialize",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-routine",
+                "createTime": "2025-06-12T13:59:59.778004Z",
+                "updateTime": "2025-06-12T13:59:59.778004Z",
+                "parentEntry": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_enriched",
+                "fullyQualifiedName": "bigquery:routine:governed-data-1pqzajgatl.governed_data_enriched.initialize",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/datasets/governed_data_enriched/routines/initialize",
+                    "system": "BIGQUERY",
+                    "displayName": "initialize",
+                    "ancestors": [
+                        {
+                            "name": "projects/governed-data-1pqzajgatl/datasets/governed_data_enriched",
+                            "type": "dataplex-types.global.bigquery-dataset"
+                        }
+                    ],
+                    "createTime": "2025-06-12T13:59:58.441Z",
+                    "updateTime": "2025-06-12T13:59:58.441Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/datasets/governed_data_raw/tables/product",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_raw/tables/product",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-table",
+                "createTime": "2025-06-12T14:00:14.572749Z",
+                "updateTime": "2025-06-23T15:51:07.609209Z",
+                "parentEntry": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_raw",
+                "fullyQualifiedName": "bigquery:governed-data-1pqzajgatl.governed_data_raw.product",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/datasets/governed_data_raw/tables/product",
+                    "system": "BIGQUERY",
+                    "displayName": "product",
+                    "description": "Table containing raw product information.",
+                    "labels": {
+                        "dataplex-dp-published-scan": "governed-data-raw-product-profile-scan",
+                        "dataplex-dp-published-project": "governed-data-1pqzajgatl",
+                        "dataplex-dq-published-scan": "governed-data-raw-product-quality-scan",
+                        "dataplex-dp-published-location": "us-central1",
+                        "dataplex-dq-published-project": "governed-data-1pqzajgatl",
+                        "dataplex-dq-published-location": "us-central1"
+                    },
+                    "ancestors": [
+                        {
+                            "name": "projects/governed-data-1pqzajgatl/datasets/governed_data_raw",
+                            "type": "dataplex-types.global.bigquery-dataset"
+                        }
+                    ],
+                    "createTime": "2025-06-12T14:00:13.973Z",
+                    "updateTime": "2025-06-12T15:26:07.353Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/datasets/governed_data_curated/routines/initialize",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_curated/routines/initialize",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-routine",
+                "createTime": "2025-06-12T13:59:59.440876Z",
+                "updateTime": "2025-06-12T13:59:59.440876Z",
+                "parentEntry": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_curated",
+                "fullyQualifiedName": "bigquery:routine:governed-data-1pqzajgatl.governed_data_curated.initialize",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/datasets/governed_data_curated/routines/initialize",
+                    "system": "BIGQUERY",
+                    "displayName": "initialize",
+                    "ancestors": [
+                        {
+                            "name": "projects/governed-data-1pqzajgatl/datasets/governed_data_curated",
+                            "type": "dataplex-types.global.bigquery-dataset"
+                        }
+                    ],
+                    "createTime": "2025-06-12T13:59:59.003Z",
+                    "updateTime": "2025-06-12T13:59:59.003Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/datasets/governed_data_enriched/routines/transform_product_category",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_enriched/routines/transform_product_category",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-routine",
+                "createTime": "2025-06-12T13:59:53.864037Z",
+                "updateTime": "2025-06-12T13:59:53.864037Z",
+                "parentEntry": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_enriched",
+                "fullyQualifiedName": "bigquery:routine:governed-data-1pqzajgatl.governed_data_enriched.transform_product_category",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/datasets/governed_data_enriched/routines/transform_product_category",
+                    "system": "BIGQUERY",
+                    "displayName": "transform_product_category",
+                    "ancestors": [
+                        {
+                            "name": "projects/governed-data-1pqzajgatl/datasets/governed_data_enriched",
+                            "type": "dataplex-types.global.bigquery-dataset"
+                        }
+                    ],
+                    "createTime": "2025-06-12T13:59:51.718Z",
+                    "updateTime": "2025-06-12T13:59:51.718Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/datasets/governed_data_raw/routines/initialize",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_raw/routines/initialize",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-routine",
+                "createTime": "2025-06-12T13:59:54.439378Z",
+                "updateTime": "2025-06-12T13:59:54.439378Z",
+                "parentEntry": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_raw",
+                "fullyQualifiedName": "bigquery:routine:governed-data-1pqzajgatl.governed_data_raw.initialize",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/datasets/governed_data_raw/routines/initialize",
+                    "system": "BIGQUERY",
+                    "displayName": "initialize",
+                    "ancestors": [
+                        {
+                            "name": "projects/governed-data-1pqzajgatl/datasets/governed_data_raw",
+                            "type": "dataplex-types.global.bigquery-dataset"
+                        }
+                    ],
+                    "createTime": "2025-06-12T13:59:51.880Z",
+                    "updateTime": "2025-06-12T13:59:51.880Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/datasets/conversation_analytics/tables/orders",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/conversation_analytics/tables/orders",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-table",
+                "createTime": "2025-06-18T14:09:34.369717Z",
+                "updateTime": "2025-06-23T14:48:38.924943Z",
+                "parentEntry": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/conversation_analytics",
+                "fullyQualifiedName": "bigquery:governed-data-1pqzajgatl.conversation_analytics.orders",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/datasets/conversation_analytics/tables/orders",
+                    "system": "BIGQUERY",
+                    "displayName": "orders",
+                    "description": "This table stores information about customer orders placed through the e-commerce store. It tracks the lifecycle of each order, from creation to delivery or return. The table facilitates analysis of order patterns and trends. It also enables understanding of customer behavior related to orders.",
+                    "labels": {
+                        "dataplex-data-documentation-published-location": "us-central1",
+                        "dataplex-data-documentation-published-project": "governed-data-1pqzajgatl",
+                        "dataplex-data-documentation-published-scan": "a83439f11-a9da-4208-9361-a89042810a03"
+                    },
+                    "ancestors": [
+                        {
+                            "name": "projects/governed-data-1pqzajgatl/datasets/conversation_analytics",
+                            "type": "dataplex-types.global.bigquery-dataset"
+                        }
+                    ],
+                    "createTime": "2025-06-18T14:09:32.759Z",
+                    "updateTime": "2025-06-23T14:48:11.835Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/datasets/governed_data_curated/tables/product_category",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_curated/tables/product_category",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-table",
+                "createTime": "2025-06-12T14:05:50.800577Z",
+                "updateTime": "2025-06-23T15:51:23.341467Z",
+                "parentEntry": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_curated",
+                "fullyQualifiedName": "bigquery:governed-data-1pqzajgatl.governed_data_curated.product_category",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/datasets/governed_data_curated/tables/product_category",
+                    "system": "BIGQUERY",
+                    "displayName": "product_category",
+                    "description": "Curated table containing product category information with a primary key.",
+                    "labels": {
+                        "dataplex-dp-published-scan": "governed-data-curated-product-category-profile-scan",
+                        "dataplex-dp-published-project": "governed-data-1pqzajgatl",
+                        "dataplex-dq-published-scan": "governed-data-curated-product-category-quality-scan",
+                        "dataplex-dp-published-location": "us-central1",
+                        "dataplex-dq-published-project": "governed-data-1pqzajgatl",
+                        "dataplex-dq-published-location": "us-central1"
+                    },
+                    "ancestors": [
+                        {
+                            "name": "projects/governed-data-1pqzajgatl/datasets/governed_data_curated",
+                            "type": "dataplex-types.global.bigquery-dataset"
+                        }
+                    ],
+                    "createTime": "2025-06-12T14:05:49.398Z",
+                    "updateTime": "2025-06-12T15:26:05.931Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/datasets/governed_data_raw/tables/product_category",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_raw/tables/product_category",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-table",
+                "createTime": "2025-06-12T14:00:16.825550Z",
+                "updateTime": "2025-06-23T15:51:09.005658Z",
+                "parentEntry": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_raw",
+                "fullyQualifiedName": "bigquery:governed-data-1pqzajgatl.governed_data_raw.product_category",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/datasets/governed_data_raw/tables/product_category",
+                    "system": "BIGQUERY",
+                    "displayName": "product_category",
+                    "description": "Table containing raw product category information.",
+                    "labels": {
+                        "dataplex-dp-published-scan": "governed-data-raw-product-category-profile-scan",
+                        "dataplex-dp-published-project": "governed-data-1pqzajgatl",
+                        "dataplex-dq-published-scan": "governed-data-raw-product-category-quality-scan",
+                        "dataplex-dp-published-location": "us-central1",
+                        "dataplex-dq-published-project": "governed-data-1pqzajgatl",
+                        "dataplex-dq-published-location": "us-central1"
+                    },
+                    "ancestors": [
+                        {
+                            "name": "projects/governed-data-1pqzajgatl/datasets/governed_data_raw",
+                            "type": "dataplex-types.global.bigquery-dataset"
+                        }
+                    ],
+                    "createTime": "2025-06-12T14:00:16.391Z",
+                    "updateTime": "2025-06-12T15:26:07.178Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/datasets/governed_data_enriched/routines/transform_customer",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_enriched/routines/transform_customer",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-routine",
+                "createTime": "2025-06-12T13:59:53.079644Z",
+                "updateTime": "2025-06-12T13:59:53.079644Z",
+                "parentEntry": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_enriched",
+                "fullyQualifiedName": "bigquery:routine:governed-data-1pqzajgatl.governed_data_enriched.transform_customer",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/datasets/governed_data_enriched/routines/transform_customer",
+                    "system": "BIGQUERY",
+                    "displayName": "transform_customer",
+                    "ancestors": [
+                        {
+                            "name": "projects/governed-data-1pqzajgatl/datasets/governed_data_enriched",
+                            "type": "dataplex-types.global.bigquery-dataset"
+                        }
+                    ],
+                    "createTime": "2025-06-12T13:59:51.949Z",
+                    "updateTime": "2025-06-12T13:59:51.949Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/datasets/conversation_analytics/tables/users",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/conversation_analytics/tables/users",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-table",
+                "createTime": "2025-06-18T14:10:17.745288Z",
+                "updateTime": "2025-06-23T14:40:08.143775Z",
+                "parentEntry": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/conversation_analytics",
+                "fullyQualifiedName": "bigquery:governed-data-1pqzajgatl.conversation_analytics.users",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/datasets/conversation_analytics/tables/users",
+                    "system": "BIGQUERY",
+                    "displayName": "users",
+                    "description": "This table stores information about users of an e-commerce store. It includes demographic details and geographic locations for each user. The table also tracks the source from which users originated. This data can be used for user segmentation and targeted marketing efforts.",
+                    "labels": {
+                        "dataplex-data-documentation-published-location": "us-central1",
+                        "dataplex-data-documentation-published-project": "governed-data-1pqzajgatl",
+                        "dataplex-data-documentation-published-scan": "a9c79b76b-00f8-4e01-abda-ffb64715fe70"
+                    },
+                    "ancestors": [
+                        {
+                            "name": "projects/governed-data-1pqzajgatl/datasets/conversation_analytics",
+                            "type": "dataplex-types.global.bigquery-dataset"
+                        }
+                    ],
+                    "createTime": "2025-06-18T14:10:16.609Z",
+                    "updateTime": "2025-06-23T14:40:07.150Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/datasets/governed_data_curated/tables/order_header",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_curated/tables/order_header",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-table",
+                "createTime": "2025-06-12T14:05:41.027966Z",
+                "updateTime": "2025-06-23T15:51:20.731312Z",
+                "parentEntry": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_curated",
+                "fullyQualifiedName": "bigquery:governed-data-1pqzajgatl.governed_data_curated.order_header",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/datasets/governed_data_curated/tables/order_header",
+                    "system": "BIGQUERY",
+                    "displayName": "order_header",
+                    "description": "Curated table containing header information for customer orders, with primary and foreign key constraints.",
+                    "labels": {
+                        "dataplex-dp-published-scan": "governed-data-curated-order-header-profile-scan",
+                        "dataplex-dp-published-project": "governed-data-1pqzajgatl",
+                        "dataplex-dq-published-scan": "governed-data-curated-order-header-quality-scan",
+                        "dataplex-dp-published-location": "us-central1",
+                        "dataplex-dq-published-project": "governed-data-1pqzajgatl",
+                        "dataplex-dq-published-location": "us-central1"
+                    },
+                    "ancestors": [
+                        {
+                            "name": "projects/governed-data-1pqzajgatl/datasets/governed_data_curated",
+                            "type": "dataplex-types.global.bigquery-dataset"
+                        }
+                    ],
+                    "createTime": "2025-06-12T14:05:40.583Z",
+                    "updateTime": "2025-06-12T15:26:05.201Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/datasets/taxi_dataset/tables/vendor",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/taxi_dataset/tables/vendor",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-table",
+                "createTime": "2025-06-27T12:57:27.453015Z",
+                "updateTime": "2025-06-27T13:11:37.836719Z",
+                "parentEntry": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/taxi_dataset",
+                "fullyQualifiedName": "bigquery:governed-data-1pqzajgatl.taxi_dataset.vendor",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/datasets/taxi_dataset/tables/vendor",
+                    "system": "BIGQUERY",
+                    "displayName": "vendor",
+                    "description": "This table contains information about taxi vendors operating in New York City.",
+                    "ancestors": [
+                        {
+                            "name": "projects/governed-data-1pqzajgatl/datasets/taxi_dataset",
+                            "type": "dataplex-types.global.bigquery-dataset"
+                        }
+                    ],
+                    "createTime": "2025-06-27T12:57:26.829Z",
+                    "updateTime": "2025-06-27T13:11:35.113Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/datasets/taxi_dataset/tables/taxi_trips",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/taxi_dataset/tables/taxi_trips",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-table",
+                "createTime": "2025-06-27T12:54:07.408951Z",
+                "updateTime": "2025-06-27T13:11:22.985887Z",
+                "parentEntry": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/taxi_dataset",
+                "fullyQualifiedName": "bigquery:governed-data-1pqzajgatl.taxi_dataset.taxi_trips",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/datasets/taxi_dataset/tables/taxi_trips",
+                    "system": "BIGQUERY",
+                    "displayName": "taxi_trips",
+                    "description": "This table contains data about taxi rides in New York City, including trip details, fares, and payment information.",
+                    "ancestors": [
+                        {
+                            "name": "projects/governed-data-1pqzajgatl/datasets/taxi_dataset",
+                            "type": "dataplex-types.global.bigquery-dataset"
+                        }
+                    ],
+                    "createTime": "2025-06-27T12:54:07.088Z",
+                    "updateTime": "2025-06-27T13:11:22.630Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/datasets/governed_data_enriched/tables/product",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_enriched/tables/product",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-table",
+                "createTime": "2025-06-12T14:00:33.841223Z",
+                "updateTime": "2025-06-23T15:51:14.011294Z",
+                "parentEntry": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_enriched",
+                "fullyQualifiedName": "bigquery:governed-data-1pqzajgatl.governed_data_enriched.product",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/datasets/governed_data_enriched/tables/product",
+                    "system": "BIGQUERY",
+                    "displayName": "product",
+                    "description": "Cleaned table containing product information with a primary key.",
+                    "labels": {
+                        "dataplex-dp-published-scan": "governed-data-enriched-product-profile-scan",
+                        "dataplex-dp-published-project": "governed-data-1pqzajgatl",
+                        "dataplex-dq-published-scan": "governed-data-enriched-product-quality-scan",
+                        "dataplex-dp-published-location": "us-central1",
+                        "dataplex-dq-published-project": "governed-data-1pqzajgatl",
+                        "dataplex-dq-published-location": "us-central1"
+                    },
+                    "ancestors": [
+                        {
+                            "name": "projects/governed-data-1pqzajgatl/datasets/governed_data_enriched",
+                            "type": "dataplex-types.global.bigquery-dataset"
+                        }
+                    ],
+                    "createTime": "2025-06-12T14:00:32.633Z",
+                    "updateTime": "2025-06-12T15:26:04.640Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/datasets/governed_data_enriched/tables/product_category",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_enriched/tables/product_category",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-table",
+                "createTime": "2025-06-12T14:00:29.747382Z",
+                "updateTime": "2025-06-23T15:51:15.361004Z",
+                "parentEntry": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_enriched",
+                "fullyQualifiedName": "bigquery:governed-data-1pqzajgatl.governed_data_enriched.product_category",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/datasets/governed_data_enriched/tables/product_category",
+                    "system": "BIGQUERY",
+                    "displayName": "product_category",
+                    "description": "Cleaned table containing product category information.",
+                    "labels": {
+                        "dataplex-dp-published-scan": "governed-data-enriched-product-category-profile-scan",
+                        "dataplex-dp-published-project": "governed-data-1pqzajgatl",
+                        "dataplex-dq-published-scan": "governed-data-enriched-product-category-quality-scan",
+                        "dataplex-dp-published-location": "us-central1",
+                        "dataplex-dq-published-project": "governed-data-1pqzajgatl",
+                        "dataplex-dq-published-location": "us-central1"
+                    },
+                    "ancestors": [
+                        {
+                            "name": "projects/governed-data-1pqzajgatl/datasets/governed_data_enriched",
+                            "type": "dataplex-types.global.bigquery-dataset"
+                        }
+                    ],
+                    "createTime": "2025-06-12T14:00:28.810Z",
+                    "updateTime": "2025-06-12T15:26:03.855Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/datasets/governed_data_enriched/routines/transform_order_pyspark",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_enriched/routines/transform_order_pyspark",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-routine",
+                "createTime": "2025-06-12T13:59:53.195301Z",
+                "updateTime": "2025-06-12T13:59:53.195301Z",
+                "parentEntry": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_enriched",
+                "fullyQualifiedName": "bigquery:routine:governed-data-1pqzajgatl.governed_data_enriched.transform_order_pyspark",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/datasets/governed_data_enriched/routines/transform_order_pyspark",
+                    "system": "BIGQUERY",
+                    "displayName": "transform_order_pyspark",
+                    "ancestors": [
+                        {
+                            "name": "projects/governed-data-1pqzajgatl/datasets/governed_data_enriched",
+                            "type": "dataplex-types.global.bigquery-dataset"
+                        }
+                    ],
+                    "createTime": "2025-06-12T13:59:51.954Z",
+                    "updateTime": "2025-06-12T13:59:51.954Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/datasets/governed_data_enriched/tables/order_header",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_enriched/tables/order_header",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-table",
+                "createTime": "2025-06-12T14:04:35.207232Z",
+                "updateTime": "2025-06-23T15:51:12.756223Z",
+                "parentEntry": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_enriched",
+                "fullyQualifiedName": "bigquery:governed-data-1pqzajgatl.governed_data_enriched.order_header",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/datasets/governed_data_enriched/tables/order_header",
+                    "system": "BIGQUERY",
+                    "displayName": "order_header",
+                    "description": "Table containing header information for customer orders.",
+                    "labels": {
+                        "dataplex-dp-published-scan": "governed-data-enriched-order-header-profile-scan",
+                        "dataplex-dp-published-project": "governed-data-1pqzajgatl",
+                        "dataplex-dq-published-scan": "governed-data-enriched-order-header-quality-scan",
+                        "dataplex-dp-published-location": "us-central1",
+                        "dataplex-dq-published-project": "governed-data-1pqzajgatl",
+                        "dataplex-dq-published-location": "us-central1"
+                    },
+                    "ancestors": [
+                        {
+                            "name": "projects/governed-data-1pqzajgatl/datasets/governed_data_enriched",
+                            "type": "dataplex-types.global.bigquery-dataset"
+                        }
+                    ],
+                    "createTime": "2025-06-12T14:04:33.815Z",
+                    "updateTime": "2025-06-12T15:26:03.248Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/datasets/taxi_dataset/tables/location",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/taxi_dataset/tables/location",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-table",
+                "createTime": "2025-06-27T12:57:31.360841Z",
+                "updateTime": "2025-06-27T13:11:39.358639Z",
+                "parentEntry": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/taxi_dataset",
+                "fullyQualifiedName": "bigquery:governed-data-1pqzajgatl.taxi_dataset.location",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/datasets/taxi_dataset/tables/location",
+                    "system": "BIGQUERY",
+                    "displayName": "location",
+                    "description": "This table contains location information for taxi zones in New York City, including borough, zone, service zone, and coordinates. This data can be used to map and analyze taxi activity within different areas of the city.",
+                    "ancestors": [
+                        {
+                            "name": "projects/governed-data-1pqzajgatl/datasets/taxi_dataset",
+                            "type": "dataplex-types.global.bigquery-dataset"
+                        }
+                    ],
+                    "createTime": "2025-06-27T12:57:30.038Z",
+                    "updateTime": "2025-06-27T13:11:38.496Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/datasets/governed_data_enriched/tables/order_detail",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_enriched/tables/order_detail",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-table",
+                "createTime": "2025-06-12T14:04:55.977366Z",
+                "updateTime": "2025-06-23T15:51:11.556107Z",
+                "parentEntry": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_enriched",
+                "fullyQualifiedName": "bigquery:governed-data-1pqzajgatl.governed_data_enriched.order_detail",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/datasets/governed_data_enriched/tables/order_detail",
+                    "system": "BIGQUERY",
+                    "displayName": "order_detail",
+                    "description": "Table containing detailed information for each item in a customer order.",
+                    "labels": {
+                        "dataplex-dp-published-scan": "governed-data-enriched-order-detail-profile-scan",
+                        "dataplex-dp-published-project": "governed-data-1pqzajgatl",
+                        "dataplex-dq-published-scan": "governed-data-enriched-order-detail-quality-scan",
+                        "dataplex-dp-published-location": "us-central1",
+                        "dataplex-dq-published-project": "governed-data-1pqzajgatl",
+                        "dataplex-dq-published-location": "us-central1"
+                    },
+                    "ancestors": [
+                        {
+                            "name": "projects/governed-data-1pqzajgatl/datasets/governed_data_enriched",
+                            "type": "dataplex-types.global.bigquery-dataset"
+                        }
+                    ],
+                    "createTime": "2025-06-12T14:04:55.379Z",
+                    "updateTime": "2025-06-12T15:26:04.109Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/datasets/governed_data_raw/tables/customer",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_raw/tables/customer",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-table",
+                "createTime": "2025-06-12T14:00:12.025174Z",
+                "updateTime": "2025-06-23T15:51:04.829594Z",
+                "parentEntry": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_raw",
+                "fullyQualifiedName": "bigquery:governed-data-1pqzajgatl.governed_data_raw.customer",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/datasets/governed_data_raw/tables/customer",
+                    "system": "BIGQUERY",
+                    "displayName": "customer",
+                    "description": "Table containing customer raw information.",
+                    "labels": {
+                        "dataplex-dp-published-scan": "governed-data-raw-customer-profile-scan",
+                        "dataplex-dp-published-project": "governed-data-1pqzajgatl",
+                        "dataplex-dq-published-scan": "governed-data-raw-customer-quality-scan",
+                        "dataplex-dp-published-location": "us-central1",
+                        "dataplex-dq-published-project": "governed-data-1pqzajgatl",
+                        "dataplex-dq-published-location": "us-central1"
+                    },
+                    "ancestors": [
+                        {
+                            "name": "projects/governed-data-1pqzajgatl/datasets/governed_data_raw",
+                            "type": "dataplex-types.global.bigquery-dataset"
+                        }
+                    ],
+                    "createTime": "2025-06-12T14:00:09.098Z",
+                    "updateTime": "2025-06-12T15:26:07.931Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/datasets/taxi_dataset/tables/rate_code",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/taxi_dataset/tables/rate_code",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-table",
+                "createTime": "2025-06-27T12:57:18.282422Z",
+                "updateTime": "2025-06-27T13:11:28.753791Z",
+                "parentEntry": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/taxi_dataset",
+                "fullyQualifiedName": "bigquery:governed-data-1pqzajgatl.taxi_dataset.rate_code",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/datasets/taxi_dataset/tables/rate_code",
+                    "system": "BIGQUERY",
+                    "displayName": "rate_code",
+                    "description": "This table contains descriptions of Rate Code IDs used in taxi rides within the New York City Taxi and Limousine Commission (TLC) trip record dataset.",
+                    "ancestors": [
+                        {
+                            "name": "projects/governed-data-1pqzajgatl/datasets/taxi_dataset",
+                            "type": "dataplex-types.global.bigquery-dataset"
+                        }
+                    ],
+                    "createTime": "2025-06-27T12:57:16.640Z",
+                    "updateTime": "2025-06-27T13:11:28.525Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/datasets/taxi_dataset/tables/payment_type",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/taxi_dataset/tables/payment_type",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-table",
+                "createTime": "2025-06-27T12:57:14.277545Z",
+                "updateTime": "2025-06-27T13:11:27.946607Z",
+                "parentEntry": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/taxi_dataset",
+                "fullyQualifiedName": "bigquery:governed-data-1pqzajgatl.taxi_dataset.payment_type",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/datasets/taxi_dataset/tables/payment_type",
+                    "system": "BIGQUERY",
+                    "displayName": "payment_type",
+                    "description": "This table contains descriptions of payment types used for taxi rides within New York City.",
+                    "ancestors": [
+                        {
+                            "name": "projects/governed-data-1pqzajgatl/datasets/taxi_dataset",
+                            "type": "dataplex-types.global.bigquery-dataset"
+                        }
+                    ],
+                    "createTime": "2025-06-27T12:57:13.554Z",
+                    "updateTime": "2025-06-27T13:11:25.707Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/datasets/governed_data_enriched/tables/order_header_spark_lineage",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_enriched/tables/order_header_spark_lineage",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-table",
+                "createTime": "2025-06-12T14:25:52.409424Z",
+                "updateTime": "2025-06-12T15:26:03.915327Z",
+                "parentEntry": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_enriched",
+                "fullyQualifiedName": "bigquery:governed-data-1pqzajgatl.governed_data_enriched.order_header_spark_lineage",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/datasets/governed_data_enriched/tables/order_header_spark_lineage",
+                    "system": "BIGQUERY",
+                    "displayName": "order_header_spark_lineage",
+                    "labels": {
+                        "dataplex-dp-published-scan": "governed-data-enriched-order-header-spark-lineage-profile-scan",
+                        "dataplex-dp-published-project": "governed-data-1pqzajgatl",
+                        "dataplex-dq-published-scan": "governed-data-enriched-order-header-spark-lineage-quality-scan",
+                        "dataplex-dp-published-location": "us-central1",
+                        "dataplex-dq-published-project": "governed-data-1pqzajgatl",
+                        "dataplex-dq-published-location": "us-central1"
+                    },
+                    "ancestors": [
+                        {
+                            "name": "projects/governed-data-1pqzajgatl/datasets/governed_data_enriched",
+                            "type": "dataplex-types.global.bigquery-dataset"
+                        }
+                    ],
+                    "createTime": "2025-06-12T14:25:51.325Z",
+                    "updateTime": "2025-06-12T15:26:03.579Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/datasets/taxi_dataset/tables/trip_type",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/taxi_dataset/tables/trip_type",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-table",
+                "createTime": "2025-06-27T12:57:20.768376Z",
+                "updateTime": "2025-06-27T13:11:31.827711Z",
+                "parentEntry": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/taxi_dataset",
+                "fullyQualifiedName": "bigquery:governed-data-1pqzajgatl.taxi_dataset.trip_type",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/datasets/taxi_dataset/tables/trip_type",
+                    "system": "BIGQUERY",
+                    "displayName": "trip_type",
+                    "description": "This table contains descriptions of the different trip types recorded within the taxi trip data.",
+                    "ancestors": [
+                        {
+                            "name": "projects/governed-data-1pqzajgatl/datasets/taxi_dataset",
+                            "type": "dataplex-types.global.bigquery-dataset"
+                        }
+                    ],
+                    "createTime": "2025-06-27T12:57:19.472Z",
+                    "updateTime": "2025-06-27T13:11:31.593Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/datasets/governed_data_raw/tables/customer_transaction",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_raw/tables/customer_transaction",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-table",
+                "createTime": "2025-06-12T14:00:12.957306Z",
+                "updateTime": "2025-06-23T15:51:06.221184Z",
+                "parentEntry": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_raw",
+                "fullyQualifiedName": "bigquery:governed-data-1pqzajgatl.governed_data_raw.customer_transaction",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/datasets/governed_data_raw/tables/customer_transaction",
+                    "system": "BIGQUERY",
+                    "displayName": "customer_transaction",
+                    "description": "Table containing raw customer transaction details, with multiple rows per order. This table will be used to create order header and detail tables during an ETL process.",
+                    "labels": {
+                        "dataplex-dp-published-scan": "governed-data-raw-customer-transaction-profile-scan",
+                        "dataplex-dp-published-project": "governed-data-1pqzajgatl",
+                        "dataplex-dq-published-scan": "governed-data-raw-customer-transaction-quality-scan",
+                        "dataplex-dp-published-location": "us-central1",
+                        "dataplex-dq-published-project": "governed-data-1pqzajgatl",
+                        "dataplex-dq-published-location": "us-central1"
+                    },
+                    "ancestors": [
+                        {
+                            "name": "projects/governed-data-1pqzajgatl/datasets/governed_data_raw",
+                            "type": "dataplex-types.global.bigquery-dataset"
+                        }
+                    ],
+                    "createTime": "2025-06-12T14:00:11.524Z",
+                    "updateTime": "2025-06-12T15:26:07.678Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/datasets/governed_data_curated/tables/customer",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_curated/tables/customer",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-table",
+                "createTime": "2025-06-12T14:05:40.087281Z",
+                "updateTime": "2025-06-23T15:51:16.656516Z",
+                "parentEntry": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_curated",
+                "fullyQualifiedName": "bigquery:governed-data-1pqzajgatl.governed_data_curated.customer",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/datasets/governed_data_curated/tables/customer",
+                    "system": "BIGQUERY",
+                    "displayName": "customer",
+                    "description": "Curated table containing customer information with predicted credit amount.",
+                    "labels": {
+                        "dataplex-dp-published-scan": "governed-data-curated-customer-profile-scan",
+                        "dataplex-dp-published-project": "governed-data-1pqzajgatl",
+                        "dataplex-dq-published-scan": "governed-data-curated-customer-quality-scan",
+                        "dataplex-dp-published-location": "us-central1",
+                        "dataplex-dq-published-project": "governed-data-1pqzajgatl",
+                        "dataplex-dq-published-location": "us-central1"
+                    },
+                    "ancestors": [
+                        {
+                            "name": "projects/governed-data-1pqzajgatl/datasets/governed_data_curated",
+                            "type": "dataplex-types.global.bigquery-dataset"
+                        }
+                    ],
+                    "createTime": "2025-06-12T14:05:37.919Z",
+                    "updateTime": "2025-06-12T15:26:07.015Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/datasets/governed_data_enriched/tables/order_detail_spark_lineage",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_enriched/tables/order_detail_spark_lineage",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-table",
+                "createTime": "2025-06-12T14:26:08.157801Z",
+                "updateTime": "2025-06-12T15:26:04.735791Z",
+                "parentEntry": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_enriched",
+                "fullyQualifiedName": "bigquery:governed-data-1pqzajgatl.governed_data_enriched.order_detail_spark_lineage",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/datasets/governed_data_enriched/tables/order_detail_spark_lineage",
+                    "system": "BIGQUERY",
+                    "displayName": "order_detail_spark_lineage",
+                    "labels": {
+                        "dataplex-dp-published-scan": "governed-data-enriched-order-detail-spark-lineage-profile-scan",
+                        "dataplex-dp-published-project": "governed-data-1pqzajgatl",
+                        "dataplex-dq-published-scan": "governed-data-enriched-order-detail-spark-lineage-quality-scan",
+                        "dataplex-dp-published-location": "us-central1",
+                        "dataplex-dq-published-project": "governed-data-1pqzajgatl",
+                        "dataplex-dq-published-location": "us-central1"
+                    },
+                    "ancestors": [
+                        {
+                            "name": "projects/governed-data-1pqzajgatl/datasets/governed_data_enriched",
+                            "type": "dataplex-types.global.bigquery-dataset"
+                        }
+                    ],
+                    "createTime": "2025-06-12T14:26:06.291Z",
+                    "updateTime": "2025-06-12T15:26:04.371Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/datasets/governed_data_enriched/tables/customer",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_enriched/tables/customer",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-table",
+                "createTime": "2025-06-12T14:00:26.076074Z",
+                "updateTime": "2025-06-23T15:51:10.372536Z",
+                "parentEntry": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_enriched",
+                "fullyQualifiedName": "bigquery:governed-data-1pqzajgatl.governed_data_enriched.customer",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/datasets/governed_data_enriched/tables/customer",
+                    "system": "BIGQUERY",
+                    "displayName": "customer",
+                    "description": "Cleaned and enriched table containing customer information.",
+                    "labels": {
+                        "dataplex-dp-published-scan": "governed-data-enriched-customer-profile-scan",
+                        "dataplex-dp-published-project": "governed-data-1pqzajgatl",
+                        "dataplex-dq-published-scan": "governed-data-enriched-customer-quality-scan",
+                        "dataplex-dp-published-location": "us-central1",
+                        "dataplex-dq-published-project": "governed-data-1pqzajgatl",
+                        "dataplex-dq-published-location": "us-central1"
+                    },
+                    "ancestors": [
+                        {
+                            "name": "projects/governed-data-1pqzajgatl/datasets/governed_data_enriched",
+                            "type": "dataplex-types.global.bigquery-dataset"
+                        }
+                    ],
+                    "createTime": "2025-06-12T14:00:25.245Z",
+                    "updateTime": "2025-06-12T15:26:04.872Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/datasets/governed_data_curated/tables/sales",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_curated/tables/sales",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-table",
+                "createTime": "2025-06-12T14:26:23.030003Z",
+                "updateTime": "2025-06-23T15:51:24.669820Z",
+                "parentEntry": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_curated",
+                "fullyQualifiedName": "bigquery:governed-data-1pqzajgatl.governed_data_curated.sales",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/datasets/governed_data_curated/tables/sales",
+                    "system": "BIGQUERY",
+                    "displayName": "sales",
+                    "labels": {
+                        "dataplex-dp-published-scan": "governed-data-curated-sales-profile-scan",
+                        "dataplex-data-documentation-published-location": "us-central1",
+                        "dataplex-dp-published-project": "governed-data-1pqzajgatl",
+                        "dataplex-dq-published-scan": "governed-data-curated-sales-quality-scan",
+                        "dataplex-dp-published-location": "us-central1",
+                        "dataplex-data-documentation-published-project": "governed-data-1pqzajgatl",
+                        "dataplex-dq-published-project": "governed-data-1pqzajgatl",
+                        "dataplex-dq-published-location": "us-central1",
+                        "dataplex-data-documentation-published-scan": "afe2b14c2-0621-4cd9-b862-1a7376425430"
+                    },
+                    "ancestors": [
+                        {
+                            "name": "projects/governed-data-1pqzajgatl/datasets/governed_data_curated",
+                            "type": "dataplex-types.global.bigquery-dataset"
+                        }
+                    ],
+                    "createTime": "2025-06-12T14:26:21.495Z",
+                    "updateTime": "2025-06-18T13:59:03.207Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/datasets/governed_data_sdp_scan/tables/product_category",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_sdp_scan/tables/product_category",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-table",
+                "createTime": "2025-06-12T15:20:23.954452Z",
+                "updateTime": "2025-06-12T15:20:23.954452Z",
+                "parentEntry": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_sdp_scan",
+                "fullyQualifiedName": "bigquery:governed-data-1pqzajgatl.governed_data_sdp_scan.product_category",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/datasets/governed_data_sdp_scan/tables/product_category",
+                    "system": "BIGQUERY",
+                    "displayName": "product_category",
+                    "ancestors": [
+                        {
+                            "name": "projects/governed-data-1pqzajgatl/datasets/governed_data_sdp_scan",
+                            "type": "dataplex-types.global.bigquery-dataset"
+                        }
+                    ],
+                    "createTime": "2025-06-12T15:20:22.353Z",
+                    "updateTime": "2025-06-12T15:20:22.430Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        },
+        {
+            "linkedResource": "projects/governed-data-1pqzajgatl/datasets/governed_data_curated/tables/orders",
+            "dataplexEntry": {
+                "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_curated/tables/orders",
+                "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-table",
+                "createTime": "2025-06-25T13:25:20.523456Z",
+                "updateTime": "2025-06-25T13:25:20.523456Z",
+                "parentEntry": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_curated",
+                "fullyQualifiedName": "bigquery:governed-data-1pqzajgatl.governed_data_curated.orders",
+                "entrySource": {
+                    "resource": "projects/governed-data-1pqzajgatl/datasets/governed_data_curated/tables/orders",
+                    "system": "BIGQUERY",
+                    "displayName": "orders",
+                    "description": "Programatically generated orders for The Look fictitious e-commerce store",
+                    "ancestors": [
+                        {
+                            "name": "projects/governed-data-1pqzajgatl/datasets/governed_data_curated",
+                            "type": "dataplex-types.global.bigquery-dataset"
+                        }
+                    ],
+                    "createTime": "2025-06-25T13:25:19.532Z",
+                    "updateTime": "2025-06-25T13:25:19.532Z",
+                    "location": "us"
+                }
+            },
+            "snippets": {}
+        }
+    ],
+    "totalSize": 50
+}

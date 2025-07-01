@@ -1,0 +1,519 @@
+{
+    "kind": "customsearch#search",
+    "url": {
+        "type": "application/json",
+        "template": "https://www.googleapis.com/customsearch/v1?q={searchTerms}&num={count?}&start={startIndex?}&lr={language?}&safe={safe?}&cx={cx?}&sort={sort?}&filter={filter?}&gl={gl?}&cr={cr?}&googlehost={googleHost?}&c2coff={disableCnTwTranslation?}&hq={hq?}&hl={hl?}&siteSearch={siteSearch?}&siteSearchFilter={siteSearchFilter?}&exactTerms={exactTerms?}&excludeTerms={excludeTerms?}&linkSite={linkSite?}&orTerms={orTerms?}&dateRestrict={dateRestrict?}&lowRange={lowRange?}&highRange={highRange?}&searchType={searchType}&fileType={fileType?}&rights={rights?}&imgSize={imgSize?}&imgType={imgType?}&imgColorType={imgColorType?}&imgDominantColor={imgDominantColor?}&alt=json"
+    },
+    "queries": {
+        "request": [
+            {
+                "title": "Google Custom Search - Who created Google?",
+                "totalResults": "13410000000",
+                "searchTerms": "Who created Google?",
+                "count": 10,
+                "startIndex": 1,
+                "inputEncoding": "utf8",
+                "outputEncoding": "utf8",
+                "safe": "off",
+                "cx": "b28bd031933814c1a"
+            }
+        ],
+        "nextPage": [
+            {
+                "title": "Google Custom Search - Who created Google?",
+                "totalResults": "13410000000",
+                "searchTerms": "Who created Google?",
+                "count": 10,
+                "startIndex": 11,
+                "inputEncoding": "utf8",
+                "outputEncoding": "utf8",
+                "safe": "off",
+                "cx": "b28bd031933814c1a"
+            }
+        ]
+    },
+    "context": {
+        "title": "google-agent"
+    },
+    "searchInformation": {
+        "searchTime": 0.381262,
+        "formattedSearchTime": "0.38",
+        "totalResults": "13410000000",
+        "formattedTotalResults": "13,410,000,000"
+    },
+    "items": [
+        {
+            "kind": "customsearch#result",
+            "title": "Google - Wikipedia",
+            "htmlTitle": "<b>Google</b> - Wikipedia",
+            "link": "https://en.wikipedia.org/wiki/Google",
+            "displayLink": "en.wikipedia.org",
+            "snippet": "Google was founded on September 4, 1998, by American computer scientists Larry Page and Sergey Brin. Together, they own about 14% of its publicly listed shares\u00a0...",
+            "htmlSnippet": "<b>Google</b> was <b>founded</b> on September 4, 1998, by American computer scientists Larry Page and Sergey Brin. Together, they own about 14% of its publicly listed shares&nbsp;...",
+            "formattedUrl": "https://en.wikipedia.org/wiki/Google",
+            "htmlFormattedUrl": "https://en.wikipedia.org/wiki/<b>Google</b>",
+            "pagemap": {
+                "hcard": [
+                    {
+                        "url_text": "google.com",
+                        "bday": "1998-09-04",
+                        "fn": "Google LLC",
+                        "nickname": "Google Inc. (1998\u20132017)",
+                        "logo": "The Google logo used since 2015",
+                        "label": "Googleplex, Mountain View, California, U.S.",
+                        "category": "Subsidiary",
+                        "url": "google.com"
+                    }
+                ],
+                "metatags": [
+                    {
+                        "referrer": "origin",
+                        "og:image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Googleplex_HQ_%28cropped%29.jpg/1200px-Googleplex_HQ_%28cropped%29.jpg",
+                        "theme-color": "#eaecf0",
+                        "og:image:width": "1200",
+                        "og:type": "website",
+                        "viewport": "width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=0.25, maximum-scale=5.0",
+                        "og:title": "Google - Wikipedia",
+                        "og:image:height": "878",
+                        "format-detection": "telephone=no"
+                    }
+                ]
+            }
+        },
+        {
+            "kind": "customsearch#result",
+            "title": "Create a Gmail account - Gmail Help",
+            "htmlTitle": "Create a Gmail account - Gmail Help",
+            "link": "https://support.google.com/mail/answer/56256?hl=en",
+            "displayLink": "support.google.com",
+            "snippet": "Reserved by Google to prevent spam or abuse. Someone is impersonating me. If you believe someone has created a Gmail address to try to impersonate your identity\u00a0...",
+            "htmlSnippet": "Reserved by <b>Google</b> to prevent spam or abuse. Someone is impersonating me. If you believe someone has <b>created</b> a Gmail address to try to impersonate your identity&nbsp;...",
+            "formattedUrl": "https://support.google.com/mail/answer/56256?hl=en",
+            "htmlFormattedUrl": "https://support.<b>google</b>.com/mail/answer/56256?hl=en",
+            "pagemap": {
+                "cse_thumbnail": [
+                    {
+                        "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8NUN2YdzC5x9bJWOar1bz2B4Q74FTxZB7NYj7alhXmcE_VgmKkDnQ-Cw&s",
+                        "width": "300",
+                        "height": "168"
+                    }
+                ],
+                "metatags": [
+                    {
+                        "apple-itunes-app": "app-id=535886823, app-argument=https://support.google.com/mail/answer/56256, affiliate-data=pt=9008&ct=help-center",
+                        "viewport": "width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=3,user-scalable=yes",
+                        "format-detection": "email=no"
+                    }
+                ],
+                "cse_image": [
+                    {
+                        "src": "https://storage.googleapis.com/support-kms-prod/EFAkTikCQTTs6KjPy5V4Afy9wcAM6Mj5ELDw"
+                    }
+                ]
+            }
+        },
+        {
+            "kind": "customsearch#result",
+            "title": "Who invented Google? | HowStuffWorks",
+            "htmlTitle": "<b>Who invented Google</b>? | HowStuffWorks",
+            "link": "https://science.howstuffworks.com/innovation/inventions/who-invented-google.htm",
+            "displayLink": "science.howstuffworks.com",
+            "snippet": "Aug 29, 2023 ... All things Google began in 1995. That's when Sergey Brin, a 21-year-old student at Stanford University, took University of Michigan graduate Larry Page, just a\u00a0...",
+            "htmlSnippet": "Aug 29, 2023 <b>...</b> All things <b>Google</b> began in 1995. That&#39;s when Sergey Brin, a 21-year-old student at Stanford University, took University of Michigan graduate Larry Page, just a&nbsp;...",
+            "formattedUrl": "https://science.howstuffworks.com/innovation/.../who-invented-google.htm",
+            "htmlFormattedUrl": "https://science.howstuffworks.com/innovation/.../who-invented-<b>google</b>.htm",
+            "pagemap": {
+                "cse_thumbnail": [
+                    {
+                        "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtdqrF19Bltsxof08haU9RxBvCT52yEalxrsqwE13q7mELITXdnuK4N7tS&s",
+                        "width": "303",
+                        "height": "166"
+                    }
+                ],
+                "metatags": [
+                    {
+                        "template": "Article",
+                        "og:image": "https://media.hswstatic.com/eyJidWNrZXQiOiJjb250ZW50Lmhzd3N0YXRpYy5jb20iLCJrZXkiOiJnaWZcL2dldHR5aW1hZ2VzLTE0Mjc1NTk1MDQuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoiMTIwMCJ9fX0=",
+                        "can-recommend": "true",
+                        "og:type": "article",
+                        "article:published_time": "1970-01-01T00:00:00-05:00",
+                        "theme-color": "#151538",
+                        "og:site_name": "HowStuffWorks",
+                        "google-adsense-account": "sites-9053884276298326",
+                        "og:title": "How Old Is Google?",
+                        "og:description": "Google's headquarters is located in Mountain View, Calif., but it might as well be Mount Olympus given the company's wild success. Who is the man or woman behind the mountain?",
+                        "fb:pages": "20767777944",
+                        "twitter:dnt": "on",
+                        "article:publisher": "https://www.howstuffworks.com",
+                        "article:author": "https://www.howstuffworks.com/about-author.htm",
+                        "fb:app_id": "899104866837181",
+                        "viewport": "width=device-width,initial-scale=1,minimum-scale=1",
+                        "fb:admins": "100001675325868",
+                        "og:url": "https://science.howstuffworks.com/innovation/inventions/who-invented-google.htm"
+                    }
+                ],
+                "cse_image": [
+                    {
+                        "src": "https://media.hswstatic.com/eyJidWNrZXQiOiJjb250ZW50Lmhzd3N0YXRpYy5jb20iLCJrZXkiOiJnaWZcL2dldHR5aW1hZ2VzLTE0Mjc1NTk1MDQuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoiMTIwMCJ9fX0="
+                    }
+                ],
+                "listitem": [
+                    {
+                        "item": "HowStuffWorks",
+                        "name": "HowStuffWorks",
+                        "position": "1"
+                    },
+                    {
+                        "item": "Science",
+                        "name": "Science",
+                        "position": "2"
+                    },
+                    {
+                        "item": "Innovation",
+                        "name": "Innovation",
+                        "position": "3"
+                    },
+                    {
+                        "item": "Inventions",
+                        "name": "Inventions",
+                        "position": "4"
+                    }
+                ]
+            }
+        },
+        {
+            "kind": "customsearch#result",
+            "title": "Create a Google Account - Android - Google Account Help",
+            "htmlTitle": "Create a <b>Google</b> Account - Android - <b>Google</b> Account Help",
+            "link": "https://support.google.com/accounts/answer/27441?hl=en&co=GENIE.Platform%3DAndroid",
+            "displayLink": "support.google.com",
+            "snippet": "Go to the Google Account sign in page. \u00b7 Click Create account. From the drop down, select if this account is for your: \u00b7 Enter your name. You'll be asked to add\u00a0...",
+            "htmlSnippet": "Go to the <b>Google</b> Account sign in page. &middot; Click Create account. From the drop down, select if this account is for your: &middot; Enter your name. You&#39;ll be asked to add&nbsp;...",
+            "formattedUrl": "https://support.google.com/accounts/answer/27441?hl=en&co=GENIE...",
+            "htmlFormattedUrl": "https://support.<b>google</b>.com/accounts/answer/27441?hl=en&amp;co=GENIE...",
+            "pagemap": {
+                "metatags": [
+                    {
+                        "viewport": "width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=3,user-scalable=yes",
+                        "format-detection": "email=no"
+                    }
+                ]
+            }
+        },
+        {
+            "kind": "customsearch#result",
+            "title": "Google | History & Facts; Products & Services | Britannica Money",
+            "htmlTitle": "<b>Google</b> | History &amp; Facts; Products &amp; Services | Britannica Money",
+            "link": "https://www.britannica.com/money/Google-Inc",
+            "displayLink": "www.britannica.com",
+            "snippet": "3 days ago ... Google is a search engine company founded in 1998 by Sergey Brin and Larry Page. It became part of Alphabet Inc. in 2015 and handles over\u00a0...",
+            "htmlSnippet": "3 days ago <b>...</b> <b>Google</b> is a search engine company <b>founded</b> in 1998 by Sergey Brin and Larry Page. It became part of Alphabet Inc. in 2015 and handles over&nbsp;...",
+            "formattedUrl": "https://www.britannica.com/money/Google-Inc",
+            "htmlFormattedUrl": "https://www.britannica.com/money/<b>Google</b>-Inc",
+            "pagemap": {
+                "cse_thumbnail": [
+                    {
+                        "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGypQjBoLlgIlvsQfqpJX_hZ4ND2m1Ka9kpL--br7ZvCuMu4iXgL9lFsY&s",
+                        "width": "275",
+                        "height": "183"
+                    }
+                ],
+                "metatags": [
+                    {
+                        "og:image": "https://www.britannica.com/money/money/opengraph-image.png?0ca1ca22e32fe0d6",
+                        "og:image:width": "595",
+                        "og:image:alt": "Britannica thistle",
+                        "twitter:card": "summary_large_image",
+                        "twitter:title": "Britannica Money",
+                        "twitter:image:type": "image/png",
+                        "og:title": "Britannica Money",
+                        "og:image:height": "596",
+                        "twitter:image:height": "596",
+                        "og:image:type": "image/png",
+                        "og:description": "Google is a search engine company founded in 1998 by Sergey Brin and Larry Page. It became part of Alphabet Inc. in 2015 and handles over 70% of online searches worldwide.",
+                        "twitter:image": "https://www.britannica.com/money/money/opengraph-image.png?0ca1ca22e32fe0d6",
+                        "twitter:image:alt": "Britannica thistle",
+                        "twitter:image:width": "595",
+                        "viewport": "width=device-width, initial-scale=1",
+                        "twitter:description": "Google is a search engine company founded in 1998 by Sergey Brin and Larry Page. It became part of Alphabet Inc. in 2015 and handles over 70% of online searches worldwide."
+                    }
+                ],
+                "cse_image": [
+                    {
+                        "src": "https://cdn.britannica.com/16/254816-050-41C9577A/Google-logo-Googleplex-headquarters-Mountain-View-California.jpg?w=385"
+                    }
+                ]
+            }
+        },
+        {
+            "kind": "customsearch#result",
+            "title": "Can people see who created a Google form if they're taking it? : r ...",
+            "htmlTitle": "Can people see <b>who created</b> a <b>Google</b> form if they&#39;re taking it? : r ...",
+            "link": "https://www.reddit.com/r/GoogleForms/comments/1forf4l/can_people_see_who_created_a_google_form_if/",
+            "displayLink": "www.reddit.com",
+            "snippet": "Sep 25, 2024 ... I want to post a Google form I made to Reddit but I'm paranoid that people will be able to see the name of the owner because my Google\u00a0...",
+            "htmlSnippet": "Sep 25, 2024 <b>...</b> I want to post a <b>Google</b> form I <b>made</b> to Reddit but I&#39;m paranoid that people will be able to see the name of the owner because my <b>Google</b>&nbsp;...",
+            "formattedUrl": "https://www.reddit.com/.../GoogleForms/.../can_people_see_who_created_a...",
+            "htmlFormattedUrl": "https://www.reddit.com/.../<b>Google</b>Forms/.../can_people_see_<b>who_created</b>_a...",
+            "pagemap": {
+                "cse_thumbnail": [
+                    {
+                        "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1NXYBDSq4zgQm-Ko9EYuqO9SxhfATacEtjHepyv7F6w&s",
+                        "width": "225",
+                        "height": "225"
+                    }
+                ],
+                "metatags": [
+                    {
+                        "og:image": "https://share.redd.it/preview/post/1forf4l",
+                        "theme-color": "#000000",
+                        "og:image:width": "1200",
+                        "og:type": "website",
+                        "og:image:alt": "An image containing a preview of the post",
+                        "twitter:card": "summary_large_image",
+                        "twitter:title": "r/GoogleForms on Reddit: Can people see who created a Google form if they\u2019re taking it?",
+                        "og:site_name": "Reddit",
+                        "og:title": "r/GoogleForms on Reddit: Can people see who created a Google form if they\u2019re taking it?",
+                        "og:image:height": "630",
+                        "msapplication-navbutton-color": "#000000",
+                        "og:description": "Posted by u/smores_or_pizzasnack - 1 vote and 3 comments",
+                        "twitter:image": "https://share.redd.it/preview/post/1forf4l",
+                        "apple-mobile-web-app-status-bar-style": "black",
+                        "twitter:site": "@reddit",
+                        "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+                        "apple-mobile-web-app-capable": "yes",
+                        "og:ttl": "600",
+                        "og:url": "https://www.reddit.com/r/GoogleForms/comments/1forf4l/can_people_see_who_created_a_google_form_if/"
+                    }
+                ],
+                "cse_image": [
+                    {}
+                ]
+            }
+        },
+        {
+            "kind": "customsearch#result",
+            "title": "How we started and where we are today - Google - About Google",
+            "htmlTitle": "How we <b>started</b> and where we are today - <b>Google</b> - About <b>Google</b>",
+            "link": "https://about.google/company-info/our-story/",
+            "displayLink": "about.google",
+            "snippet": "Find out where it all began. Read the history of how Google has grown since Larry Page and Sergey Brin founded the company in 1998.",
+            "htmlSnippet": "Find out where it all began. Read the history of how <b>Google</b> has grown since Larry Page and Sergey Brin <b>founded</b> the company in 1998.",
+            "formattedUrl": "https://about.google/company-info/our-story/",
+            "htmlFormattedUrl": "https://about.<b>google</b>/company-info/our-story/",
+            "pagemap": {
+                "cse_thumbnail": [
+                    {
+                        "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTd10nv_QUk0vKHesOIlk8enkT2lmQlYkJeiBzNwN1feoMo-Us-rtaJrF0A&s",
+                        "width": "322",
+                        "height": "156"
+                    }
+                ],
+                "metatags": [
+                    {
+                        "og:image": "https://www.gstatic.com/marketing-cms/assets/images/08/4d/b14a802949df988a0bb404f60979/3a-socialshare.jpg=n-w1440-h810-fcrop64=1,0000114effffee75-rw",
+                        "og:image:width": "1440",
+                        "og:image:alt": "The Google logo, a capital \u201cG\u201d in red, yellow, green and blue.",
+                        "og:type": "website",
+                        "twitter:card": "summary_large_image",
+                        "twitter:title": "How we started and where we are today - Google",
+                        "og:site_name": "About Google",
+                        "og:image:url": "https://www.gstatic.com/marketing-cms/assets/images/08/4d/b14a802949df988a0bb404f60979/3a-socialshare.jpg=n-w1440-h810-fcrop64=1,0000114effffee75-rw",
+                        "og:title": "How we started and where we are today - Google",
+                        "og:image:height": "700",
+                        "og:image:type": "image/jpeg",
+                        "og:description": "Find out where it all began. Read the history of how Google has grown since Larry Page and Sergey Brin founded the company in 1998.",
+                        "twitter:image": "https://www.gstatic.com/marketing-cms/assets/images/08/4d/b14a802949df988a0bb404f60979/3a-socialshare.jpg=n-w1440-h810-fcrop64=1,0000114effffee75-rw",
+                        "twitter:image:alt": "The Google logo, a capital \u201cG\u201d in red, yellow, green and blue.",
+                        "viewport": "width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=5",
+                        "twitter:description": "Find out where it all began. Read the history of how Google has grown since Larry Page and Sergey Brin founded the company in 1998.",
+                        "og:locale": "en-US_us",
+                        "brightspot.contentid": "00000193-6afc-d0ca-a9d3-6bff4e580000",
+                        "og:url": "https://about.google/company-info/our-story/"
+                    }
+                ],
+                "cse_image": [
+                    {
+                        "src": "https://www.gstatic.com/marketing-cms/assets/images/08/4d/b14a802949df988a0bb404f60979/3a-socialshare.jpg=n-w1440-h810-fcrop64=1,0000114effffee75-rw"
+                    }
+                ]
+            }
+        },
+        {
+            "kind": "customsearch#result",
+            "title": "google cloud platform - How can I find out who created a GCP ...",
+            "htmlTitle": "<b>google</b> cloud platform - How can I find out <b>who created</b> a GCP ...",
+            "link": "https://serverfault.com/questions/976578/how-can-i-find-out-who-created-a-gcp-project",
+            "displayLink": "serverfault.com",
+            "snippet": "Jul 24, 2019 ... Provided that the project was created less than 400 days ago, you can find the project's creator via Stackdriver Logging.",
+            "htmlSnippet": "Jul 24, 2019 <b>...</b> Provided that the project was <b>created</b> less than 400 days ago, you can find the project&#39;s creator via Stackdriver Logging.",
+            "formattedUrl": "https://serverfault.com/.../how-can-i-find-out-who-created-a-gcp-project",
+            "htmlFormattedUrl": "https://serverfault.com/.../how-can-i-find-out-<b>who-created</b>-a-gcp-project",
+            "pagemap": {
+                "cse_thumbnail": [
+                    {
+                        "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVSDa7cAAzUeRQ-x8sBM7y7Fz4UUN9d1rR5keCc38wPGCT7bsxm7Eo3c04&s",
+                        "width": "225",
+                        "height": "225"
+                    }
+                ],
+                "qapage": [
+                    {
+                        "image": "https://cdn.sstatic.net/Sites/serverfault/Img/apple-touch-icon@2.png?v=9b1f48ae296b",
+                        "primaryimageofpage": "https://cdn.sstatic.net/Sites/serverfault/Img/apple-touch-icon@2.png?v=9b1f48ae296b",
+                        "name": "How can I find out who created a GCP project?",
+                        "description": "Our GCP organization is a mess. I want to organize projects into folders, and delete \"abandoned\" projects. How can I find out who created a given GCP project?"
+                    }
+                ],
+                "question": [
+                    {
+                        "image": "https://cdn.sstatic.net/Sites/serverfault/Img/apple-touch-icon.png?v=6c3100d858bb",
+                        "upvotecount": "5",
+                        "answercount": "3",
+                        "name": "How can I find out who created a GCP project?",
+                        "datecreated": "2019-07-24 20:48:28Z",
+                        "text": "Our GCP organization is a mess. I want to organize projects into folders, and delete \"abandoned\" projects. How can I find out who created a given GCP project?",
+                        "url": "Share"
+                    }
+                ],
+                "answer": [
+                    {
+                        "upvotecount": "11",
+                        "text": "Provided that the project was created less than 400 days ago, you can find the project's creator via Stackdriver Logging. This command can quickly look up that information: gcloud logging read...",
+                        "datecreated": "2020-04-06 18:04:48Z",
+                        "url": "Share"
+                    },
+                    {
+                        "upvotecount": "3",
+                        "text": "I found this link finally BUT still not sure how to filter it down to create project yet. it doesn't seem by project is there https://console.cloud.google.com/home/activity ok, it took me a...",
+                        "datecreated": "2020-04-03 15:22:50Z",
+                        "url": "Share"
+                    },
+                    {
+                        "upvotecount": "1",
+                        "commentcount": "1",
+                        "text": "Cloud Audit logs. Filter by Google Project, the very first will be a CreateProject event with an auth principal. However, this may not be the person advocating for the project. Ownership may...",
+                        "datecreated": "2019-07-25 12:21:00Z",
+                        "url": "Share"
+                    }
+                ],
+                "person": [
+                    {
+                        "name": "Daniel Serodio",
+                        "url": "Daniel Serodio"
+                    },
+                    {
+                        "name": "Brian McCutchon",
+                        "url": "Brian McCutchon"
+                    },
+                    {
+                        "name": "Dean Hiller",
+                        "url": "Dean Hiller"
+                    },
+                    {
+                        "name": "John Mahowald",
+                        "url": "John Mahowald"
+                    }
+                ],
+                "metatags": [
+                    {
+                        "og:image": "https://cdn.sstatic.net/Sites/serverfault/Img/apple-touch-icon@2.png?v=9b1f48ae296b",
+                        "og:type": "website",
+                        "twitter:card": "summary",
+                        "twitter:title": "How can I find out who created a GCP project?",
+                        "og:site_name": "Server Fault",
+                        "twitter:domain": "serverfault.com",
+                        "viewport": "width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0",
+                        "twitter:description": "Our GCP organization is a mess. I want to organize projects into folders, and delete \"abandoned\" projects. How can I find out who created a given GCP project?",
+                        "og:url": "https://serverfault.com/questions/976578/how-can-i-find-out-who-created-a-gcp-project"
+                    }
+                ],
+                "cse_image": [
+                    {
+                        "src": "https://cdn.sstatic.net/Sites/serverfault/Img/apple-touch-icon@2.png?v=9b1f48ae296b"
+                    }
+                ]
+            }
+        },
+        {
+            "kind": "customsearch#result",
+            "title": "Google Store for Google Made Devices & Accessories",
+            "htmlTitle": "<b>Google</b> Store for <b>Google Made</b> Devices &amp; Accessories",
+            "link": "https://store.google.com/?hl=en-US",
+            "displayLink": "store.google.com",
+            "snippet": "Shop the latest made by Google devices including Pixel 9 & Pixel 9 Pro, Pixel 9 Pro Fold, Pixel Watch 3, Google TV Streamer, at Google Store!",
+            "htmlSnippet": "Shop the latest <b>made</b> by <b>Google</b> devices including Pixel 9 &amp; Pixel 9 Pro, Pixel 9 Pro Fold, Pixel Watch 3, <b>Google</b> TV Streamer, at <b>Google</b> Store!",
+            "formattedUrl": "https://store.google.com/?hl=en-US",
+            "htmlFormattedUrl": "https://store.<b>google</b>.com/?hl=en-US",
+            "pagemap": {
+                "cse_thumbnail": [
+                    {
+                        "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtEZ2Ogna43ph91UM2aVR7wfyHhlHLJriRw4UPKhuuggKebfU9jnKo4EU&s",
+                        "width": "310",
+                        "height": "163"
+                    }
+                ],
+                "metatags": [
+                    {
+                        "og:image": "https://lh3.googleusercontent.com/l1Ta7ggZhWiyoBIW0Oq_TJtxS4iffJuAEDBC0CpfUuOABN-6EEQ2jlg6xu-oiYLTUcrK46Ms4OXVCjSHpw",
+                        "og:type": "website",
+                        "twitter:card": "summary",
+                        "twitter:title": "Google Store",
+                        "og:site_name": "Google Store",
+                        "msvalidate.01": "5B96ACB2BFE6A95B22143473B8763663",
+                        "og:title": "Google Store",
+                        "og:description": "A world of help, all for you.",
+                        "twitter:image": "https://lh3.googleusercontent.com/l1Ta7ggZhWiyoBIW0Oq_TJtxS4iffJuAEDBC0CpfUuOABN-6EEQ2jlg6xu-oiYLTUcrK46Ms4OXVCjSHpw",
+                        "referrer": "origin",
+                        "twitter:image:alt": "Google Devices",
+                        "twitter:site": "@madebygoogle",
+                        "viewport": "width=device-width,initial-scale=1,minimal-ui",
+                        "twitter:description": "A world of help, all for you.",
+                        "og:url": "https://store.google.com/?hl=en-US"
+                    }
+                ],
+                "cse_image": [
+                    {
+                        "src": "https://lh3.googleusercontent.com/l1Ta7ggZhWiyoBIW0Oq_TJtxS4iffJuAEDBC0CpfUuOABN-6EEQ2jlg6xu-oiYLTUcrK46Ms4OXVCjSHpw"
+                    }
+                ]
+            }
+        },
+        {
+            "kind": "customsearch#result",
+            "title": "Can you see who created a google doc when you view it? : r ...",
+            "htmlTitle": "Can you see <b>who created</b> a <b>google</b> doc when you view it? : r ...",
+            "link": "https://www.reddit.com/r/googledocs/comments/1153z0p/can_you_see_who_created_a_google_doc_when_you/",
+            "displayLink": "www.reddit.com",
+            "snippet": "Feb 18, 2023 ... Yes, it will show the owner. The best way would be to use a throwaway Google account, and if you've already made the file then share with the\u00a0...",
+            "htmlSnippet": "Feb 18, 2023 <b>...</b> Yes, it will show the owner. The best way would be to use a throwaway <b>Google</b> account, and if you&#39;ve already <b>made</b> the file then share with the&nbsp;...",
+            "formattedUrl": "https://www.reddit.com/.../googledocs/.../can_you_see_who_created_a_goo...",
+            "htmlFormattedUrl": "https://www.reddit.com/.../<b>google</b>docs/.../can_you_see_<b>who_created</b>_a_<b>goo</b>...",
+            "pagemap": {
+                "metatags": [
+                    {
+                        "og:image": "https://share.redd.it/preview/post/1153z0p",
+                        "theme-color": "#000000",
+                        "og:image:width": "1200",
+                        "og:type": "website",
+                        "og:image:alt": "An image containing a preview of the post",
+                        "twitter:card": "summary_large_image",
+                        "twitter:title": "r/googledocs on Reddit: Can you see who created a google doc when you view it?",
+                        "og:site_name": "Reddit",
+                        "og:title": "r/googledocs on Reddit: Can you see who created a google doc when you view it?",
+                        "og:image:height": "630",
+                        "msapplication-navbutton-color": "#000000",
+                        "og:description": "Posted by u/natnat131 - 1 vote and 1 comment",
+                        "twitter:image": "https://share.redd.it/preview/post/1153z0p",
+                        "apple-mobile-web-app-status-bar-style": "black",
+                        "twitter:site": "@reddit",
+                        "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+                        "apple-mobile-web-app-capable": "yes",
+                        "og:ttl": "600",
+                        "og:url": "https://www.reddit.com/r/googledocs/comments/1153z0p/can_you_see_who_created_a_google_doc_when_you/"
+                    }
+                ]
+            }
+        }
+    ]
+}

@@ -1,0 +1,61 @@
+from google.adk.agents import LlmAgent
+import data_beans_agent.bigquery_sql as bq_sql 
+import data_beans_agent.bigquery_table_schema as bq_schema
+import data_beans_agent.bigquery_get_tables_in_project as bq_tables
+import data_beans_agent.dataplex_get_data_governance_for_table as dataplex_table_governance
+import data_beans_agent.dataplex_search_catalog as data_catalog_search
+import data_beans_agent.google_search as google_search
+
+# This is not using the ADK serach tool, it uses it seperately
+search_agent = LlmAgent(name="Search", 
+                        description="Runs a Google internet search.",
+                        tools=[ google_search.google_search],
+                        model="gemini-2.5-flash")
+
+bigquery_agent = LlmAgent(name="BigQuery", 
+                          description="Runs BigQuery queries.",
+                          tools=[ bq_sql.run_bigquery_sql, 
+                                  bq_schema.get_bigquery_table_schema, 
+                                  bq_tables.get_bigquery_get_tables_in_project
+                                ],
+                          model="gemini-2.5-flash")
+
+datacatalog_agent = LlmAgent(name="DataCatalog", 
+                             description="Searches the data catalog.",
+                             tools=[ data_catalog_search.dataplex_search_catalog,
+                                     bq_tables.get_bigquery_get_tables_in_project,
+                                     dataplex_table_governance.get_data_governance_for_table],
+                             model="gemini-2.5-flash")
+
+coordinator_system_prmompt = """You are a helpful AI assistant that can utlize the below AI LLM Agents.
+
+AI LLM Agents that you can use to answer questions:
+- Search:
+    - Assists with running searches on the Internet using Google for realtime information.
+- BigQuery:
+    - Assists with running SQL statements in BigQuery.
+    - Assists with getting the schema of a table.
+    - Assists with getting a list of all tables in a google cloud project.
+- DataCatalog: 
+    - Assists with searching the data catalog.
+    - Assists with getting the data governance tags on a table (aspect types).
+
+Rules:
+- Do not call the same tool agent with the EXACT same parameters to prevent yourself from looping.
+- You should use one of the agents to complete each task.  You may only do basic logic yourself.
+- You should always call get_bigquery_get_tables_in_project to get the correct table and dataset names. 
+    - Do not trust the user to state the correct name.
+
+Your name is: Data Beans Agent.
+"""
+root_agent = LlmAgent(
+    name="Coordinator",
+    model="gemini-2.5-pro",
+    instruction=coordinator_system_prmompt,
+    description="Main help desk router.",
+    # allow_transfer=True is often implicit with sub_agents in AutoFlow
+    sub_agents=[search_agent, bigquery_agent, datacatalog_agent]
+)
+# User asks "My payment failed" -> Coordinator's LLM should call transfer_to_agent(agent_name='Billing')
+# User asks "I can't log in" -> Coordinator's LLM should call transfer_to_agent(agent_name='Support')
+

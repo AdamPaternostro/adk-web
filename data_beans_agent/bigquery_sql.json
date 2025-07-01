@@ -1,0 +1,107 @@
+{
+    "kind": "bigquery#queryResponse",
+    "schema": {
+        "fields": [
+            {
+                "name": "first_name",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "customer_id",
+                "type": "INTEGER",
+                "mode": "NULLABLE"
+            },
+            {
+                "name": "last_name",
+                "type": "STRING",
+                "mode": "NULLABLE"
+            }
+        ]
+    },
+    "jobReference": {
+        "projectId": "governed-data-1pqzajgatl",
+        "jobId": "job_oSM_sjXR4gKpMMnttADmZNC88Gxc",
+        "location": "US"
+    },
+    "totalRows": "5",
+    "rows": [
+        {
+            "f": [
+                {
+                    "v": "Jessika"
+                },
+                {
+                    "v": "862"
+                },
+                {
+                    "v": "Message"
+                }
+            ]
+        },
+        {
+            "f": [
+                {
+                    "v": "Dede"
+                },
+                {
+                    "v": "357"
+                },
+                {
+                    "v": "Aubrun"
+                }
+            ]
+        },
+        {
+            "f": [
+                {
+                    "v": "Trix"
+                },
+                {
+                    "v": "674"
+                },
+                {
+                    "v": "Sellwood"
+                }
+            ]
+        },
+        {
+            "f": [
+                {
+                    "v": "Annice"
+                },
+                {
+                    "v": "478"
+                },
+                {
+                    "v": "MacArte"
+                }
+            ]
+        },
+        {
+            "f": [
+                {
+                    "v": "Cathee"
+                },
+                {
+                    "v": "283"
+                },
+                {
+                    "v": "Machen"
+                }
+            ]
+        }
+    ],
+    "totalBytesProcessed": "0",
+    "jobComplete": true,
+    "cacheHit": true,
+    "queryId": "job_oSM_sjXR4gKpMMnttADmZNC88Gxc",
+    "jobCreationReason": {
+        "code": "REQUESTED"
+    },
+    "totalBytesBilled": "0",
+    "location": "US",
+    "creationTime": "1751315639259",
+    "startTime": "1751315639362",
+    "endTime": "1751315639488"
+}

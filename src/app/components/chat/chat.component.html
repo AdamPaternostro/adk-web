@@ -336,7 +336,8 @@
                   [matTooltip]="getAgentNameFromEvent(i)"
                   [class]="customIconColorClass(i)"
                 >
-                  <mat-icon fontSet="material-symbols-outlined">robot_2</mat-icon>
+                  <mat-icon svgIcon="robot_2_custom"></mat-icon>
+               
                 </button>
               }
               @if (!message.functionCall && !message.functionResponse) {

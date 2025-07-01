@@ -1,0 +1,506 @@
+{
+    "name": "projects/governed-data-1pqzajgatl/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_curated/tables/customer",
+    "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-table",
+    "createTime": "2025-06-12T14:05:40.087281Z",
+    "updateTime": "2025-06-23T15:51:16.656516Z",
+    "aspects": {
+        "601982832853.global.data-domain-aspect-type": {
+            "aspectType": "projects/601982832853/locations/global/aspectTypes/data-domain-aspect-type",
+            "createTime": "2025-06-23T15:51:16.006056Z",
+            "updateTime": "2025-06-23T15:51:16.006056Z",
+            "data": {
+                "zone": "Curated"
+            },
+            "aspectSource": {}
+        },
+        "601982832853.global.data-governance-aspect-type": {
+            "aspectType": "projects/601982832853/locations/global/aspectTypes/data-governance-aspect-type",
+            "createTime": "2025-06-23T15:51:16.006056Z",
+            "updateTime": "2025-06-23T15:51:16.006056Z",
+            "data": {
+                "data-steward": "Jane Doe",
+                "owner-group": "data-governance-team",
+                "business-owner": "Jane Doe",
+                "documentation-url": "http://yourcompany.com/customer-table-documentation",
+                "data-lifecycle": "Production",
+                "classification-level": "Restricted",
+                "data-sensitivity-level": "High",
+                "contains-pii": true
+            },
+            "aspectSource": {}
+        },
+        "601982832853.global.data-retention-aspect-type": {
+            "aspectType": "projects/601982832853/locations/global/aspectTypes/data-retention-aspect-type",
+            "createTime": "2025-06-23T15:51:16.006056Z",
+            "updateTime": "2025-06-23T15:51:16.006056Z",
+            "data": {
+                "retention-days": 365,
+                "retention-policy": "http://yourcompany.com/retention-policy"
+            },
+            "aspectSource": {}
+        },
+        "655216118709.global.bigquery-table": {
+            "aspectType": "projects/655216118709/locations/global/aspectTypes/bigquery-table",
+            "createTime": "2025-06-12T14:05:40.087281Z",
+            "updateTime": "2025-06-12T15:26:07.495919Z",
+            "data": {
+                "type": "TABLE",
+                "clustering": {
+                    "columns": [
+                        "customer_id"
+                    ]
+                },
+                "tableType": "TABLE"
+            },
+            "aspectSource": {
+                "createTime": "2025-06-12T14:05:37.919Z",
+                "updateTime": "2025-06-12T15:26:07.015Z",
+                "dataVersion": "Ingestion/1.0.0"
+            }
+        },
+        "655216118709.global.contacts": {
+            "aspectType": "projects/655216118709/locations/global/aspectTypes/contacts",
+            "createTime": "2025-06-23T15:51:16.624544Z",
+            "updateTime": "2025-06-23T15:51:16.624544Z",
+            "data": {
+                "identities": [
+                    {
+                        "role": "Data Steward",
+                        "name": "Jane Doe"
+                    },
+                    {
+                        "role": "Owner",
+                        "name": "Data Team"
+                    }
+                ]
+            },
+            "aspectSource": {}
+        },
+        "655216118709.global.overview": {
+            "aspectType": "projects/655216118709/locations/global/aspectTypes/overview",
+            "createTime": "2025-06-23T15:51:16.624544Z",
+            "updateTime": "2025-06-23T15:51:16.624544Z",
+            "data": {
+                "content": "This is customer master data and contains PII."
+            },
+            "aspectSource": {}
+        },
+        "655216118709.global.schema": {
+            "aspectType": "projects/655216118709/locations/global/aspectTypes/schema",
+            "createTime": "2025-06-12T14:05:40.087281Z",
+            "updateTime": "2025-06-12T15:26:07.495919Z",
+            "data": {
+                "fields": [
+                    {
+                        "name": "customer_id",
+                        "description": "Unique identifier for the customer.",
+                        "dataType": "INTEGER",
+                        "metadataType": "NUMBER",
+                        "mode": "NULLABLE"
+                    },
+                    {
+                        "name": "first_name",
+                        "description": "The first name of the customer.",
+                        "dataType": "STRING",
+                        "metadataType": "STRING",
+                        "mode": "NULLABLE"
+                    },
+                    {
+                        "name": "last_name",
+                        "description": "The last name of the customer.",
+                        "dataType": "STRING",
+                        "metadataType": "STRING",
+                        "mode": "NULLABLE"
+                    },
+                    {
+                        "name": "email",
+                        "description": "The email address of the customer.",
+                        "dataType": "STRING",
+                        "metadataType": "STRING",
+                        "mode": "NULLABLE"
+                    },
+                    {
+                        "name": "phone",
+                        "description": "The phone number of the customer.",
+                        "dataType": "STRING",
+                        "metadataType": "STRING",
+                        "mode": "NULLABLE"
+                    },
+                    {
+                        "name": "gender",
+                        "description": "The gender of the customer.",
+                        "dataType": "STRING",
+                        "metadataType": "STRING",
+                        "mode": "NULLABLE"
+                    },
+                    {
+                        "name": "ip_address",
+                        "description": "The IP address of the customer.",
+                        "dataType": "STRING",
+                        "metadataType": "STRING",
+                        "mode": "NULLABLE"
+                    },
+                    {
+                        "name": "ssn",
+                        "description": "The Social Security Number of the customer.",
+                        "dataType": "STRING",
+                        "metadataType": "STRING",
+                        "mode": "NULLABLE"
+                    },
+                    {
+                        "name": "address",
+                        "description": "The street address of the customer.",
+                        "dataType": "STRING",
+                        "metadataType": "STRING",
+                        "mode": "NULLABLE"
+                    },
+                    {
+                        "name": "city",
+                        "description": "The city of the customer.",
+                        "dataType": "STRING",
+                        "metadataType": "STRING",
+                        "mode": "NULLABLE"
+                    },
+                    {
+                        "name": "state",
+                        "description": "The state of the customer.",
+                        "dataType": "STRING",
+                        "metadataType": "STRING",
+                        "mode": "NULLABLE"
+                    },
+                    {
+                        "name": "zip",
+                        "description": "The zip code of the customer.",
+                        "dataType": "INTEGER",
+                        "metadataType": "NUMBER",
+                        "mode": "NULLABLE"
+                    },
+                    {
+                        "name": "credit_card_number",
+                        "description": "The credit card number of the customer.",
+                        "dataType": "STRING",
+                        "metadataType": "STRING",
+                        "mode": "NULLABLE"
+                    },
+                    {
+                        "name": "predicted_credit_amount",
+                        "description": "The predicted credit amount for the customer.",
+                        "dataType": "FLOAT",
+                        "metadataType": "NUMBER",
+                        "mode": "NULLABLE"
+                    }
+                ]
+            },
+            "aspectSource": {
+                "createTime": "2025-06-12T14:05:37.919Z",
+                "updateTime": "2025-06-12T15:26:07.015Z",
+                "dataVersion": "Ingestion/1.0.0"
+            }
+        },
+        "655216118709.global.storage": {
+            "aspectType": "projects/655216118709/locations/global/aspectTypes/storage",
+            "createTime": "2025-06-12T14:05:40.087281Z",
+            "updateTime": "2025-06-12T15:26:07.495919Z",
+            "data": {
+                "service": "BIGQUERY",
+                "resourceName": "//bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_curated/tables/customer"
+            },
+            "aspectSource": {
+                "createTime": "2025-06-12T14:05:37.919Z",
+                "updateTime": "2025-06-12T15:26:07.015Z",
+                "dataVersion": "Ingestion/1.0.0"
+            }
+        },
+        "655216118709.global.usage": {
+            "aspectType": "projects/655216118709/locations/global/aspectTypes/usage",
+            "createTime": "2025-06-14T11:43:00.819002Z",
+            "updateTime": "2025-06-29T20:38:24.645300Z",
+            "data": {
+                "metrics": [
+                    {
+                        "name": "total_queries",
+                        "timeSeries": [
+                            {
+                                "interval": "1d",
+                                "value": 0
+                            },
+                            {
+                                "interval": "7d",
+                                "value": 19
+                            },
+                            {
+                                "interval": "30d",
+                                "value": 30
+                            }
+                        ]
+                    },
+                    {
+                        "name": "failures",
+                        "timeSeries": [
+                            {
+                                "interval": "1d",
+                                "value": 0
+                            },
+                            {
+                                "interval": "7d",
+                                "value": 0
+                            },
+                            {
+                                "interval": "30d",
+                                "value": 0
+                            }
+                        ]
+                    },
+                    {
+                        "name": "cancellations",
+                        "timeSeries": [
+                            {
+                                "interval": "1d",
+                                "value": 0
+                            },
+                            {
+                                "interval": "7d",
+                                "value": 0
+                            },
+                            {
+                                "interval": "30d",
+                                "value": 0
+                            }
+                        ]
+                    },
+                    {
+                        "name": "execution_time",
+                        "timeSeries": [
+                            {
+                                "interval": "1d",
+                                "value": 0
+                            },
+                            {
+                                "interval": "7d",
+                                "value": 7586
+                            },
+                            {
+                                "interval": "30d",
+                                "value": 11262
+                            }
+                        ]
+                    }
+                ],
+                "refreshTime": "2025-06-29T06:59:59.971Z"
+            },
+            "aspectSource": {
+                "createTime": "2025-06-12T14:05:37.919Z",
+                "updateTime": "2025-06-29T06:59:59.971Z"
+            }
+        },
+        "601982832853.global.data-sensitivity-aspect-type@Schema.first_name": {
+            "aspectType": "projects/601982832853/locations/global/aspectTypes/data-sensitivity-aspect-type",
+            "path": "Schema.first_name",
+            "createTime": "2025-06-23T15:51:16.006056Z",
+            "updateTime": "2025-06-23T15:51:16.006056Z",
+            "data": {
+                "contains-pii": true,
+                "pii-type": "Name",
+                "data-sensitivity-level": "High",
+                "compliance-requirements": [
+                    "GDPR",
+                    "CCPA"
+                ]
+            },
+            "aspectSource": {}
+        },
+        "601982832853.global.data-sensitivity-aspect-type@Schema.state": {
+            "aspectType": "projects/601982832853/locations/global/aspectTypes/data-sensitivity-aspect-type",
+            "path": "Schema.state",
+            "createTime": "2025-06-23T15:51:16.006056Z",
+            "updateTime": "2025-06-23T15:51:16.006056Z",
+            "data": {
+                "contains-pii": false,
+                "data-sensitivity-level": "Low"
+            },
+            "aspectSource": {}
+        },
+        "601982832853.global.data-sensitivity-aspect-type@Schema.phone": {
+            "aspectType": "projects/601982832853/locations/global/aspectTypes/data-sensitivity-aspect-type",
+            "path": "Schema.phone",
+            "createTime": "2025-06-23T15:51:16.006056Z",
+            "updateTime": "2025-06-23T15:51:16.006056Z",
+            "data": {
+                "contains-pii": true,
+                "pii-type": "Phone Number",
+                "data-sensitivity-level": "High",
+                "compliance-requirements": [
+                    "GDPR",
+                    "CCPA"
+                ]
+            },
+            "aspectSource": {}
+        },
+        "601982832853.global.data-sensitivity-aspect-type@Schema.city": {
+            "aspectType": "projects/601982832853/locations/global/aspectTypes/data-sensitivity-aspect-type",
+            "path": "Schema.city",
+            "createTime": "2025-06-23T15:51:16.006056Z",
+            "updateTime": "2025-06-23T15:51:16.006056Z",
+            "data": {
+                "contains-pii": false,
+                "data-sensitivity-level": "Low"
+            },
+            "aspectSource": {}
+        },
+        "601982832853.global.data-sensitivity-aspect-type@Schema.ssn": {
+            "aspectType": "projects/601982832853/locations/global/aspectTypes/data-sensitivity-aspect-type",
+            "path": "Schema.ssn",
+            "createTime": "2025-06-23T15:51:16.006056Z",
+            "updateTime": "2025-06-23T15:51:16.006056Z",
+            "data": {
+                "contains-pii": true,
+                "pii-type": "ssn",
+                "data-sensitivity-level": "High",
+                "compliance-requirements": [
+                    "GDPR",
+                    "CCPA"
+                ]
+            },
+            "aspectSource": {}
+        },
+        "601982832853.global.data-sensitivity-aspect-type@Schema.zip": {
+            "aspectType": "projects/601982832853/locations/global/aspectTypes/data-sensitivity-aspect-type",
+            "path": "Schema.zip",
+            "createTime": "2025-06-23T15:51:16.006056Z",
+            "updateTime": "2025-06-23T15:51:16.006056Z",
+            "data": {
+                "contains-pii": false,
+                "data-sensitivity-level": "Low"
+            },
+            "aspectSource": {}
+        },
+        "601982832853.global.data-sensitivity-aspect-type@Schema.customer_id": {
+            "aspectType": "projects/601982832853/locations/global/aspectTypes/data-sensitivity-aspect-type",
+            "path": "Schema.customer_id",
+            "createTime": "2025-06-23T15:51:16.006056Z",
+            "updateTime": "2025-06-23T15:51:16.006056Z",
+            "data": {
+                "contains-pii": false,
+                "data-sensitivity-level": "Low"
+            },
+            "aspectSource": {}
+        },
+        "601982832853.global.data-sensitivity-aspect-type@Schema.gender": {
+            "aspectType": "projects/601982832853/locations/global/aspectTypes/data-sensitivity-aspect-type",
+            "path": "Schema.gender",
+            "createTime": "2025-06-23T15:51:16.006056Z",
+            "updateTime": "2025-06-23T15:51:16.006056Z",
+            "data": {
+                "contains-pii": false,
+                "data-sensitivity-level": "Low"
+            },
+            "aspectSource": {}
+        },
+        "601982832853.global.data-sensitivity-aspect-type@Schema.email": {
+            "aspectType": "projects/601982832853/locations/global/aspectTypes/data-sensitivity-aspect-type",
+            "path": "Schema.email",
+            "createTime": "2025-06-23T15:51:16.006056Z",
+            "updateTime": "2025-06-23T15:51:16.006056Z",
+            "data": {
+                "contains-pii": true,
+                "pii-type": "Email",
+                "data-sensitivity-level": "High",
+                "compliance-requirements": [
+                    "GDPR",
+                    "CCPA"
+                ]
+            },
+            "aspectSource": {}
+        },
+        "601982832853.global.data-sensitivity-aspect-type@Schema.address": {
+            "aspectType": "projects/601982832853/locations/global/aspectTypes/data-sensitivity-aspect-type",
+            "path": "Schema.address",
+            "createTime": "2025-06-23T15:51:16.006056Z",
+            "updateTime": "2025-06-23T15:51:16.006056Z",
+            "data": {
+                "contains-pii": true,
+                "pii-type": "Street Address",
+                "data-sensitivity-level": "High",
+                "compliance-requirements": [
+                    "GDPR",
+                    "CCPA"
+                ]
+            },
+            "aspectSource": {}
+        },
+        "601982832853.global.data-sensitivity-aspect-type@Schema.credit_card_number": {
+            "aspectType": "projects/601982832853/locations/global/aspectTypes/data-sensitivity-aspect-type",
+            "path": "Schema.credit_card_number",
+            "createTime": "2025-06-23T15:51:16.006056Z",
+            "updateTime": "2025-06-23T15:51:16.006056Z",
+            "data": {
+                "contains-pii": true,
+                "pii-type": "Credit Card Number",
+                "data-sensitivity-level": "High",
+                "compliance-requirements": [
+                    "GDPR",
+                    "CCPA"
+                ]
+            },
+            "aspectSource": {}
+        },
+        "601982832853.global.data-sensitivity-aspect-type@Schema.last_name": {
+            "aspectType": "projects/601982832853/locations/global/aspectTypes/data-sensitivity-aspect-type",
+            "path": "Schema.last_name",
+            "createTime": "2025-06-23T15:51:16.006056Z",
+            "updateTime": "2025-06-23T15:51:16.006056Z",
+            "data": {
+                "contains-pii": true,
+                "pii-type": "Name",
+                "data-sensitivity-level": "High",
+                "compliance-requirements": [
+                    "GDPR",
+                    "CCPA"
+                ]
+            },
+            "aspectSource": {}
+        },
+        "601982832853.global.data-sensitivity-aspect-type@Schema.ip_address": {
+            "aspectType": "projects/601982832853/locations/global/aspectTypes/data-sensitivity-aspect-type",
+            "path": "Schema.ip_address",
+            "createTime": "2025-06-23T15:51:16.006056Z",
+            "updateTime": "2025-06-23T15:51:16.006056Z",
+            "data": {
+                "contains-pii": true,
+                "pii-type": "IP Address",
+                "data-sensitivity-level": "High",
+                "compliance-requirements": [
+                    "GDPR",
+                    "CCPA"
+                ]
+            },
+            "aspectSource": {}
+        }
+    },
+    "parentEntry": "projects/governed-data-1pqzajgatl/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_curated",
+    "fullyQualifiedName": "bigquery:governed-data-1pqzajgatl.governed_data_curated.customer",
+    "entrySource": {
+        "resource": "projects/governed-data-1pqzajgatl/datasets/governed_data_curated/tables/customer",
+        "system": "BIGQUERY",
+        "platform": "GCP",
+        "displayName": "customer",
+        "description": "Curated table containing customer information with predicted credit amount.",
+        "labels": {
+            "dataplex-dp-published-scan": "governed-data-curated-customer-profile-scan",
+            "dataplex-dp-published-project": "governed-data-1pqzajgatl",
+            "dataplex-dq-published-scan": "governed-data-curated-customer-quality-scan",
+            "dataplex-dp-published-location": "us-central1",
+            "dataplex-dq-published-project": "governed-data-1pqzajgatl",
+            "dataplex-dq-published-location": "us-central1"
+        },
+        "ancestors": [
+            {
+                "name": "projects/governed-data-1pqzajgatl/datasets/governed_data_curated",
+                "type": "dataplex-types.global.bigquery-dataset"
+            }
+        ],
+        "createTime": "2025-06-12T14:05:37.919Z",
+        "updateTime": "2025-06-12T15:26:07.015Z",
+        "location": "us"
+    }
+}
