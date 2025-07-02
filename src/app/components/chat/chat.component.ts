@@ -577,93 +577,121 @@ export class ChatComponent implements OnInit, AfterViewInit, OnDestroy {
     this.changeDetectorRef.detectChanges();
   }
 
+  private displayToolProgressMessage(toolName: string, progressMessage: string, eventId: string | undefined) {
+    const message = {
+      role: 'bot',
+      text: `[${toolName} - In progress] ${progressMessage}`,
+      isToolProgress: true, // Custom flag for UI
+      eventId: eventId,
+      timestamp: new Date().toISOString(), // Add timestamp for uniqueness if messages come rapidly
+    };
+    this.insertMessageBeforeLoadingMessage(message);
+    this.changeDetectorRef.detectChanges();
+  }
+
   private processPart(chunkJson: any, part: any, index: number) {
     const renderedContent =
       chunkJson.groundingMetadata?.searchEntryPoint?.renderedContent;
 
-    if (this.expectingHtmlJson && part.text) {
+    if (part.text) {
+      let isToolMessageHandled = false;
       try {
-        const jsonData = JSON.parse(part.text);
-        // Basic check for BigQuery-like schema
-        if (jsonData.schema && jsonData.rows) {
-          const htmlTable = this.generateTableHtml(jsonData);
-          this.insertMessageBeforeLoadingMessage({
-            role: 'bot',
-            htmlContent: htmlTable,
-            isTable: true, // Custom flag
-            eventId: chunkJson.id,
-          });
-          this.expectingHtmlJson = false; // Reset after processing
-          this.changeDetectorRef.detectChanges();
-          return; // Handled as HTML table
+        const potentialJson = JSON.parse(part.text);
+        if (potentialJson && typeof potentialJson === 'object') {
+          if (potentialJson.type === 'tool_progress' && potentialJson.tool_name && typeof potentialJson.message === 'string') {
+            this.isModelThinkingSubject.next(false);
+            this.displayToolProgressMessage(potentialJson.tool_name, potentialJson.message, chunkJson.id);
+            // Optionally store a lightweight event for this progress update if needed for tracing
+            // this.storeEvents({toolProgress: potentialJson}, chunkJson, index);
+            isToolMessageHandled = true;
+          } else if (potentialJson.type === 'tool_result' && potentialJson.tool_name && potentialJson.data) {
+            this.isModelThinkingSubject.next(false);
+            const functionResponsePart = {
+              functionResponse: { name: potentialJson.tool_name, response: potentialJson.data }
+            };
+            this.storeEvents(functionResponsePart, chunkJson, index); // Use the constructed part for event store
+            this.storeMessage(functionResponsePart, chunkJson, index, chunkJson.author === 'user' ? 'user' : 'bot');
+            isToolMessageHandled = true;
+          }
         }
       } catch (e) {
-        // Not valid JSON or not the expected format, proceed as normal text
-        console.warn('Received text while expecting JSON for HTML table, or JSON was not in the expected BigQuery format:', e);
+        // Not JSON, or not our specific tool_progress/tool_result format.
+        // It will be handled by subsequent logic (HTML table, thought, or plain text).
       }
-    }
 
+      if (isToolMessageHandled) {
+        this.changeDetectorRef.detectChanges();
+        return; // Successfully processed as a tool_progress or tool_result
+      }
 
-    if (part.text) {
+      // If not a tool_progress/tool_result, proceed with existing part.text logic
+      // (HTML table, thought, plain text streaming)
+      if (this.expectingHtmlJson) { // Check for /displayhtml specific JSON
+        try {
+          const jsonData = JSON.parse(part.text); // JSON.parse was already attempted, but this is specific
+          if (jsonData.schema && jsonData.rows) {
+            const htmlTable = this.generateTableHtml(jsonData);
+            this.insertMessageBeforeLoadingMessage({
+              role: 'bot', htmlContent: htmlTable, isTable: true, eventId: chunkJson.id,
+            });
+            this.expectingHtmlJson = false;
+            this.changeDetectorRef.detectChanges();
+            return;
+          }
+        } catch (e) { console.warn('Received text while expecting JSON for HTML table, or JSON was not in the expected BigQuery format:', e); }
+      }
+
+      // Existing thought and plain text streaming logic
       this.isModelThinkingSubject.next(false);
       const newChunk = part.text;
       if (part.thought) {
         if (newChunk !== this.latestThought) {
           this.storeEvents(part, chunkJson, index);
           let thoughtMessage = {
-            role: 'bot',
-            text: this.processThoughtText(newChunk),
-            thought: true,
-            eventId: chunkJson.id
+            role: 'bot', text: this.processThoughtText(newChunk), thought: true, eventId: chunkJson.id
           };
-
           this.insertMessageBeforeLoadingMessage(thoughtMessage);
         }
         this.latestThought = newChunk;
       } else if (!this.streamingTextMessage) {
         this.streamingTextMessage = {
-          role: 'bot',
-          text: this.processThoughtText(newChunk),
-          thought: part.thought ? true : false,
-          eventId: chunkJson.id
+          role: 'bot', text: this.processThoughtText(newChunk), thought: false, eventId: chunkJson.id
         };
-
-        if (renderedContent) {
-          this.streamingTextMessage.renderedContent =
-            chunkJson.groundingMetadata.searchEntryPoint.renderedContent;
-        }
-
+        if (renderedContent) { this.streamingTextMessage.renderedContent = renderedContent; }
         this.insertMessageBeforeLoadingMessage(this.streamingTextMessage);
-
-        if (!this.useSse) {
+        if (!this.useSse) { // This block might be for non-SSE, but structure is from original
           this.storeEvents(part, chunkJson, index);
           this.eventMessageIndexArray[index] = newChunk;
           this.streamingTextMessage = null;
-          return;
         }
-      } else {
-        if (renderedContent) {
-          this.streamingTextMessage.renderedContent =
-            chunkJson.groundingMetadata.searchEntryPoint.renderedContent;
+      } else { // Appending to existing streamingTextMessage
+        if (renderedContent) { this.streamingTextMessage.renderedContent = renderedContent; }
+        // This condition from original code seems to finalize a stream if text is identical.
+        // It might be specific to how the backend finalizes some text streams.
+        if (newChunk == this.streamingTextMessage.text && this.useSse) {
+            this.storeEvents(part, chunkJson, index);
+            this.eventMessageIndexArray[index] = newChunk;
+            this.streamingTextMessage = null;
+        } else {
+            this.streamingTextMessage.text += newChunk; // Append
+            this.streamingTextMessageSubject.next(this.streamingTextMessage);
         }
-
-        if (newChunk == this.streamingTextMessage.text) {
-          this.storeEvents(part, chunkJson, index);
-          this.eventMessageIndexArray[index] = newChunk;
-          this.streamingTextMessage = null;
-          return;
-        }
-        this.streamingTextMessage.text += newChunk;
-        this.streamingTextMessageSubject.next(this.streamingTextMessage);
       }
-    } else if (!part.thought) {
+      // After handling part.text (as tool message, html, thought, or plain), return.
+      this.changeDetectorRef.detectChanges();
+      return;
+    } // End of if (part.text)
+
+    // If part does not have 'text' (e.g., direct functionCall, functionResponse from ADK, inlineData)
+    // OR if it's a planner thought that somehow didn't have part.text (unlikely).
+    if (!part.thought) {
       this.isModelThinkingSubject.next(false);
       this.storeEvents(part, chunkJson, index);
-      this.storeMessage(
-        part, chunkJson, index, chunkJson.author === 'user' ? 'user' : 'bot');
+      this.storeMessage(part, chunkJson, index, chunkJson.author === 'user' ? 'user' : 'bot');
     } else {
-      this.isModelThinkingSubject.next(true);
+      this.isModelThinkingSubject.next(true); // A thought part without text.
     }
+    this.changeDetectorRef.detectChanges();
   }
 
   async getUserMessageParts() {
