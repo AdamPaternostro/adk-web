@@ -9,4 +9,4 @@ def adam_html_tool() -> dict:
           <p>This is a HTML test for the <code>/adam</code> command, served via Python.</p>
           <ul><li>Item 1 (Python)</li><li>Item 2 (Python)</li></ul>
         </div>"""
-    return {"htmlContent": html_content}
+    return {"html": html_content}
