@@ -48,6 +48,14 @@ Rules:
 
 Your name is: Data Beans Agent.
 """
+root_agent = LlmAgent(
+    name="Coordinator",
+    model="gemini-2.5-pro",
+    instruction=coordinator_system_prmompt,
+    description="Main help desk router.",
+    # allow_transfer=True is often implicit with sub_agents in AutoFlow
+    sub_agents=[search_agent, bigquery_agent, datacatalog_agent]
+)
 
 # --- AdamService Agent Definition ---
 from .adam import adam_html_tool
@@ -56,21 +64,10 @@ adam_service_agent = LlmAgent(
     name="AdamService",
     description="Provides HTML content for the /adam command.",
     tools=[adam_html_tool],
-    model="gemini-2.5-flash" # Placeholder if model is mandatory by LlmAgent
+    model="gemini-1.0-pro" # Placeholder if model is mandatory by LlmAgent
     # Ideally, this agent would not use an LLM for this simple tool.
     # The ADK framework might have a simpler agent base class or configuration for this.
 )
-
-root_agent = LlmAgent(
-    name="Coordinator",
-    model="gemini-2.5-pro",
-    instruction=coordinator_system_prmompt,
-    description="Main help desk router.",
-    # allow_transfer=True is often implicit with sub_agents in AutoFlow
-    sub_agents=[search_agent, bigquery_agent, datacatalog_agent, adam_service_agent]
-)
-
-
 
 # Note: For this `adam_service_agent` to be discoverable and callable:
 # 1. The ADK server process needs to be aware of it. If the server loads all agents
