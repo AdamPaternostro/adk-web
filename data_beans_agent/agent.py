@@ -7,12 +7,12 @@ import data_beans_agent.dataplex_search_catalog as data_catalog_search
 import data_beans_agent.google_search as google_search
 
 # This is not using the ADK serach tool, it uses it seperately
-search_agent = LlmAgent(name="Search", 
-                        description="Runs a Google internet search.",
-                        tools=[ google_search.google_search],
-                        model="gemini-2.5-flash")
+search_agent = LlmAgent(name="Search",
+                        description="Runs a Google internet search. Returns progress log and final results.",
+                        tools=[google_search.google_search], # google_search.py now returns a dict
+                        model="gemini-2.5-flash") # Aligning model with other agents
 
-bigquery_agent = LlmAgent(name="BigQuery", 
+bigquery_agent = LlmAgent(name="BigQuery",
                           description="Runs BigQuery queries.",
                           tools=[ bq_sql.run_bigquery_sql, 
                                   bq_schema.get_bigquery_table_schema, 
@@ -48,11 +48,38 @@ Rules:
 
 Your name is: Data Beans Agent.
 """
+
+# --- AdamService Agent Definition ---
+from .adam import adam_html_tool
+
+adam_service_agent = LlmAgent(
+    name="AdamService",
+    description="Provides HTML content for the /adam command.",
+    tools=[adam_html_tool],
+    model="gemini-2.5-flash" # Placeholder if model is mandatory by LlmAgent
+    # Ideally, this agent would not use an LLM for this simple tool.
+    # The ADK framework might have a simpler agent base class or configuration for this.
+)
+
+from google.adk.planners import BuiltInPlanner
+from google.genai.types import ThinkingConfig
+
 root_agent = LlmAgent(
     name="Coordinator",
     model="gemini-2.5-pro",
     instruction=coordinator_system_prmompt,
     description="Main help desk router.",
     # allow_transfer=True is often implicit with sub_agents in AutoFlow
-    sub_agents=[search_agent, bigquery_agent, datacatalog_agent]
+    sub_agents=[search_agent, bigquery_agent, datacatalog_agent, adam_service_agent],
+        planner=BuiltInPlanner(
+        thinking_config=ThinkingConfig(include_thoughts=True))
 )
+
+
+
+# Note: For this `adam_service_agent` to be discoverable and callable:
+# 1. The ADK server process needs to be aware of it. If the server loads all agents
+#    from this module or a specified directory, this definition might be sufficient.
+# 2. The `/list-apps` endpoint should ideally now include "AdamService".
+# 3. The `/run_sse` endpoint should be able to route requests to it
+#    when `appName: "AdamService"` is specified in the AgentRunRequest.
