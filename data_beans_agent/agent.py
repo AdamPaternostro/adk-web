@@ -7,12 +7,12 @@ import data_beans_agent.dataplex_search_catalog as data_catalog_search
 import data_beans_agent.google_search as google_search
 
 # This is not using the ADK serach tool, it uses it seperately
-search_agent = LlmAgent(name="Search", 
-                        description="Runs a Google internet search.",
-                        tools=[ google_search.google_search],
-                        model="gemini-2.5-flash")
+search_agent = LlmAgent(name="Search",
+                        description="Runs a Google internet search. Returns progress log and final results.",
+                        tools=[google_search.google_search], # google_search.py now returns a dict
+                        model="gemini-1.0-pro") # Aligning model with other agents
 
-bigquery_agent = LlmAgent(name="BigQuery", 
+bigquery_agent = LlmAgent(name="BigQuery",
                           description="Runs BigQuery queries.",
                           tools=[ bq_sql.run_bigquery_sql, 
                                   bq_schema.get_bigquery_table_schema, 

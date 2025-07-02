@@ -511,57 +511,56 @@ export class ChatComponent implements OnInit, AfterViewInit, OnDestroy {
     this.changeDetectorRef.detectChanges();
   }
 
-  // To display tool progress messages
+  // To display tool progress messages (batched)
   private displayToolProgressMessage(toolName: string, progressMessage: string, eventId: string | undefined) {
     const message = {
-      role: 'bot', // Or a new role like 'tool_status'
-      text: `[${toolName} - In progress] ${progressMessage}`,
+      role: 'bot',
+      text: `[${toolName}] ${progressMessage}`, // Simplified prefix
       isToolProgress: true, // Custom flag for UI styling
       eventId: eventId,
       timestamp: new Date().toISOString(),
     };
     this.insertMessageBeforeLoadingMessage(message);
-    this.changeDetectorRef.detectChanges();
+    // changeDetectorRef.detectChanges() will be called after all progress messages in processPart
   }
 
   private processPart(chunkJson: any, part: any, index: number) {
     const renderedContent =
       chunkJson.groundingMetadata?.searchEntryPoint?.renderedContent;
 
-    // Handle FunctionResponse first, as LongRunningFunctionTool yields these
     if (part.functionResponse) {
       this.isModelThinkingSubject.next(false);
       const toolName = part.functionResponse.name;
-      const responsePayload = part.functionResponse.response; // This is the dict yielded by the Python tool
+      const responsePayload = part.functionResponse.response; // This is the dict from Python
 
-      if (responsePayload && typeof responsePayload === 'object') {
-        if (responsePayload.type === 'progress' && typeof responsePayload.message === 'string') {
-          // This is a progress update from the tool
-          this.displayToolProgressMessage(toolName, responsePayload.message, chunkJson.id);
-          // We might not store these intermediate progress steps in storeEvents/storeMessage
-          // unless we want them in the detailed event log. For now, just display.
-          this.changeDetectorRef.detectChanges();
-          return; // Handled as tool progress
-        } else if (responsePayload.type === 'result' && responsePayload.data) {
-          // This is the final result from the tool.
-          // We need to make sure storeMessage gets the actual data part.
-          // Create a new part structure that storeMessage expects for a final function response.
-          const finalResultFunctionResponsePart = {
-            functionResponse: {
-              name: toolName,
-              response: responsePayload.data // Pass the actual data payload
-            }
-          };
-          this.storeEvents(finalResultFunctionResponsePart, chunkJson, index);
-          this.storeMessage(finalResultFunctionResponsePart, chunkJson, index, chunkJson.author === 'user' ? 'user' : 'bot');
-          this.changeDetectorRef.detectChanges();
-          return; // Handled as final tool result
+      // Check if this is from google_search and has the new structure
+      if (toolName === 'google_search' && responsePayload &&
+          Array.isArray(responsePayload.progress_updates) && responsePayload.final_tool_result) {
+
+        // Display all progress updates
+        for (const progress of responsePayload.progress_updates) {
+          if (progress && progress.type === 'progress' && typeof progress.message === 'string') {
+            this.displayToolProgressMessage(progress.tool_name || toolName, progress.message, chunkJson.id);
+          }
         }
+
+        // Prepare the final result for storeMessage
+        const finalResultPartForStorage = {
+          functionResponse: {
+            name: toolName,
+            response: responsePayload.final_tool_result // This is the actual data for the tool
+          }
+        };
+        this.storeEvents(finalResultPartForStorage, chunkJson, index);
+        this.storeMessage(finalResultPartForStorage, chunkJson, index, chunkJson.author === 'user' ? 'user' : 'bot');
+
+        this.changeDetectorRef.detectChanges(); // Single detectChanges after all updates
+        return; // Handled the google_search specific response
+      } else {
+        // Standard handling for other function responses or if format doesn't match
+        this.storeEvents(part, chunkJson, index);
+        this.storeMessage(part, chunkJson, index, chunkJson.author === 'user' ? 'user' : 'bot');
       }
-      // If it's a functionResponse but not matching our 'progress'/'result' type,
-      // process it as a standard/final function response.
-      this.storeEvents(part, chunkJson, index); // Store original part
-      this.storeMessage(part, chunkJson, index, chunkJson.author === 'user' ? 'user' : 'bot');
       this.changeDetectorRef.detectChanges();
       return;
     } // End of if (part.functionResponse)
