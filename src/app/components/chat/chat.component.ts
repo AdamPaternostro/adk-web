@@ -490,18 +490,19 @@ export class ChatComponent implements OnInit, AfterViewInit, OnDestroy {
     this.displayToolProgressMessage("Unknowm", "0", "0");
 
 
-    if (part.text) {
+    if (part) {
+      this.displayToolProgressMessage("Unknowm", "1", "1");
       this.isModelThinkingSubject.next(false);
-      
+
       if (part.functionResponse) {
         this.isModelThinkingSubject.next(false);
         const toolName = part.functionResponse.name;
         const responsePayload = part.functionResponse.response; // This is the dict from Python
 
-        this.displayToolProgressMessage(toolName, "1", "1");
+        this.displayToolProgressMessage(toolName, "2", "2");
 
         if (toolName === 'adam_html_tool') {
-          this.displayToolProgressMessage(toolName, "2", "2");
+          this.displayToolProgressMessage(toolName, "3", "3");
           const hardcodedHtml = `
                 <style>
                   .adam-test { margin: 10px; padding: 10px; border: 1px solid blue; background-color: lightblue;}
@@ -512,13 +513,17 @@ export class ChatComponent implements OnInit, AfterViewInit, OnDestroy {
                   <p>This is a hardcoded HTML test for the <code>/adam</code> command.</p>
                   <ul><li>Item 1</li><li>Item 2</li></ul>
                 </div>`;
-          this.insertMessageBeforeLoadingMessage(hardcodedHtml);
-          this.userInput = '';
+          //this.insertMessageBeforeLoadingMessage(hardcodedHtml);
+          //this.userInput = '';
+          this.insertMessageBeforeLoadingMessage({
+            role: 'bot',
+            htmlContent: "HI ADAM" //this.sanitizeHtml(hardcodedHtml)
+          });
           this.changeDetectorRef.detectChanges();
-          return;
+          return; // Processed the response          
         }
 
-        this.displayToolProgressMessage(toolName, "3", "3");
+        this.displayToolProgressMessage(toolName, "4", "4");
 
         // Check if this is from google_search and has the new structure
         if (toolName === 'google_search' && responsePayload &&
@@ -603,6 +608,7 @@ export class ChatComponent implements OnInit, AfterViewInit, OnDestroy {
         this.streamingTextMessageSubject.next(this.streamingTextMessage);
       }
     } else if (!part.thought) {
+      this.displayToolProgressMessage("Unknowm", "Z", "Z");
       this.isModelThinkingSubject.next(false);
       this.storeEvents(part, chunkJson, index);
       this.storeMessage(
@@ -1681,5 +1687,10 @@ export class ChatComponent implements OnInit, AfterViewInit, OnDestroy {
     this.renderer.appendChild(style, this.renderer.createText(css));
     this.renderer.appendChild(
       this.document.head, style);  // Append to the head of the document
+  }
+
+  // Sanitize HTML content before rendering
+  sanitizeHtml(html: string): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(html);
   }
 }

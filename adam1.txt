@@ -1,0 +1,17 @@
+  // Sanitize HTML content before rendering
+  sanitizeHtml(html: string): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(html);
+  }
+
+
+                    if (responseData && responseData.html && typeof responseData.html === 'string') {
+                    this.insertMessageBeforeLoadingMessage({
+                      role: 'bot',
+                      htmlContent: this.sanitizeHtml(responseData.html), // Sanitize before rendering
+                      // isCustomHtml: true, // REMOVED - Template will check for htmlContent directly
+                    });
+                    this.changeDetectorRef.detectChanges();
+                    return; // Processed the response
+                  } else {
+                    this.openSnackBar('AdamService tool responded without HTML content or invalid format.', 'OK');
+                  }
