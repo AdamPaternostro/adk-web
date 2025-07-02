@@ -414,96 +414,30 @@ export class ChatComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
 
-    // Handle /adam command (MODIFIED to call AdamService backend)
+    // Handle /adam test command
     if (trimmedInput.toLowerCase() === '/adam') {
-      this.userInput = ''; // Clear input
-
-      const req: AgentRunRequest = {
-        appName: 'AdamService', // Target the AdamService agent
-        userId: this.userId,
-        sessionId: this.sessionId,
-        newMessage: {
-          role: 'user',
-          parts: [
-            // Standard way to call a tool in ADK (assumption)
-            { functionCall: { name: 'adam_html_tool', args: {} } }
-          ],
-        },
-        streaming: true, // Expecting SSE response
-      };
-
-      this.agentService.runSse(req).subscribe({
-        next: async (chunk) => {
-          if (chunk.startsWith('{"error"')) {
-            this.openSnackBar('Error calling AdamService: ' + chunk, 'OK');
-            return;
-          }
-          try {
-            const chunkJson = JSON.parse(chunk);
-            if (chunkJson.error) {
-              this.openSnackBar('Error from AdamService: ' + chunkJson.error, 'OK');
-              return;
-            }
-
-            if (chunkJson.content && chunkJson.content.parts) {
-              for (const part of chunkJson.content.parts) {
-                // Expecting the HTML content in a functionResponse part
-                if (part.functionResponse && part.functionResponse.name === 'adam_html_tool') {
-                  let responseData = part.functionResponse.response;
-                  // The 'response' from the tool might be an object or a stringified JSON
-                  if (typeof responseData === 'string') {
-                    try { responseData = JSON.parse(responseData); } catch (e) {
-                      // If it's not JSON, it might be the raw HTML string (less likely for structured tools)
-                      // For now, we expect it to be the JSON object {"html": "..."}
-                      console.warn('AdamService response was a string but not valid JSON:', responseData);
-                      this.openSnackBar('Received non-JSON response from AdamService tool.', 'OK');
-                      return;
-                    }
-                  }
-
-                  if (responseData && responseData.html) {
-                    this.insertMessageBeforeLoadingMessage({
-                      role: 'bot',
-                      htmlContent: this.sanitizeHtml(responseData.html), // Sanitize before rendering
-                      isTable: true, // Reusing this flag for simplicity, or add 'isCustomHtml'
-                    });
-                    this.changeDetectorRef.detectChanges();
-                    return; // Processed the response
-                  } else {
-                     this.openSnackBar('AdamService tool responded without HTML content.', 'OK');
-                  }
-                }
-              }
-            }
-          } catch (e) {
-            console.error('Error processing AdamService SSE chunk:', e, 'Chunk:', chunk);
-            this.openSnackBar('Error parsing response from AdamService.', 'OK');
-          }
-        },
-        error: (err) => {
-          console.error('SSE error calling AdamService:', err);
-          this.openSnackBar('Failed to get HTML from AdamService. Check backend.', 'OK');
-          // Potentially remove loading indicator here if one was added
-        },
-        complete: () => {
-          // Handle stream completion if necessary
-          this.sessionTab.reloadSession(this.sessionId); // From original sendMessage
-          this.eventService.getTrace(this.sessionId) // From original sendMessage
-            .pipe(catchError((error) => {
-              if (error.status === 404) { return of(null); }
-              return of([]);
-            }))
-            .subscribe(res => {
-              this.traceData = res;
-              this.changeDetectorRef.detectChanges();
-            });
-          this.traceService.setMessages(this.messages); // From original sendMessage
-        },
+      const hardcodedHtml = `
+        <style>
+          .adam-test { margin: 10px; padding: 10px; border: 1px solid blue; background-color: lightblue;}
+          .adam-test h1 { color: navy; }
+        </style>
+        <div class="adam-test">
+          <h1>Hello Adam!</h1>
+          <p>This is a hardcoded HTML test for the <code>/adam</code> command.</p>
+          <ul><li>Item 1</li><li>Item 2</li></ul>
+        </div>`;
+      this.insertMessageBeforeLoadingMessage({
+        role: 'bot', // Or 'system'
+        htmlContent: hardcodedHtml,
+        isTable: true, // We reuse this flag for simplicity, or could add 'isCustomHtml'
       });
-      return; // Prevent normal message sending flow
+      this.userInput = '';
+      this.changeDetectorRef.detectChanges();
+      return;
     }
 
-    // Add user message (original logic if not /adam)
+
+    // Add user message
     if (!!this.userInput.trim()) {
       this.messages.push({role: 'user', text: this.userInput});
       this.messagesSubject.next(this.messages);
@@ -577,13 +511,14 @@ export class ChatComponent implements OnInit, AfterViewInit, OnDestroy {
     this.changeDetectorRef.detectChanges();
   }
 
+  // To display tool progress messages
   private displayToolProgressMessage(toolName: string, progressMessage: string, eventId: string | undefined) {
     const message = {
-      role: 'bot',
+      role: 'bot', // Or a new role like 'tool_status'
       text: `[${toolName} - In progress] ${progressMessage}`,
-      isToolProgress: true, // Custom flag for UI
+      isToolProgress: true, // Custom flag for UI styling
       eventId: eventId,
-      timestamp: new Date().toISOString(), // Add timestamp for uniqueness if messages come rapidly
+      timestamp: new Date().toISOString(),
     };
     this.insertMessageBeforeLoadingMessage(message);
     this.changeDetectorRef.detectChanges();
@@ -593,56 +528,66 @@ export class ChatComponent implements OnInit, AfterViewInit, OnDestroy {
     const renderedContent =
       chunkJson.groundingMetadata?.searchEntryPoint?.renderedContent;
 
-    if (part.text) {
-      let isToolMessageHandled = false;
-      try {
-        const potentialJson = JSON.parse(part.text);
-        if (potentialJson && typeof potentialJson === 'object') {
-          if (potentialJson.type === 'tool_progress' && potentialJson.tool_name && typeof potentialJson.message === 'string') {
-            this.isModelThinkingSubject.next(false);
-            this.displayToolProgressMessage(potentialJson.tool_name, potentialJson.message, chunkJson.id);
-            // Optionally store a lightweight event for this progress update if needed for tracing
-            // this.storeEvents({toolProgress: potentialJson}, chunkJson, index);
-            isToolMessageHandled = true;
-          } else if (potentialJson.type === 'tool_result' && potentialJson.tool_name && potentialJson.data) {
-            this.isModelThinkingSubject.next(false);
-            const functionResponsePart = {
-              functionResponse: { name: potentialJson.tool_name, response: potentialJson.data }
-            };
-            this.storeEvents(functionResponsePart, chunkJson, index); // Use the constructed part for event store
-            this.storeMessage(functionResponsePart, chunkJson, index, chunkJson.author === 'user' ? 'user' : 'bot');
-            isToolMessageHandled = true;
-          }
+    // Handle FunctionResponse first, as LongRunningFunctionTool yields these
+    if (part.functionResponse) {
+      this.isModelThinkingSubject.next(false);
+      const toolName = part.functionResponse.name;
+      const responsePayload = part.functionResponse.response; // This is the dict yielded by the Python tool
+
+      if (responsePayload && typeof responsePayload === 'object') {
+        if (responsePayload.type === 'progress' && typeof responsePayload.message === 'string') {
+          // This is a progress update from the tool
+          this.displayToolProgressMessage(toolName, responsePayload.message, chunkJson.id);
+          // We might not store these intermediate progress steps in storeEvents/storeMessage
+          // unless we want them in the detailed event log. For now, just display.
+          this.changeDetectorRef.detectChanges();
+          return; // Handled as tool progress
+        } else if (responsePayload.type === 'result' && responsePayload.data) {
+          // This is the final result from the tool.
+          // We need to make sure storeMessage gets the actual data part.
+          // Create a new part structure that storeMessage expects for a final function response.
+          const finalResultFunctionResponsePart = {
+            functionResponse: {
+              name: toolName,
+              response: responsePayload.data // Pass the actual data payload
+            }
+          };
+          this.storeEvents(finalResultFunctionResponsePart, chunkJson, index);
+          this.storeMessage(finalResultFunctionResponsePart, chunkJson, index, chunkJson.author === 'user' ? 'user' : 'bot');
+          this.changeDetectorRef.detectChanges();
+          return; // Handled as final tool result
         }
-      } catch (e) {
-        // Not JSON, or not our specific tool_progress/tool_result format.
-        // It will be handled by subsequent logic (HTML table, thought, or plain text).
       }
+      // If it's a functionResponse but not matching our 'progress'/'result' type,
+      // process it as a standard/final function response.
+      this.storeEvents(part, chunkJson, index); // Store original part
+      this.storeMessage(part, chunkJson, index, chunkJson.author === 'user' ? 'user' : 'bot');
+      this.changeDetectorRef.detectChanges();
+      return;
+    } // End of if (part.functionResponse)
 
-      if (isToolMessageHandled) {
-        this.changeDetectorRef.detectChanges();
-        return; // Successfully processed as a tool_progress or tool_result
-      }
-
-      // If not a tool_progress/tool_result, proceed with existing part.text logic
-      // (HTML table, thought, plain text streaming)
-      if (this.expectingHtmlJson) { // Check for /displayhtml specific JSON
+    // Existing logic for part.text (HTML table, thoughts, plain text)
+    if (part.text) {
+      this.isModelThinkingSubject.next(false);
+      // Special handling for /displayhtml command expecting JSON
+      if (this.expectingHtmlJson) {
         try {
-          const jsonData = JSON.parse(part.text); // JSON.parse was already attempted, but this is specific
-          if (jsonData.schema && jsonData.rows) {
+          const jsonData = JSON.parse(part.text);
+          if (jsonData.schema && jsonData.rows) { // Basic check for BigQuery-like schema
             const htmlTable = this.generateTableHtml(jsonData);
             this.insertMessageBeforeLoadingMessage({
               role: 'bot', htmlContent: htmlTable, isTable: true, eventId: chunkJson.id,
             });
-            this.expectingHtmlJson = false;
+            this.expectingHtmlJson = false; // Reset after processing
             this.changeDetectorRef.detectChanges();
-            return;
+            return; // Handled as HTML table
           }
-        } catch (e) { console.warn('Received text while expecting JSON for HTML table, or JSON was not in the expected BigQuery format:', e); }
+        } catch (e) {
+          console.warn('Received text while expecting JSON for HTML table, or JSON was not in the expected BigQuery format:', e);
+          // Fall through to treat as normal text if not the expected JSON structure
+        }
       }
 
-      // Existing thought and plain text streaming logic
-      this.isModelThinkingSubject.next(false);
       const newChunk = part.text;
       if (part.thought) {
         if (newChunk !== this.latestThought) {
@@ -659,37 +604,34 @@ export class ChatComponent implements OnInit, AfterViewInit, OnDestroy {
         };
         if (renderedContent) { this.streamingTextMessage.renderedContent = renderedContent; }
         this.insertMessageBeforeLoadingMessage(this.streamingTextMessage);
-        if (!this.useSse) { // This block might be for non-SSE, but structure is from original
+        if (!this.useSse) {
           this.storeEvents(part, chunkJson, index);
           this.eventMessageIndexArray[index] = newChunk;
           this.streamingTextMessage = null;
         }
       } else { // Appending to existing streamingTextMessage
         if (renderedContent) { this.streamingTextMessage.renderedContent = renderedContent; }
-        // This condition from original code seems to finalize a stream if text is identical.
-        // It might be specific to how the backend finalizes some text streams.
-        if (newChunk == this.streamingTextMessage.text && this.useSse) {
-            this.storeEvents(part, chunkJson, index);
-            this.eventMessageIndexArray[index] = newChunk;
-            this.streamingTextMessage = null;
+        if (newChunk === this.streamingTextMessage.text && this.useSse) { // Condition from original code
+          this.storeEvents(part, chunkJson, index);
+          this.eventMessageIndexArray[index] = newChunk;
+          this.streamingTextMessage = null;
         } else {
-            this.streamingTextMessage.text += newChunk; // Append
-            this.streamingTextMessageSubject.next(this.streamingTextMessage);
+          this.streamingTextMessage.text += newChunk;
+          this.streamingTextMessageSubject.next(this.streamingTextMessage);
         }
       }
-      // After handling part.text (as tool message, html, thought, or plain), return.
       this.changeDetectorRef.detectChanges();
-      return;
+      return; // Handled part.text
     } // End of if (part.text)
 
-    // If part does not have 'text' (e.g., direct functionCall, functionResponse from ADK, inlineData)
-    // OR if it's a planner thought that somehow didn't have part.text (unlikely).
-    if (!part.thought) {
+    // Handling for other part types (e.g., functionCall, inlineData, codeExecutionResult)
+    // This also catches thoughts that somehow don't have part.text (though unlikely)
+    if (!part.thought) { // if it's not a thought, and not text, and not functionResponse (already handled)
       this.isModelThinkingSubject.next(false);
       this.storeEvents(part, chunkJson, index);
       this.storeMessage(part, chunkJson, index, chunkJson.author === 'user' ? 'user' : 'bot');
-    } else {
-      this.isModelThinkingSubject.next(true); // A thought part without text.
+    } else { // Is a thought, but didn't have part.text (should have been caught above)
+      this.isModelThinkingSubject.next(true);
     }
     this.changeDetectorRef.detectChanges();
   }
