@@ -414,30 +414,96 @@ export class ChatComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
 
-    // Handle /adam test command
+    // Handle /adam command (MODIFIED to call AdamService backend)
     if (trimmedInput.toLowerCase() === '/adam') {
-      const hardcodedHtml = `
-        <style>
-          .adam-test { margin: 10px; padding: 10px; border: 1px solid blue; background-color: lightblue;}
-          .adam-test h1 { color: navy; }
-        </style>
-        <div class="adam-test">
-          <h1>Hello Adam!</h1>
-          <p>This is a hardcoded HTML test for the <code>/adam</code> command.</p>
-          <ul><li>Item 1</li><li>Item 2</li></ul>
-        </div>`;
-      this.insertMessageBeforeLoadingMessage({
-        role: 'bot', // Or 'system'
-        htmlContent: hardcodedHtml,
-        isTable: true, // We reuse this flag for simplicity, or could add 'isCustomHtml'
+      this.userInput = ''; // Clear input
+
+      const req: AgentRunRequest = {
+        appName: 'AdamService', // Target the AdamService agent
+        userId: this.userId,
+        sessionId: this.sessionId,
+        newMessage: {
+          role: 'user',
+          parts: [
+            // Standard way to call a tool in ADK (assumption)
+            { functionCall: { name: 'adam_html_tool', args: {} } }
+          ],
+        },
+        streaming: true, // Expecting SSE response
+      };
+
+      this.agentService.runSse(req).subscribe({
+        next: async (chunk) => {
+          if (chunk.startsWith('{"error"')) {
+            this.openSnackBar('Error calling AdamService: ' + chunk, 'OK');
+            return;
+          }
+          try {
+            const chunkJson = JSON.parse(chunk);
+            if (chunkJson.error) {
+              this.openSnackBar('Error from AdamService: ' + chunkJson.error, 'OK');
+              return;
+            }
+
+            if (chunkJson.content && chunkJson.content.parts) {
+              for (const part of chunkJson.content.parts) {
+                // Expecting the HTML content in a functionResponse part
+                if (part.functionResponse && part.functionResponse.name === 'adam_html_tool') {
+                  let responseData = part.functionResponse.response;
+                  // The 'response' from the tool might be an object or a stringified JSON
+                  if (typeof responseData === 'string') {
+                    try { responseData = JSON.parse(responseData); } catch (e) {
+                      // If it's not JSON, it might be the raw HTML string (less likely for structured tools)
+                      // For now, we expect it to be the JSON object {"html": "..."}
+                      console.warn('AdamService response was a string but not valid JSON:', responseData);
+                      this.openSnackBar('Received non-JSON response from AdamService tool.', 'OK');
+                      return;
+                    }
+                  }
+
+                  if (responseData && responseData.html) {
+                    this.insertMessageBeforeLoadingMessage({
+                      role: 'bot',
+                      htmlContent: this.sanitizeHtml(responseData.html), // Sanitize before rendering
+                      isTable: true, // Reusing this flag for simplicity, or add 'isCustomHtml'
+                    });
+                    this.changeDetectorRef.detectChanges();
+                    return; // Processed the response
+                  } else {
+                     this.openSnackBar('AdamService tool responded without HTML content.', 'OK');
+                  }
+                }
+              }
+            }
+          } catch (e) {
+            console.error('Error processing AdamService SSE chunk:', e, 'Chunk:', chunk);
+            this.openSnackBar('Error parsing response from AdamService.', 'OK');
+          }
+        },
+        error: (err) => {
+          console.error('SSE error calling AdamService:', err);
+          this.openSnackBar('Failed to get HTML from AdamService. Check backend.', 'OK');
+          // Potentially remove loading indicator here if one was added
+        },
+        complete: () => {
+          // Handle stream completion if necessary
+          this.sessionTab.reloadSession(this.sessionId); // From original sendMessage
+          this.eventService.getTrace(this.sessionId) // From original sendMessage
+            .pipe(catchError((error) => {
+              if (error.status === 404) { return of(null); }
+              return of([]);
+            }))
+            .subscribe(res => {
+              this.traceData = res;
+              this.changeDetectorRef.detectChanges();
+            });
+          this.traceService.setMessages(this.messages); // From original sendMessage
+        },
       });
-      this.userInput = '';
-      this.changeDetectorRef.detectChanges();
-      return;
+      return; // Prevent normal message sending flow
     }
 
-
-    // Add user message
+    // Add user message (original logic if not /adam)
     if (!!this.userInput.trim()) {
       this.messages.push({role: 'user', text: this.userInput});
       this.messagesSubject.next(this.messages);

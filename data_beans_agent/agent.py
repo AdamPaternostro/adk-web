@@ -56,3 +56,22 @@ root_agent = LlmAgent(
     # allow_transfer=True is often implicit with sub_agents in AutoFlow
     sub_agents=[search_agent, bigquery_agent, datacatalog_agent]
 )
+
+# --- AdamService Agent Definition ---
+from .adam import adam_html_tool
+
+adam_service_agent = LlmAgent(
+    name="AdamService",
+    description="Provides HTML content for the /adam command.",
+    tools=[adam_html_tool],
+    model="gemini-1.0-pro" # Placeholder if model is mandatory by LlmAgent
+    # Ideally, this agent would not use an LLM for this simple tool.
+    # The ADK framework might have a simpler agent base class or configuration for this.
+)
+
+# Note: For this `adam_service_agent` to be discoverable and callable:
+# 1. The ADK server process needs to be aware of it. If the server loads all agents
+#    from this module or a specified directory, this definition might be sufficient.
+# 2. The `/list-apps` endpoint should ideally now include "AdamService".
+# 3. The `/run_sse` endpoint should be able to route requests to it
+#    when `appName: "AdamService"` is specified in the AgentRunRequest.
