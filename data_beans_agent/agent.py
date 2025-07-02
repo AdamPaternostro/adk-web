@@ -56,6 +56,3 @@ root_agent = LlmAgent(
     # allow_transfer=True is often implicit with sub_agents in AutoFlow
     sub_agents=[search_agent, bigquery_agent, datacatalog_agent]
 )
-# User asks "My payment failed" -> Coordinator's LLM should call transfer_to_agent(agent_name='Billing')
-# User asks "I can't log in" -> Coordinator's LLM should call transfer_to_agent(agent_name='Support')
-

@@ -414,6 +414,28 @@ export class ChatComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
 
+    // Handle /adam test command
+    if (trimmedInput.toLowerCase() === '/adam') {
+      const hardcodedHtml = `
+        <style>
+          .adam-test { margin: 10px; padding: 10px; border: 1px solid blue; background-color: lightblue;}
+          .adam-test h1 { color: navy; }
+        </style>
+        <div class="adam-test">
+          <h1>Hello Adam!</h1>
+          <p>This is a hardcoded HTML test for the <code>/adam</code> command.</p>
+          <ul><li>Item 1</li><li>Item 2</li></ul>
+        </div>`;
+      this.insertMessageBeforeLoadingMessage({
+        role: 'bot', // Or 'system'
+        htmlContent: hardcodedHtml,
+        isTable: true, // We reuse this flag for simplicity, or could add 'isCustomHtml'
+      });
+      this.userInput = '';
+      this.changeDetectorRef.detectChanges();
+      return;
+    }
+
 
     // Add user message
     if (!!this.userInput.trim()) {
@@ -430,7 +452,7 @@ export class ChatComponent implements OnInit, AfterViewInit, OnDestroy {
       this.messages.push({ role: 'user', attachments: messageAttachments });
       this.messagesSubject.next(this.messages);
     }
-
+    
     this.expectingHtmlJson = false; // Reset if it's a normal message
 
     const req: AgentRunRequest = {
