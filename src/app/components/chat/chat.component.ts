@@ -498,7 +498,30 @@ export class ChatComponent implements OnInit, AfterViewInit, OnDestroy {
       const toolName = part.functionResponse.name;
       const responsePayload = part.functionResponse.response;
 
+      // --- START ADK CHANGE for run_bigquery_sql ---
+      if (toolName === 'run_bigquery_sql' && responsePayload &&
+          responsePayload.status === 'success' && responsePayload.sql_type === 'SELECT' &&
+          responsePayload.sql && Array.isArray(responsePayload.rows)) {
+        
+        const sqlQuery = responsePayload.sql;
+        const rows = responsePayload.rows;
+        const tableHtml = this.generateHtmlTableFromRows(sqlQuery, rows);
+
+        this.insertMessageBeforeLoadingMessage({
+          role: 'bot',
+          htmlContent: tableHtml,
+          eventId: chunkJson.id,
+          timestamp: new Date().toISOString(),
+        });
+        this.storeEvents(part, chunkJson, index); // Log the original event
+        this.changeDetectorRef.detectChanges();
+        return; // Handled run_bigquery_sql
+      }
+      // --- END ADK CHANGE for run_bigquery_sql ---
+
       // --- START PROPOSED CHANGE for adam_html_tool ---
+      // Ensure this is an else if if run_bigquery_sql is added above.
+      // For now, keeping it as if, assuming it's exclusive or handled by return.
       if (toolName === 'adam_html_tool' && responsePayload && typeof responsePayload.html === 'string') {
         // Optional: Add your specific debug message here if you still want it
         this.displayToolProgressMessage(toolName, "Received HTML content", chunkJson.id);
@@ -517,6 +540,7 @@ export class ChatComponent implements OnInit, AfterViewInit, OnDestroy {
       // --- END PROPOSED CHANGE for adam_html_tool ---
 
       // Check if this is from google_search and has the new structure
+      // Ensure this is an else if if other conditions are added above.
       if (toolName === 'google_search' && responsePayload &&
         Array.isArray(responsePayload.progress_updates) && responsePayload.final_tool_result) {
         // ... (existing google_search logic remains the same)
@@ -1764,5 +1788,112 @@ export class ChatComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     return htmlOutput;
+  }
+
+  // Generates HTML table from an array of row objects and an SQL query
+  private generateHtmlTableFromRows(sqlQuery: string, rows: any[]): string {
+    let html = `
+    <style>
+      .dynamic-table-container {
+        font-family: Arial, sans-serif; /* Fallback font */
+        margin-top: 10px;
+        margin-bottom: 20px;
+      }
+      .sql-query-display {
+        background-color: #f0f0f0; /* Keeping this distinct for the query block */
+        padding: 10px;
+        border: 1px solid #dfe1e5; /* Aligning border with table */
+        border-radius: 4px;
+        margin-bottom: 10px;
+        white-space: pre-wrap;
+        word-break: break-all;
+        font-family: monospace;
+        font-size: 0.9em;
+        color: #202124; /* Text color for query */
+      }
+      /* General Table Styles */
+      .google-table {
+          border-collapse: collapse;
+          width: 100%;
+          font-family: Arial, sans-serif;
+          font-size: 14px;
+          border: 1px solid #dfe1e5;
+          box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.20);
+      }
+
+      /* Header Styles */
+      .google-table thead tr {
+          background-color: #4285F4; /* Google Blue */
+          color: #ffffff;           /* White Text */
+          text-align: left;
+      }
+
+      /* Cell Padding & Alignment */
+      .google-table th,
+      .google-table td {
+          padding: 12px 15px;
+          text-align: left;
+      }
+
+      /* Row Borders */
+      .google-table tbody tr {
+          border-bottom: 1px solid #dfe1e5;
+      }
+
+      /* Row Striping (Odd & Even) */
+      .google-table tbody tr:nth-child(odd) {
+          background-color: #f2f2f2; /* Light Grey Background */
+          color: #202124;           /* Black/Dark Text */
+      }
+
+      .google-table tbody tr:nth-child(even) {
+          background-color: #ffffff; /* White Background */
+          color: #202124;           /* Black/Dark Text */
+      }
+
+      /* Optional Hover Effect */
+      .google-table tbody tr:hover {
+          background-color: #e8f0fe;
+      }
+      .no-data-message {
+        color: #202124; /* Align text color */
+        font-style: italic;
+        padding: 10px;
+        text-align: center; /* Center message if table is empty */
+      }
+    </style>
+    <div class="dynamic-table-container">
+      <div class="sql-query-display"><pre><code>${sqlQuery}</code></pre></div>
+    `;
+
+    if (!rows || rows.length === 0) {
+      html += "<p class='no-data-message'>No data returned from the query.</p>";
+      html += "</div>"; // Close dynamic-table-container
+      return html;
+    }
+
+    // Assuming all objects in rows have the same keys as the first object
+    const headers = Object.keys(rows[0]);
+
+    html += "<table class='google-table'><thead><tr>";
+    headers.forEach(header => {
+      // Simple formatting for headers (replace underscores, capitalize)
+      const formattedHeader = header.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+      html += `<th>${formattedHeader}</th>`;
+    });
+    html += "</tr></thead><tbody>";
+
+    rows.forEach(row => {
+      html += "<tr>";
+      headers.forEach(header => {
+        const value = row[header];
+        html += `<td>${value !== null && value !== undefined ? value : 'N/A'}</td>`;
+      });
+      html += "</tr>";
+    });
+
+    html += "</tbody></table>";
+    html += "</div>"; // Close dynamic-table-container
+    return html;
   }
 }

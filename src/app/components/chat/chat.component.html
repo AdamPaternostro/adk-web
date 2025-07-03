@@ -291,8 +291,10 @@
               <div class="thought-chip">Thought</div>
               }
               <div>
-                @if (message.htmlContent) { 
-                <div [innerHTML]="sanitizeHtml(message.htmlContent)"></div>
+                @if (message.htmlContent) {
+                <div class="thought-chip" style="width: 200px;">BigQuery Results</div>
+                <div class="message-text" [innerHTML]="sanitizeHtml(message.htmlContent)"
+                  [ngStyle]="{color: '#9aa0a6'}"></div>
                 } @else if (message.text) {
                 @if (message.isEditing) {
                 <div class="edit-message-container">

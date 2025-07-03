@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google-Styled Table</title>
+    <style>
+        /* This targets the entire table */
+        .google-table {
+            border-collapse: collapse; /* Removes space between cell borders */
+            width: 100%;
+            font-family: Arial, sans-serif; /* A font commonly used by Google */
+            font-size: 14px;
+            border: 1px solid #dfe1e5; /* Light grey border for the table */
+            box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.20);
+        }
+
+        /* Styles for the header row */
+        .google-table thead tr {
+            background-color: #4285F4; /* Google Blue */
+            color: #ffffff; /* White text */
+            text-align: left;
+        }
+
+        /* Styles for header cells (th) and data cells (td) */
+        .google-table th,
+        .google-table td {
+            padding: 12px 15px; /* Adds space inside each cell */
+            text-align: left;
+        }
+
+        /* Styles for the table body rows */
+        .google-table tbody tr {
+            border-bottom: 1px solid #dfe1e5; /* Separator line between rows */
+        }
+        
+        /* Styles for ODD rows in the table body */
+        .google-table tbody tr:nth-child(odd) {
+            background-color: #f2f2f2; /* Light Grey background */
+            color: #202124; /* Google's standard dark text color */
+        }
+
+        /* Styles for EVEN rows in the table body */
+        .google-table tbody tr:nth-child(even) {
+            background-color: #ffffff; /* White background */
+            color: #202124; /* Google's standard dark text color */
+        }
+
+        /* Optional: Add a hover effect for better user experience */
+        .google-table tbody tr:hover {
+            background-color: #e8f0fe; /* A very light blue for hover */
+        }
+
+    </style>
+</head>
+<body>
+
+    <h2>Google-Styled Data Table</h2>
+
+    <table class="google-table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Launch Year</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Google Search</td>
+                <td>1998</td>
+                <td>Active</td>
+            </tr>
+            <tr>
+                <td>Gmail</td>
+                <td>2004</td>
+                <td>Active</td>
+            </tr>
+            <tr>
+                <td>Google Maps</td>
+                <td>2005</td>
+                <td>Active</td>
+            </tr>
+            <tr>
+                <td>Google Wave</td>
+                <td>2009</td>
+                <td>Discontinued</td>
+            </tr>
+            <tr>
+                <td>Google+</td>
+                <td>2011</td>
+                <td>Discontinued</td>
+            </tr>
+             <tr>
+                <td>Google Chrome</td>
+                <td>2008</td>
+                <td>Active</td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

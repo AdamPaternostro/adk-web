@@ -2,8 +2,8 @@ import datetime
 def adam_html_tool() -> dict:
     """Returns a predefined HTML block for the /adam command."""
     html_content = """<style>
-          .adam-test { "margin": "10p"x; "padding": 10px; "border": "1px solid blue"; "background-color": "lightblue";}
-          .adam-test h1 { "color": "navy"; }
+          .adam-test { margin: 10px; padding: 10px; border: 1px solid blue; background-color: lightblue;}
+          .adam-test h1 { color: navy; }
         </style>
         <div class="adam-test">
           <h1>Hello from Python</h1>
