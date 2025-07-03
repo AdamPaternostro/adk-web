@@ -39,6 +39,8 @@ AI LLM Agents that you can use to answer questions:
 - DataCatalog: 
     - Assists with searching the data catalog.
     - Assists with getting the data governance tags on a table (aspect types).
+- ChartTool: 
+    - Only should be called when the user types 'show me a chart'.
 
 Rules:
 - Do not call the same tool agent with the EXACT same parameters to prevent yourself from looping.
@@ -56,9 +58,17 @@ adam_service_agent = LlmAgent(
     name="AdamService",
     description="Provides HTML content for the /adam command.",
     tools=[adam_html_tool],
-    model="gemini-2.5-flash" # Placeholder if model is mandatory by LlmAgent
-    # Ideally, this agent would not use an LLM for this simple tool.
-    # The ADK framework might have a simpler agent base class or configuration for this.
+    model="gemini-2.5-flash"
+)
+
+# --- ConversationalAnalyticsService Agent Definition ---
+from .conversational_analytics_query import chart_tool
+
+chart_agent = LlmAgent(
+    name="ConversationalAnalyticsService",
+    description="Only should be called when the user types 'show me a chart'.",
+    tools=[chart_tool],
+    model="gemini-2.5-flash" 
 )
 
 from google.adk.planners import BuiltInPlanner
@@ -70,16 +80,7 @@ root_agent = LlmAgent(
     instruction=coordinator_system_prmompt,
     description="Main help desk router.",
     # allow_transfer=True is often implicit with sub_agents in AutoFlow
-    sub_agents=[search_agent, bigquery_agent, datacatalog_agent, adam_service_agent],
+    sub_agents=[search_agent, bigquery_agent, datacatalog_agent, adam_service_agent, chart_agent],
         planner=BuiltInPlanner(
         thinking_config=ThinkingConfig(include_thoughts=True))
 )
-
-
-
-# Note: For this `adam_service_agent` to be discoverable and callable:
-# 1. The ADK server process needs to be aware of it. If the server loads all agents
-#    from this module or a specified directory, this definition might be sufficient.
-# 2. The `/list-apps` endpoint should ideally now include "AdamService".
-# 3. The `/run_sse` endpoint should be able to route requests to it
-#    when `appName: "AdamService"` is specified in the AgentRunRequest.

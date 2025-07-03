@@ -784,3 +784,30 @@ button {
   font-style: normal;
   font-weight: 400;
 }
+
+.vega-chart-placeholder {
+  min-height: 200px; // Default minimum height, adjust as needed
+  width: 100%; // Ensure it takes available width within message card
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #2e2e2e; // Slightly different from card background for visibility
+  border: 1px dashed #5f6368; // Subtle dashed border
+  border-radius: 4px; // Consistent with other elements
+  color: #9aa0a6; // Placeholder text color
+  font-style: italic;
+  text-align: center;
+  padding: 10px;
+  box-sizing: border-box;
+
+  // If Vega-embed creates a child div that needs to be 100% width too
+  & > div {
+    width: 100%;
+  }
+}
+
+// Ensure the placeholder (and thus the chart) can use the width of the .has-html-content card
+.message-card.has-html-content .vega-chart-placeholder {
+  // The width: 100% above should suffice, this is more of a reinforcement
+  // if the parent .message-card.has-html-content dictates a specific width.
+}

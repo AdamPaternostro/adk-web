@@ -26,6 +26,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { instance } from '@viz-js/viz';
+import vegaEmbed from 'vega-embed';
 import { BehaviorSubject, catchError, combineLatest, distinctUntilChanged, filter, map, Observable, of, shareReplay, switchMap, take, tap } from 'rxjs';
 import stc from 'string-to-color';
 
@@ -140,6 +141,7 @@ export class ChatComponent implements OnInit, AfterViewInit, OnDestroy {
     new BehaviorSubject<any | null>(null);
   private readonly scrollInterruptedSubject = new BehaviorSubject(true);
   private readonly isModelThinkingSubject = new BehaviorSubject(false);
+  private currentTurnProcessedVegaChartKey: string | null = null;
 
   // TODO: Remove this once backend supports restarting bidi streaming.
   sessionHasUsedBidi = new Set<string>();
@@ -284,16 +286,18 @@ export class ChatComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     });
 
-    combineLatest([
-      this.messagesSubject, this.scrollInterruptedSubject,
-      this.streamingTextMessageSubject
-    ]).subscribe(([messages, scrollInterrupted, streamingTextMessage]) => {
-      if (!scrollInterrupted) {
-        setTimeout(() => {
-          this.scrollToBottom();
-        }, 100);
-      }
-    });
+    // Scroll to bottom logic was moved to ngAfterViewChecked
+    // Old combineLatest for scrolling:
+    // combineLatest([
+    //   this.messagesSubject, this.scrollInterruptedSubject,
+    //   this.streamingTextMessageSubject
+    // ]).subscribe(([messages, scrollInterrupted, streamingTextMessage]) => {
+    //   if (!scrollInterrupted) {
+    //     setTimeout(() => {
+    //       this.scrollToBottom();
+    //     }, 100);
+    //   }
+    // });
 
     this.traceService.selectedTraceRow$.subscribe(node => {
       const eventId = node?.attributes['gcp.vertex.agent.event_id']
@@ -310,15 +314,59 @@ export class ChatComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     this.showSidePanel = true;
     this.sideDrawer.open();
+    this.previousMessageCount = this.messages.length; // Initialize here
+  }
+
+  ngAfterViewChecked() {
+    // Vega chart rendering logic
+    for (const message of this.messages) {
+      if (message.vegaSpec && message.chartContainerId) { // Removed !message.vegaChartRenderedSuccessfully check from here
+        const elem = this.document.getElementById(message.chartContainerId);
+        if (elem) {
+          // If the placeholder is empty OR our 'rendered' flag isn't successfully set true, attempt to render/re-render.
+          if (elem.innerHTML.trim() === '' || !message.vegaChartRenderedSuccessfully) {
+            // console.log(`Vega placeholder ${message.chartContainerId} needs rendering. Current success flag: ${message.vegaChartRenderedSuccessfully}`);
+            elem.innerHTML = ''; // Clear placeholder in case of previous error message or if it's just an empty div
+            try {
+              vegaEmbed(elem, message.vegaSpec, { actions: false })
+                .then(() => {
+                  // console.log(`Vega chart successfully rendered/re-rendered: ${message.chartContainerId}`);
+                  message.vegaChartRenderedSuccessfully = true;
+                })
+                .catch((error: any) => { // Added type for error
+                  console.error(`Vega embed error for ${message.chartContainerId}:`, error);
+                  elem.innerHTML = `<p style="color: red; font-style: italic; text-align: center;">Error rendering chart: ${error?.message || 'Unknown error'}</p>`;
+                  message.vegaChartRenderedSuccessfully = false;
+                });
+            } catch (error: any) { // Added type for error
+              console.error(`General error embedding Vega for ${message.chartContainerId}:`, error);
+              elem.innerHTML = `<p style="color: red; font-style: italic; text-align: center;">Failed to render chart: ${error?.message || 'Unknown error'}</p>`;
+              message.vegaChartRenderedSuccessfully = false;
+            }
+          }
+        }
+      }
+    }
+
+    // Scroll to bottom logic, moved from ngOnInit's combineLatest
+    // This ensures scrolling happens after view is checked and potentially updated by Vega
+    if (this.messages.length !== this.previousMessageCount) {
+      if (!this.scrollInterruptedSubject.getValue()) {
+        this.scrollToBottom();
+      }
+      this.previousMessageCount = this.messages.length;
+    }
   }
 
   scrollToBottom() {
     setTimeout(() => {
-      this.scrollContainer.nativeElement.scrollTo({
-        top: this.scrollContainer.nativeElement.scrollHeight,
-        behavior: 'smooth',
-      });
-    });
+      if (this.scrollContainer && this.scrollContainer.nativeElement) {
+        this.scrollContainer.nativeElement.scrollTo({
+          top: this.scrollContainer.nativeElement.scrollHeight,
+          behavior: 'smooth',
+        });
+      }
+    }, 100); // Delay to allow DOM updates
   }
 
   selectApp(appName: string) {
@@ -388,6 +436,7 @@ export class ChatComponent implements OnInit, AfterViewInit, OnDestroy {
       });
     }
     this.scrollInterruptedSubject.next(false);
+    this.currentTurnProcessedVegaChartKey = null; // Reset for the new turn/agent response stream
 
     event.preventDefault();
     if (!this.userInput.trim() && this.selectedFiles.length <= 0) return;
@@ -519,10 +568,63 @@ export class ChatComponent implements OnInit, AfterViewInit, OnDestroy {
       }
       // --- END ADK CHANGE for run_bigquery_sql ---
 
+      // --- START ADK CHANGE for conversational_analytics_query (Vega charts) ---
+      else if (toolName === 'chart_tool' && responsePayload &&
+               responsePayload.status === 'success' && responsePayload.ca_result) { // No longer check typeof ca_result === 'string'
+        try {
+          const caResultObject = responsePayload.ca_result; // Assume ca_result is already an object
+          const chartIdFromTool = caResultObject.systemMessage?.chart?.result?.chartId; // Extract tool-provided chartId
+          const vegaSpec = caResultObject.systemMessage?.chart?.result?.vegaConfig;
+
+          console.log('VEGA_DEBUG: Found vegaConfig. Tool chartId:', chartIdFromTool, 'chunkJson.id:', chunkJson.id, 'currentTurnProcessedVegaChartKey:', this.currentTurnProcessedVegaChartKey);
+
+          if (vegaSpec) {
+            if (this.currentTurnProcessedVegaChartKey === null) {
+              // This is the first Vega spec encountered in this agent response stream.
+              this.currentTurnProcessedVegaChartKey = chartIdFromTool || chunkJson.id; // Prefer tool's chartId if consistent for the stream
+              console.log('VEGA_DEBUG: Processing FIRST vegaSpec for this agent response stream. Key set to:', this.currentTurnProcessedVegaChartKey);
+
+              const chartContainerId = `vega-chart-${new Date().getTime()}-${Math.random().toString(36).substring(2, 9)}`;
+              const vegaMessage = {
+                role: 'bot',
+                htmlContent: `<div id="${chartContainerId}" class="vega-chart-placeholder"></div>`,
+                vegaSpec: vegaSpec,
+                chartContainerId: chartContainerId,
+                vegaChartRenderedSuccessfully: false, 
+                eventId: chunkJson.id,
+                timestamp: new Date().toISOString(),
+                processedWithKey: this.currentTurnProcessedVegaChartKey // For potential debugging
+              };
+              this.insertMessageBeforeLoadingMessage(vegaMessage);
+              this.storeEvents(part, chunkJson, index);
+              this.changeDetectorRef.detectChanges();
+              // Note: Vega rendering will happen in ngAfterViewChecked.
+              // We only return if we *actually* process and add the message.
+              // If currentTurnProcessedVegaChartKey was already set, we fall through (though the return below would catch it).
+              // For safety, if we add the message, we should return.
+              return; 
+            } else {
+              // A Vega chart has already been initiated for this agent response stream.
+              console.log('VEGA_DEBUG: Skipping subsequent vegaSpec in same agent response stream. Stream Key:', this.currentTurnProcessedVegaChartKey, 'Current tool chartId:', chartIdFromTool, 'chunkJson.id:', chunkJson.id);
+              return; // Explicitly return to skip this part
+            }
+          } else {
+            // Handle case where vegaConfig is not found in ca_result but tool name matched
+             this.displayToolProgressMessage(toolName, "Tool response received, but no vegaConfig field found.", chunkJson.id);
+          }
+        } catch (e: any) { 
+          console.error('Error processing chart_tool ca_result:', e);
+           this.displayToolProgressMessage(toolName, "Error parsing or processing chart data.", e?.toString());
+        }
+        // If we fell through (e.g. no vegaSpec, or error), we still need to decide if this part is fully handled.
+        // Given the return statements above, if we reach here, it means an error occurred or no spec was found.
+        // It might be better to return here as well to prevent default processing if the tool was matched.
+        return; 
+      }
+      // --- END ADK CHANGE for conversational_analytics_query (Vega charts) ---
+
       // --- START PROPOSED CHANGE for adam_html_tool ---
-      // Ensure this is an else if if run_bigquery_sql is added above.
-      // For now, keeping it as if, assuming it's exclusive or handled by return.
-      if (toolName === 'adam_html_tool' && responsePayload && typeof responsePayload.html === 'string') {
+      else if (toolName === 'adam_html_tool' && responsePayload && typeof responsePayload.html === 'string') {
         // Optional: Add your specific debug message here if you still want it
         this.displayToolProgressMessage(toolName, "Received HTML content", chunkJson.id);
 
