@@ -265,9 +265,10 @@
           </button>
           }
           @if (!message.functionCall && !message.functionResponse) {
-          <mat-card class="message-card" [ngClass]="{ 'eval-fail': message.evalStatus === 2 }" [ngStyle]="{
-                    'background-color': shouldMessageHighlighted(i) ? 'rgb(15, 82, 35)' : ''
-                  }">
+          <mat-card class="message-card" 
+                    [class.has-html-content]="!!message.htmlContent"
+                    [ngClass]="{ 'eval-fail': message.evalStatus === 2 }" 
+                    [ngStyle]="{ 'background-color': shouldMessageHighlighted(i) ? 'rgb(15, 82, 35)' : '' }">
             @if (message.isLoading) {
             <mat-progress-bar class="loading-bar" mode="buffer"></mat-progress-bar>
             }
@@ -291,10 +292,8 @@
               <div class="thought-chip">Thought</div>
               }
               <div>
-                @if (message.htmlContent) {
-                <div class="thought-chip" style="width: 200px;">BigQuery Results</div>
-                <div class="message-text" [innerHTML]="sanitizeHtml(message.htmlContent)"
-                  [ngStyle]="{color: '#9aa0a6'}"></div>
+                @if (message.htmlContent) { 
+                <div [innerHTML]="sanitizeHtml(message.htmlContent)"></div>
                 } @else if (message.text) {
                 @if (message.isEditing) {
                 <div class="edit-message-container">

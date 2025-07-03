@@ -1861,38 +1861,41 @@ export class ChatComponent implements OnInit, AfterViewInit, OnDestroy {
         padding: 10px;
         text-align: center; /* Center message if table is empty */
       }
+      /* .scrollable-table-wrapper removed */
     </style>
     <div class="dynamic-table-container">
       <div class="sql-query-display"><pre><code>${sqlQuery}</code></pre></div>
-    `;
+      `; // dynamic-table-container still open
 
     if (!rows || rows.length === 0) {
       html += "<p class='no-data-message'>No data returned from the query.</p>";
-      html += "</div>"; // Close dynamic-table-container
-      return html;
-    }
+    } else {
+      // Add "Row" header
+      const headers = ["Row", ...Object.keys(rows[0])];
+      html += "<table class='google-table'><thead><tr>";
 
-    // Assuming all objects in rows have the same keys as the first object
-    const headers = Object.keys(rows[0]);
-
-    html += "<table class='google-table'><thead><tr>";
-    headers.forEach(header => {
-      // Simple formatting for headers (replace underscores, capitalize)
-      const formattedHeader = header.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-      html += `<th>${formattedHeader}</th>`;
-    });
-    html += "</tr></thead><tbody>";
-
-    rows.forEach(row => {
-      html += "<tr>";
       headers.forEach(header => {
-        const value = row[header];
-        html += `<td>${value !== null && value !== undefined ? value : 'N/A'}</td>`;
+        // Simple formatting for headers (replace underscores, capitalize)
+        const formattedHeader = header === "Row" ? "Row" : header.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+        html += `<th>${formattedHeader}</th>`;
       });
-      html += "</tr>";
-    });
+      html += "</tr></thead><tbody>";
 
-    html += "</tbody></table>";
+      rows.forEach((row, index) => {
+        html += "<tr>";
+        // Add row number cell
+        html += `<td>${index + 1}</td>`; 
+        // Add data cells
+        Object.keys(rows[0]).forEach(headerKey => { // Iterate using original keys to fetch data
+          const value = row[headerKey];
+          html += `<td>${value !== null && value !== undefined ? value : 'N/A'}</td>`;
+        });
+        html += "</tr>";
+      });
+
+      html += "</tbody></table>";
+    } // End of else (where rows exist)
+    // No scrollable-table-wrapper div to close here
     html += "</div>"; // Close dynamic-table-container
     return html;
   }

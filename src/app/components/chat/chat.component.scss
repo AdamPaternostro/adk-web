@@ -101,11 +101,17 @@
   padding: 5px 20px;
   margin: 5px;
   border-radius: 20px;
-  max-width: 80%;
+  max-width: 80%; /* Reverted from 95% */
   font-size: 14px;
   font-weight: 400;
   position: relative;
   display: inline-block;
+}
+
+.message-card.has-html-content {
+  max-width: 95%;
+  /* Ensures the table content can use this width. The table inside htmlContent
+     already has width: 100% from its own styles. */
 }
 
 .function-event-button {
