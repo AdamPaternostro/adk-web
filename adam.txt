@@ -1,1 +1,160 @@
 npm install string-to-color
+
+
+Run this in two seperate terms
+npm run serve --backend=http://localhost:8000 in one window
+adk api_server --allow_origins=http://localhost:4200 --host=0.0.0.0
+
+
+
+data: {"content":{"parts":[{"functionCall":{"id":"adk-9da89875-85aa-4ecf-920d-45a1af35b70c","args":{"agent_name":"Coordinator"},"name":"transfer_to_agent"}}],"role":"model"},"usageMetadata":{"candidatesTokenCount":9,"candidatesTokensDetails":[{"modality":"TEXT","tokenCount":9}],"promptTokenCount":22731,"promptTokensDetails":[{"modality":"TEXT","tokenCount":22731}],"thoughtsTokenCount":102,"totalTokenCount":22842,"trafficType":"ON_DEMAND"},"invocationId":"e-4ad516ad-f638-4286-b747-8cb7ed75f667","author":"Search","actions":{"stateDelta":{},"artifactDelta":{},"requestedAuthConfigs":{}},"longRunningToolIds":[],"id":"A8ix0NJF","timestamp":1751636969.761009}
+
+data: {"content":{"parts":[{"functionResponse":{"id":"adk-9da89875-85aa-4ecf-920d-45a1af35b70c","name":"transfer_to_agent","response":{"result":null}}}],"role":"user"},"invocationId":"e-4ad516ad-f638-4286-b747-8cb7ed75f667","author":"Search","actions":{"stateDelta":{},"artifactDelta":{},"transferToAgent":"Coordinator","requestedAuthConfigs":{}},"id":"GPpNXLAJ","timestamp":1751636972.45274}
+
+data: {"content":{"parts":[{"thought":true,"text":"Okay, here's what I'm thinking. The user just gave me \"PATERNOSTRO.\" Right away, I know I need more information. This single word could be anything! So, my first move is clear: **Search**. The `Search` agent is the perfect tool here. It's designed to handle these open-ended queries.\n\nI'll use the `google_search` tool. The only parameter I have to provide is the `search_query`, and that's easy – it's just \"PATERNOSTRO.\" The goal is to get some context. Is it a surname? A location? A company? Something else entirely? The search results will give me a starting point.\n\nAfter the results come in, I'll analyze them carefully. The response dictates my next step. If it's a common surname, I'll ask the user to clarify. \"Are you interested in the surname, or perhaps the winery?\" If it points to a specific, well-known individual, I can give a brief summary.\n\nI'm anticipating that the user's input is far too broad. Without any further context, I'm essentially shooting in the dark. A basic search is the only logical starting point. The other agents, like `BigQuery` or `DataCatalog`, are just not applicable with such a vague prompt. So, the **Refined Plan** is straightforward: use the Search agent. It's the only way to make any headway here.\n"},{"functionCall":{"id":"adk-b2bb4c03-8a8c-46dc-8f1e-c740767c1826","args":{"agent_name":"Search"},"name":"transfer_to_agent"}}],"role":"model"},"usageMetadata":{"candidatesTokenCount":9,"candidatesTokensDetails":[{"modality":"TEXT","tokenCount":9}],"promptTokenCount":23203,"promptTokensDetails":[{"modality":"TEXT","tokenCount":23203}],"thoughtsTokenCount":486,"totalTokenCount":23698,"trafficType":"ON_DEMAND"},"invocationId":"e-4ad516ad-f638-4286-b747-8cb7ed75f667","author":"Coordinator","actions":{"stateDelta":{},"artifactDelta":{},"requestedAuthConfigs":{}},"longRunningToolIds":[],"id":"vMgugpTg","timestamp":1751636972.454497}
+
+data: {"content":{"parts":[{"functionResponse":{"id":"adk-b2bb4c03-8a8c-46dc-8f1e-c740767c1826","name":"transfer_to_agent","response":{"result":null}}}],"role":"user"},"invocationId":"e-4ad516ad-f638-4286-b747-8cb7ed75f667","author":"Coordinator","actions":{"stateDelta":{},"artifactDelta":{},"transferToAgent":"Search","requestedAuthConfigs":{}},"id":"0q8kaj55","timestamp":1751636982.813123}
+
+
+
+DEBUG:
+
+curl http://localhost:8000/apps/data_beans_agent/users/user/sessions/b6cd3766-1479-4015-a424-a56d4732a2df > adam.txt
+
+curl http://localhost:8000/run_sse
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'text/event-stream',
+        },
+
+ADAM req:
+
+- WOW to call the backend
+- if partial:true then for streaming = true, this is just the model "thought process"
+ - if no partial attribute then we have the final answer.
+
+curl --request POST \
+    "http://localhost:8000/run_sse" \
+    --header "Accept: text/event-stream" \
+    --header "Content-Type: application/json" \
+    --data '{"appName":"data_beans_agent","userId":"user","sessionId":"b6cd3766-1479-4015-a424-a56d4732a2df","newMessage":{"role":"user","parts":[{"text":"What is the current time in London?"}]},"streaming":false}'
+
+curl --request POST \
+    "http://localhost:8000/run_sse" \
+    --header "Accept: text/event-stream" \
+    --header "Content-Type: application/json" \
+    --data '{"appName":"data_beans_agent","userId":"user","sessionId":"b6cd3766-1479-4015-a424-a56d4732a2df","newMessage":{"role":"user","parts":[{"text":"Count the orders by product and product category."}]},"streaming":false}'
+
+
+curl --request POST \
+    "http://localhost:8000/run_sse" \
+    --header "Accept: text/event-stream" \
+    --header "Content-Type: application/json" \
+    --data '{"appName":"data_beans_agent","userId":"user","sessionId":"b6cd3766-1479-4015-a424-a56d4732a2df","newMessage":{"role":"user","parts":[{"text":"Tell me the news"}]},"streaming":true}'
+
+
+
+
+
+  createSession(userId: string, appName: string) {
+    if (this.apiServerDomain != undefined) {
+      const url =
+          this.apiServerDomain + `/apps/${appName}/users/${userId}/sessions`;
+      return this.http.post<any>(url, null);
+    }
+    return new Observable<any>();
+  }
+
+  {
+    "agent" : "hi",
+    "sort-by" : 10
+
+  }
+
+  {
+    "amy": "she is the best"
+  }
+
+
+
+  curl --request POST \
+    "http://localhost:8000/run_sse" \
+    --header "Accept: text/event-stream" \
+    --header "Content-Type: application/json" \
+    --data '{"appName":"data_beans_agent","userId":"user","sessionId":"b6cd3766-1479-4015-a424-a56d4732a2df","newMessage":{"role":"user","parts":[{"text":"What events are happening in tampa,fl today?"}]},"streaming":true}'
+
+
+Deploy:
+
+gcloud services enable cloudbuild.googleapis.com
+gcloud services enable artifactregistry.googleapis.com
+gcloud services enable cloudbuild.googleapis.com
+gcloud services enable run.googleapis.com
+
+gcloud config set project governed-data-1pqzajgatl
+gcloud auth application-default set-quota-project governed-data-1pqzajgatl
+
+GRANT vertex ai user to the Cloud Run service account
+
+export GOOGLE_GENAI_USE_VERTEXAI=True
+export GOOGLE_CLOUD_PROJECT="governed-data-1pqzajgatl"
+export GOOGLE_CLOUD_LOCATION="us-central1" # Example location
+export AGENT_PATH="./data_beans_agent" # Assuming capital_agent is in the current directory
+export SERVICE_NAME="data-beans-agent-service-01"
+export APP_NAME="data_beans_agent" # MUST Match directo or name?????? (errored when different)
+
+adk deploy cloud_run \
+--project=$GOOGLE_CLOUD_PROJECT \
+--region=$GOOGLE_CLOUD_LOCATION \
+--service_name=$SERVICE_NAME \
+--app_name=$APP_NAME \
+--with_ui \
+$AGENT_PATH
+
+
+export APP_URL="https://data-beans-agent-service-601982832853.us-central1.run.app"
+export APP_URL="https://data-beans-agent-service-01-601982832853.us-central1.run.app"
+export TOKEN=$(gcloud auth print-identity-token)
+curl -X GET -H "Authorization: Bearer $TOKEN" $APP_URL/list-apps
+
+curl -X POST -H "Authorization: Bearer $TOKEN" \
+    $APP_URL/apps/data_beans_agent/users/user_123/sessions/session_abc \
+    -H "Content-Type: application/json" \
+    -d '{"state": {"preferred_language": "English", "visit_count": 5}}'
+
+curl -X POST -H "Authorization: Bearer $TOKEN" \
+    $APP_URL/run_sse \
+    -H "Content-Type: application/json" \
+    -d '{
+    "app_name": "data_beans_agent",
+    "user_id": "user_123",
+    "session_id": "session_abc",
+    "new_message": {
+        "role": "user",
+        "parts": [{
+        "text": "What is the capital of Canada?"
+        }]
+    },
+    "streaming": false
+    }'    
+
+
+
+curl -X POST -H "Authorization: Bearer $TOKEN" \
+    $APP_URL/run_sse \
+    -H "Content-Type: application/json" \
+    -d '{
+    "app_name": "data_beans_agent",
+    "user_id": "user_123",
+    "session_id": "session_abc",
+    "new_message": {
+        "role": "user",
+        "parts": [{
+        "text": "Count the number of taxi trips by borough and year."
+        }]
+    },
+    "streaming": false
+    }'    
+
+
+    

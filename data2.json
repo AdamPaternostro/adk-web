@@ -1,0 +1,45 @@
+{
+    "content": {
+        "parts": [
+            {
+                "text": "I cannot provide the exact current time in London, as I do not have real-time access to clocks. However, I can tell you that London is currently observing British Summer Time (BST), which is UTC/GMT +1 hour."
+            }
+        ],
+        "role": "model"
+    },
+    "usageMetadata": {
+        "cacheTokensDetails": [
+            {
+                "modality": "TEXT",
+                "tokenCount": 24962
+            }
+        ],
+        "cachedContentTokenCount": 24962,
+        "candidatesTokenCount": 48,
+        "candidatesTokensDetails": [
+            {
+                "modality": "TEXT",
+                "tokenCount": 48
+            }
+        ],
+        "promptTokenCount": 26152,
+        "promptTokensDetails": [
+            {
+                "modality": "TEXT",
+                "tokenCount": 26152
+            }
+        ],
+        "thoughtsTokenCount": 182,
+        "totalTokenCount": 26382,
+        "trafficType": "ON_DEMAND"
+    },
+    "invocationId": "e-cf1d355e-1d26-449b-be3b-a1a6c91d1ff8",
+    "author": "Search",
+    "actions": {
+        "stateDelta": {},
+        "artifactDelta": {},
+        "requestedAuthConfigs": {}
+    },
+    "id": "iqnsKiAk",
+    "timestamp": 1751639022.401013
+}

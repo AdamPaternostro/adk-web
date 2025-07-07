@@ -24,7 +24,7 @@
 
 .drawer-container {
   height: 100%;
-  background-color: #131314;
+  background-color: #f0f0f0;
 }
 
 .generated-image-container {
@@ -82,7 +82,7 @@
   flex: 1;
   min-height: 12%;
   box-shadow: none;
-  background-color: #131314;
+  background-color: #f0f0f0;
 }
 
 .loading-bar {
@@ -267,7 +267,7 @@
   flex-grow: 1;
 
   textarea {
-    color: white;
+    color: rgb(3, 3, 3);
     border: none;
     padding: 10px;
     box-sizing: content-box;

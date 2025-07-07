@@ -1,0 +1,253 @@
+[
+    {
+        "content": {
+            "parts": [
+                {
+                    "functionCall": {
+                        "id": "adk-e9842ede-b21e-4189-bf6e-d48bf5373ea7",
+                        "args": {
+                            "agent_name": "BigQuery"
+                        },
+                        "name": "transfer_to_agent"
+                    }
+                }
+            ],
+            "role": "model"
+        },
+        "usageMetadata": {
+            "candidatesTokenCount": 10,
+            "candidatesTokensDetails": [
+                {
+                    "modality": "TEXT",
+                    "tokenCount": 10
+                }
+            ],
+            "promptTokenCount": 26209,
+            "promptTokensDetails": [
+                {
+                    "modality": "TEXT",
+                    "tokenCount": 26209
+                }
+            ],
+            "thoughtsTokenCount": 112,
+            "totalTokenCount": 26331,
+            "trafficType": "ON_DEMAND"
+        },
+        "invocationId": "e-8febd605-b440-4403-8d0e-2fe1adb4ce61",
+        "author": "Search",
+        "actions": {
+            "stateDelta": {},
+            "artifactDelta": {},
+            "requestedAuthConfigs": {}
+        },
+        "longRunningToolIds": [],
+        "id": "q2RP1Mqe",
+        "timestamp": 1751639357.95284
+    },
+    {
+        "content": {
+            "parts": [
+                {
+                    "functionResponse": {
+                        "id": "adk-e9842ede-b21e-4189-bf6e-d48bf5373ea7",
+                        "name": "transfer_to_agent",
+                        "response": {
+                            "result": null
+                        }
+                    }
+                }
+            ],
+            "role": "user"
+        },
+        "invocationId": "e-8febd605-b440-4403-8d0e-2fe1adb4ce61",
+        "author": "Search",
+        "actions": {
+            "stateDelta": {},
+            "artifactDelta": {},
+            "transferToAgent": "BigQuery",
+            "requestedAuthConfigs": {}
+        },
+        "id": "6Jv7FX57",
+        "timestamp": 1751639360.578287
+    },
+    {
+        "content": {
+            "parts": [
+                {
+                    "functionCall": {
+                        "id": "adk-178afac8-b7af-4d74-89f7-e64c2ef68801",
+                        "args": {
+                            "sql": "\nSELECT\n    tpc.product_category_name,\n    tp.product_name,\n    COUNT(DISTINCT tod.order_id) AS order_count\nFROM\n    `governed-data-1pqzajgatl.governed_data_curated.order_detail` AS tod\nJOIN\n    `governed-data-1pqzajgatl.governed_data_curated.product` AS tp\nON\n    tod.product_id = tp.product_id\nJOIN\n    `governed-data-1pqzajgatl.governed_data_curated.product_category` AS tpc\nON\n    tp.product_category_id = tpc.product_category_id\nGROUP BY\n    tpc.product_category_name,\n    tp.product_name\nORDER BY\n    order_count DESC;\n"
+                        },
+                        "name": "run_bigquery_sql"
+                    }
+                }
+            ],
+            "role": "model"
+        },
+        "usageMetadata": {
+            "candidatesTokenCount": 197,
+            "candidatesTokensDetails": [
+                {
+                    "modality": "TEXT",
+                    "tokenCount": 197
+                }
+            ],
+            "promptTokenCount": 27776,
+            "promptTokensDetails": [
+                {
+                    "modality": "TEXT",
+                    "tokenCount": 27776
+                }
+            ],
+            "thoughtsTokenCount": 2706,
+            "totalTokenCount": 30679,
+            "trafficType": "ON_DEMAND"
+        },
+        "invocationId": "e-8febd605-b440-4403-8d0e-2fe1adb4ce61",
+        "author": "BigQuery",
+        "actions": {
+            "stateDelta": {},
+            "artifactDelta": {},
+            "requestedAuthConfigs": {}
+        },
+        "longRunningToolIds": [],
+        "id": "86WhLRef",
+        "timestamp": 1751639360.585481
+    },
+    {
+        "content": {
+            "parts": [
+                {
+                    "functionResponse": {
+                        "id": "adk-178afac8-b7af-4d74-89f7-e64c2ef68801",
+                        "name": "run_bigquery_sql",
+                        "response": {
+                            "status": "success",
+                            "sql_type": "SELECT",
+                            "sql": "\nSELECT\n    tpc.product_category_name,\n    tp.product_name,\n    COUNT(DISTINCT tod.order_id) AS order_count\nFROM\n    `governed-data-1pqzajgatl.governed_data_curated.order_detail` AS tod\nJOIN\n    `governed-data-1pqzajgatl.governed_data_curated.product` AS tp\nON\n    tod.product_id = tp.product_id\nJOIN\n    `governed-data-1pqzajgatl.governed_data_curated.product_category` AS tpc\nON\n    tp.product_category_id = tpc.product_category_id\nGROUP BY\n    tpc.product_category_name,\n    tp.product_name\nORDER BY\n    order_count DESC;\n",
+                            "job_id": "job_wsxIT_gbHBQQJJgjLLOLrTd20C9A",
+                            "rows": [
+                                {
+                                    "product_category_name": "consumables",
+                                    "product_name": "towel",
+                                    "order_count": "75"
+                                },
+                                {
+                                    "product_category_name": "furniture",
+                                    "product_name": "chair",
+                                    "order_count": "73"
+                                },
+                                {
+                                    "product_category_name": "produce",
+                                    "product_name": "banana",
+                                    "order_count": "70"
+                                },
+                                {
+                                    "product_category_name": "electronics",
+                                    "product_name": "batteries",
+                                    "order_count": "66"
+                                },
+                                {
+                                    "product_category_name": "consumables",
+                                    "product_name": "soap",
+                                    "order_count": "65"
+                                },
+                                {
+                                    "product_category_name": "produce",
+                                    "product_name": "apple",
+                                    "order_count": "63"
+                                },
+                                {
+                                    "product_category_name": "packaged",
+                                    "product_name": "milk",
+                                    "order_count": "62"
+                                },
+                                {
+                                    "product_category_name": "packaged",
+                                    "product_name": "cereal",
+                                    "order_count": "57"
+                                },
+                                {
+                                    "product_category_name": "consumables",
+                                    "product_name": "cleaner",
+                                    "order_count": "51"
+                                },
+                                {
+                                    "product_category_name": "packaged",
+                                    "product_name": "coffee",
+                                    "order_count": "50"
+                                },
+                                {
+                                    "product_category_name": "furniture",
+                                    "product_name": "table",
+                                    "order_count": "37"
+                                },
+                                {
+                                    "product_category_name": "electronics",
+                                    "product_name": "laptop",
+                                    "order_count": "34"
+                                }
+                            ]
+                        }
+                    }
+                }
+            ],
+            "role": "user"
+        },
+        "invocationId": "e-8febd605-b440-4403-8d0e-2fe1adb4ce61",
+        "author": "BigQuery",
+        "actions": {
+            "stateDelta": {},
+            "artifactDelta": {},
+            "requestedAuthConfigs": {}
+        },
+        "id": "TeuCB5Pi",
+        "timestamp": 1751639370.064349
+    },
+    {
+        "content": {
+            "parts": [
+                {
+                    "text": "Here are the order counts by product and product category:\n\n**SQL:**\n```sql\nSELECT\n    tpc.product_category_name,\n    tp.product_name,\n    COUNT(DISTINCT tod.order_id) AS order_count\nFROM\n    `governed-data-1pqzajgatl.governed_data_curated.order_detail` AS tod\nJOIN\n    `governed-data-1pqzajgatl.governed_data_curated.product` AS tp\nON\n    tod.product_id = tp.product_id\nJOIN\n    `governed-data-1pqzajgatl.governed_data_curated.product_category` AS tpc\nON\n    tp.product_category_id = tpc.product_category_id\nGROUP BY\n    tpc.product_category_name,\n    tp.product_name\nORDER BY\n    order_count DESC;\n```\n\n**Results:**\n- Product Category: consumables, Product: towel, Order Count: 75\n- Product Category: furniture, Product: chair, Order Count: 73\n- Product Category: produce, Product: banana, Order Count: 70\n- Product Category: electronics, Product: batteries, Order Count: 66\n- Product Category: consumables, Product: soap, Order Count: 65\n- Product Category: produce, Product: apple, Order Count: 63\n- Product Category: packaged, Product: milk, Order Count: 62\n- Product Category: packaged, Product: cereal, Order Count: 57\n- Product Category: consumables, Product: cleaner, Order Count: 51\n- Product Category: packaged, Product: coffee, Order Count: 50\n- Product Category: furniture, Product: table, Order Count: 37\n- Product Category: electronics, Product: laptop, Order Count: 34"
+                }
+            ],
+            "role": "model"
+        },
+        "usageMetadata": {
+            "cacheTokensDetails": [
+                {
+                    "modality": "TEXT",
+                    "tokenCount": 12929
+                }
+            ],
+            "cachedContentTokenCount": 12929,
+            "candidatesTokenCount": 417,
+            "candidatesTokensDetails": [
+                {
+                    "modality": "TEXT",
+                    "tokenCount": 417
+                }
+            ],
+            "promptTokenCount": 28389,
+            "promptTokensDetails": [
+                {
+                    "modality": "TEXT",
+                    "tokenCount": 28389
+                }
+            ],
+            "thoughtsTokenCount": 47,
+            "totalTokenCount": 28853,
+            "trafficType": "ON_DEMAND"
+        },
+        "invocationId": "e-8febd605-b440-4403-8d0e-2fe1adb4ce61",
+        "author": "BigQuery",
+        "actions": {
+            "stateDelta": {},
+            "artifactDelta": {},
+            "requestedAuthConfigs": {}
+        },
+        "id": "EbB8p4Ga",
+        "timestamp": 1751639370.078199
+    }
+]

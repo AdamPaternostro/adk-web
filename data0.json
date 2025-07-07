@@ -1,0 +1,45 @@
+{
+    "content": {
+        "parts": [
+            {
+                "functionCall": {
+                    "id": "adk-de31daa3-11e9-434a-a14a-fe7e77ed0dc0",
+                    "args": {
+                        "search_query": "current time in London"
+                    },
+                    "name": "google_search"
+                }
+            }
+        ],
+        "role": "model"
+    },
+    "usageMetadata": {
+        "candidatesTokenCount": 10,
+        "candidatesTokensDetails": [
+            {
+                "modality": "TEXT",
+                "tokenCount": 10
+            }
+        ],
+        "promptTokenCount": 25586,
+        "promptTokensDetails": [
+            {
+                "modality": "TEXT",
+                "tokenCount": 25586
+            }
+        ],
+        "thoughtsTokenCount": 40,
+        "totalTokenCount": 25636,
+        "trafficType": "ON_DEMAND"
+    },
+    "invocationId": "e-cf1d355e-1d26-449b-be3b-a1a6c91d1ff8",
+    "author": "Search",
+    "actions": {
+        "stateDelta": {},
+        "artifactDelta": {},
+        "requestedAuthConfigs": {}
+    },
+    "longRunningToolIds": [],
+    "id": "kXic0nBq",
+    "timestamp": 1751639019.125627
+}

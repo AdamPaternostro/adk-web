@@ -52,6 +52,8 @@ export class AgentService {
     this.isLoading.next(true);
     return new Observable<string>((observer) => {
       const self = this;
+      console.log("ADAM URL:" + url)
+      console.log("ADAM req:" + JSON.stringify(req))
       fetch(url, {
         method: 'POST',
         headers: {

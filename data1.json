@@ -1,0 +1,87 @@
+{
+    "content": {
+        "parts": [
+            {
+                "functionResponse": {
+                    "id": "adk-de31daa3-11e9-434a-a14a-fe7e77ed0dc0",
+                    "name": "google_search",
+                    "response": {
+                        "progress_updates": [
+                            {
+                                "type": "progress",
+                                "tool_name": "google_search",
+                                "message": "Starting Google Search for: 'current time in London'"
+                            },
+                            {
+                                "type": "progress",
+                                "tool_name": "google_search",
+                                "message": "Request sent. HTTP Status: 200"
+                            },
+                            {
+                                "type": "progress",
+                                "tool_name": "google_search",
+                                "message": "Processing 10 search results."
+                            }
+                        ],
+                        "final_tool_result": {
+                            "status": "success",
+                            "search-string": "current time in London",
+                            "search-results": [
+                                {
+                                    "title": "Current Local Time in London, England, United Kingdom",
+                                    "snippet": "Time Zone: BST (British Summer Time) UTC/GMT +1 hour. Daylight Saving Time started on Sunday, March 30, 2025 at 1:00 am."
+                                },
+                                {
+                                    "title": "Current time in London, United Kingdom",
+                                    "snippet": "London time change. Next time change is in 4 months and 27 days, set your clock back 1 hour. London summer time (DST) in 2025. Daylight ..."
+                                },
+                                {
+                                    "title": "Current Local Time in the United Kingdom",
+                                    "snippet": "United Kingdom · United Kingdom of Great Britain and Northern Ireland · UK, GBR · London · 1 (Main Country)."
+                                },
+                                {
+                                    "title": "Current time in London",
+                                    "snippet": "Current London time zone is (BST UTC+1) Standard time (GMT, UTC0) will start 26 October 2025. London is 1 hour behind Paris (+1)."
+                                },
+                                {
+                                    "title": "Time in London, United Kingdom - World Time Buddy",
+                                    "snippet": "Find current time in London, United Kingdom and quickly convert it other time zones with this easy-to-use, modern time zone converter."
+                                },
+                                {
+                                    "title": "Current local time in London, United Kingdom",
+                                    "snippet": "Daylight Saving Time ... Receive DST reminders for London, United Kingdom. AddHO. Cheap Hotels; Cheap Flights; Nearby Airports. Cheap Hotels; Cheap Flights ..."
+                                },
+                                {
+                                    "title": "Time in London, United Kingdom now",
+                                    "snippet": "Time zone info for London · Switched to UTC +1 / British Summer Time (BST). · The time was set forward one hour from 01:00AM to 02:00AM local time."
+                                },
+                                {
+                                    "title": "Current Local Time in London, United Kingdom (Greater London ...",
+                                    "snippet": "The time in London is currently 8 hours ahead of the time in America/Los_Angeles. Your determined time zone: America/Los_Angeles · Direct comparison of clock ..."
+                                },
+                                {
+                                    "title": "excel - Show London current time in one cell for users in all ...",
+                                    "snippet": "Aug 31, 2024 ... I would like one cell in my spreadsheet to always show the current time at GMT+0, London. The sheet will be used by people in multiple time zones."
+                                },
+                                {
+                                    "title": "Greenwich Mean Time - Wikipedia",
+                                    "snippet": "Greenwich Mean Time (GMT) is the local mean time at the Royal Observatory in Greenwich, London, counted from midnight. At different times in the past, ..."
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        ],
+        "role": "user"
+    },
+    "invocationId": "e-cf1d355e-1d26-449b-be3b-a1a6c91d1ff8",
+    "author": "Search",
+    "actions": {
+        "stateDelta": {},
+        "artifactDelta": {},
+        "requestedAuthConfigs": {}
+    },
+    "id": "WvB3X7yM",
+    "timestamp": 1751639022.393594
+}
