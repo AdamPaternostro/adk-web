@@ -118,7 +118,7 @@ def search_data_catalog(query: str) -> dict:
     payload = {
         "pageSize": 50,
         "query": query,
-        "semanticSearch": True,
+        "semanticSearch": True,  # Should I do false since I cannot use filter then?
         "scope": f"projects/{project_id}" # Just to keep it simple just search this project
     }
 
