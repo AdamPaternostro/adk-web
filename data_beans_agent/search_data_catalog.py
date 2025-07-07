@@ -22,8 +22,10 @@ def search_data_catalog(query: str) -> dict:
     - `displayname:x`: Matches substring 'x' in the resource's display name.
     - `description:x`: Matches token 'x' in the resource's description.
     - `column:x`: Matches substring 'x' in any column name of the resource's schema.
-    - `type=TABLE`: Matches resources of a specific type. Common types: `TABLE`, `FILESET`.
-    - `system=BIGQUERY`: Matches resources from a specific system. Common systems: `BIGQUERY`, `CLOUD_STORAGE`.
+    - `type=TABLE`: Matches resources of a specific type. 
+       - Valid values for "type: BUCKET,CLUSTER,CODE_ASSET,CONNECTION,DASHBOARD,DASHBOARD_ELEMENT,DATABASE,DATABASE_SCHEMA,DATASET,DATA_EXCHANGE,DATA_SOURCE_CONNECTION,DATA_STREAM,EXPLORE,FEATURE_GROUP,FEATURE_ONLINE_STORE,FEATURE_VIEW,FILESET,FOLDER,FUNCTION,GLOSSARY,GLOSSARY_CATEGORY,GLOSSARY_TERM,LISTING,LOOK,MODEL,REPOSITORY,RESOURCE,ROUTINE,SERVICE,TABLE,VIEW
+    - `system=BIGQUERY`: Matches resources from a specific system. 
+       - Valid values for "system": BIGQUERY, CLOUD_STORAGE, ANALYTICS_HUB, CLOUD_BIGTABLE, CLOUD_PUBSUB, CLOUD_SPANNER, CLOUD_SQL, CUSTOM (for user created custom entries), DATAPLEX, DATAPROC_METASTORE, VERTEX_AI
     - `location=us-central1`: Matches resources in an exact location.
     - `projectid:my-project`: Matches substring 'my-project' in the project ID.
     - `fully_qualified_name:path.to.asset`: Matches substring in the FQN.
@@ -115,7 +117,7 @@ def search_data_catalog(query: str) -> dict:
     # The payload for the POST request (add the project id and page size)
     payload = {
         "pageSize": 50,
-        "query": f"projectid={project_id} query",
+        "query": query,
         "semanticSearch": True,
         "scope": f"projects/{project_id}" # Just to keep it simple just search this project
     }
