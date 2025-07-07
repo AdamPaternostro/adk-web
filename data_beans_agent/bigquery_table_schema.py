@@ -2,10 +2,8 @@ import json
 import data_beans_agent.rest_api_helper as rest_api_helper
 
 def get_bigquery_table_schema(dataset_id: str, table_id: str) -> dict:
-    """Fetches the schema for a specific BigQuery table using the REST API.
-
-    This function connects to the BigQuery REST API, retrieves the metadata
-    for a given table, and extracts just the schema definition.
+    """Fetches the schema and metadata for a specific BigQuery table.
+    This contains more details than the get_bigquery_table_list tool.    
 
     Args:
         dataset_id (str): The ID of the dataset containing the table.
@@ -36,7 +34,9 @@ def get_bigquery_table_schema(dataset_id: str, table_id: str) -> dict:
                     }
                 }
     """
-    project_id = "governed-data-1pqzajgatl"
+    import os
+
+    project_id = os.getenv("AGENT_ENV_PROJECT_ID")
   
     url = f"https://bigquery.googleapis.com/bigquery/v2/projects/{project_id}/datasets/{dataset_id}/tables/{table_id}"
 

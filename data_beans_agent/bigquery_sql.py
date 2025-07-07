@@ -7,7 +7,7 @@ import google.auth.transport.requests
 
 
 # Helper function to avoid code duplication for processing paginated results
-def _process_and_paginate_results(session, initial_response_data, project_id, job_id, location, headers):
+def _process_and_paginate_results(session, initial_response_data, project_id, job_id, bigquery_region, headers):
     """Processes a query result set, handling pagination."""
     all_rows = []
     
@@ -20,7 +20,7 @@ def _process_and_paginate_results(session, initial_response_data, project_id, jo
     page_token = initial_response_data.get('pageToken')
     while page_token:
         print(f"Fetching next page of results with pageToken...")
-        results_url = f"https://bigquery.googleapis.com/bigquery/v2/projects/{project_id}/queries/{job_id}?location={location}&pageToken={page_token}"
+        results_url = f"https://bigquery.googleapis.com/bigquery/v2/projects/{project_id}/queries/{job_id}?location={bigquery_region}&pageToken={page_token}"
         response = session.get(results_url, headers=headers)
         response.raise_for_status()
         
@@ -34,13 +34,12 @@ def _process_and_paginate_results(session, initial_response_data, project_id, jo
 
 
 def run_bigquery_sql(sql: str) -> dict:
-    """Executes a SQL statement against Google BigQuery using the REST API.
+    """Executes a SQL statement against Google BigQuery.
 
-    When showing the results to the user ALWAYS show the SQL statement.
+    IMPORTANT: When formatting the table names in the join clause make sure you use backticks.
+        - e.g.: `project_id.dataset_name.table_name`
 
-    IMPORTANT: When formatting the table names in the join clause make sure you use backticks.  e.g.: `governed-data-1pqzajgatl.governed_data_sdp_scan.customer`
-
-    This function connects to the BigQuery REST API and runs the provided SQL.
+    This function connects to the BigQuery and runs the provided SQL.
     It intelligently handles two types of queries:
     1.  Data-returning queries (`SELECT`, `WITH`): It fetches all resulting rows,
         paginating if necessary, and returns them as a JSON array of objects.
@@ -58,8 +57,10 @@ def run_bigquery_sql(sql: str) -> dict:
     """
     print("--- Starting BigQuery jobs.query Execution ---")
 
-    project_id = "governed-data-1pqzajgatl"
-    location="us"
+    import os
+
+    project_id = os.getenv("AGENT_ENV_PROJECT_ID")
+    bigquery_region = os.getenv("AGENT_ENV_BIGQUERY_REGION")
 
     # 1. Authentication and Setup
     try:
@@ -123,7 +124,7 @@ def run_bigquery_sql(sql: str) -> dict:
     else:
         print("Query timed out, falling back to polling (slow path)...")
         # Fallback to polling the jobs.get endpoint
-        job_status_url = f"https://bigquery.googleapis.com/bigquery/v2/projects/{project_id}/jobs/{job_id}?location={location}"
+        job_status_url = f"https://bigquery.googleapis.com/bigquery/v2/projects/{project_id}/jobs/{job_id}?location={bigquery_region}"
         while True:
             time.sleep(2)
             print("Polling job status...")
@@ -143,7 +144,7 @@ def run_bigquery_sql(sql: str) -> dict:
                 # Job is done, now process the final result
                 if is_select_query:
                     # We need to fetch the results now that the job is complete
-                    results_url = f"https://bigquery.googleapis.com/bigquery/v2/projects/{project_id}/jobs/{job_id}/results?location={location}"
+                    results_url = f"https://bigquery.googleapis.com/bigquery/v2/projects/{project_id}/jobs/{job_id}/results?location={bigquery_region}"
                     final_results_res = session.get(results_url, headers=headers)
                     final_results_res.raise_for_status()
                     rows = _process_and_paginate_results(session, final_results_res.json(), project_id, job_id, location, headers)

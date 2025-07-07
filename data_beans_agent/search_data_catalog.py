@@ -4,8 +4,8 @@ import data_beans_agent.bigquery_sql as bq_sql
 
 # https://cloud.google.com/dataplex/docs/search-syntax
 
-def dataplex_search_catalog(query: str) -> dict:
-    """Searches the Dataplex Data Catalog for entries matching a query string.
+def search_data_catalog(query: str) -> dict:
+    """Searches the data catalog for anything in the Google Data Cloud ecosystem.
 
     This is the most powerful discovery tool for finding data assets (like BigQuery tables
     or filesets) across a project. It uses a specific key-value query syntax to filter
@@ -104,26 +104,28 @@ def dataplex_search_catalog(query: str) -> dict:
     
 
     """
-    print("RUNNING: search_dataplex_catalog")
-    project_id = "governed-data-1pqzajgatl"
-    location = "us"
+    import os
+
+    project_id = os.getenv("AGENT_ENV_PROJECT_ID")
+    dataplex_search_region = os.getenv("AGENT_ENV_DATAPLEX_SEARCH_REGION")
 
     # The searchEntries endpoint is a POST request with the query in the body
-    url = f"https://dataplex.googleapis.com/v1/projects/{project_id}/locations/{location}:searchEntries"
+    url = f"https://dataplex.googleapis.com/v1/projects/{project_id}/locations/{dataplex_search_region}:searchEntries"
 
     # The payload for the POST request (add the project id and page size)
     payload = {
         "pageSize": 50,
         "query": f"projectid={project_id} query",
-        "semanticSearch": True
+        "semanticSearch": True,
+        "scope": f"projects/{project_id}" # Just to keep it simple just search this project
     }
 
     try:
         response = rest_api_helper.rest_api_helper(url, "POST", payload)
-        print(f"dataplex_search_catalog -> response: {json.dumps(response, indent=2)}")
+        print(f"search_data_catalog -> response: {json.dumps(response, indent=2)}")
 
         return_value =  { "status": "success", "query": query, "results": response["results"] }
-        print(f"dataplex_search_catalog -> return_value: {json.dumps(return_value, indent=2)}")
+        print(f"search_data_catalog -> return_value: {json.dumps(return_value, indent=2)}")
 
         return return_value            
 

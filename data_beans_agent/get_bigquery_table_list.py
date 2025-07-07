@@ -2,12 +2,16 @@ import json
 import data_beans_agent.rest_api_helper as rest_api_helper
 import data_beans_agent.bigquery_sql as bq_sql 
 
-def get_bigquery_get_tables_in_project() -> dict:
+def get_bigquery_table_list() -> dict:
     """
-    Lists all tables in a specific dataset and will return the each tables, project id, dataset id, table name and the table's ddl.
+    Gathers all the tables in BigQuery.
+    This will gather all the tables along with the specific dataset in which they reside.
+    This is useful when generating SQL for BigQuery.
+    This tool should be called before calling run_bigquery_sql in order to get the data needed to construct a valid SQL statement.
+    This tool also is useful to get the correct dataset and table names.  The user might use a shortened or mispelled name.
 
     Args:
-        None: The current project is used based upon the user.
+        None
 
     Returns:
         dict: This will return: 
@@ -28,9 +32,10 @@ def get_bigquery_get_tables_in_project() -> dict:
                         }
                     }
     """
+    import os
 
-    bigquery_region = "us"
-    project_id = "governed-data-1pqzajgatl"
+    project_id = os.getenv("AGENT_ENV_PROJECT_ID")
+    bigquery_region = os.getenv("AGENT_ENV_BIGQUERY_REGION")
 
     sql = f"""
     SELECT

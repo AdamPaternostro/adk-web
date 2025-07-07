@@ -33,9 +33,10 @@ def get_data_governance_for_table(dataset_id: str, table_name: str) -> dict:
                 }
              }        
     """
+    import os
 
-    project_id = "governed-data-1pqzajgatl"
-    bigquery_region = 'us'
+    project_id = os.getenv("AGENT_ENV_PROJECT_ID")
+    bigquery_region = os.getenv("AGENT_ENV_BIGQUERY_REGION")
 
     url = f"https://dataplex.googleapis.com/v1/projects/{project_id}/locations/{bigquery_region}/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/{project_id}/datasets/{dataset_id}/tables/{table_name}?view=ALL"
 

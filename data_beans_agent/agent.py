@@ -1,10 +1,13 @@
 from google.adk.agents import LlmAgent
 import data_beans_agent.bigquery_sql as bq_sql 
 import data_beans_agent.bigquery_table_schema as bq_schema
-import data_beans_agent.bigquery_get_tables_in_project as bq_tables
+import data_beans_agent.get_bigquery_table_list as bq_tables
 import data_beans_agent.dataplex_get_data_governance_for_table as dataplex_table_governance
-import data_beans_agent.dataplex_search_catalog as data_catalog_search
+import data_beans_agent.search_data_catalog as data_catalog_search
 import data_beans_agent.google_search as google_search
+
+from dotenv import load_dotenv
+load_dotenv()
 
 # This is not using the ADK serach tool, it uses it seperately
 search_agent = LlmAgent(name="Search",
@@ -14,16 +17,16 @@ search_agent = LlmAgent(name="Search",
 
 bigquery_agent = LlmAgent(name="BigQuery",
                           description="Runs BigQuery queries.",
-                          tools=[ bq_sql.run_bigquery_sql, 
+                          tools=[ bq_tables.get_bigquery_table_list,
                                   bq_schema.get_bigquery_table_schema, 
-                                  bq_tables.get_bigquery_get_tables_in_project
+                                  bq_sql.run_bigquery_sql,                                   
                                 ],
                           model="gemini-2.5-flash")
 
 datacatalog_agent = LlmAgent(name="DataCatalog", 
                              description="Searches the data catalog.",
-                             tools=[ data_catalog_search.dataplex_search_catalog,
-                                     bq_tables.get_bigquery_get_tables_in_project,
+                             tools=[ data_catalog_search.search_data_catalog,
+                                     bq_tables.get_bigquery_table_list,
                                      dataplex_table_governance.get_data_governance_for_table],
                              model="gemini-2.5-flash")
 
@@ -45,7 +48,7 @@ AI LLM Agents that you can use to answer questions:
 Rules:
 - Do not call the same tool agent with the EXACT same parameters to prevent yourself from looping.
 - You should use one of the agents to complete each task.  You may only do basic logic yourself.
-- You should always call get_bigquery_get_tables_in_project to get the correct table and dataset names. 
+- You should always call get_bigquery_table_list to get the correct table and dataset names. 
     - Do not trust the user to state the correct name.
 
 Your name is: Data Beans Agent.
