@@ -16,29 +16,28 @@ def get_bigquery_table_schema(dataset_id: str, table_id: str) -> dict:
             "tool_name": "get_bigquery_table_schema",
             "query": None,
             "messages": ["List of messages during processing"]
-            "results":                 {
-                    "status": "success",
-                    "schema": {
-                        "name": "string",
-                        "type": "string",
-                        "mode": "string",
+            "results": {
+                        "status": "success",
                         "schema": {
-                            "fields": [
-                                {
-                                    "name": "customer_id",
-                                    "type": "INTEGER",
-                                    "description": "Unique identifier for the customer."
-                                },
-                                {
-                                    "name": "first_name",
-                                    "type": "STRING",
-                                    "description": "The first name of the customer."
-                                }
-                            ]
+                            "name": "string",
+                            "type": "string",
+                            "mode": "string",
+                            "schema": {
+                                "fields": [
+                                    {
+                                        "name": "customer_id",
+                                        "type": "INTEGER",
+                                        "description": "Unique identifier for the customer."
+                                    },
+                                    {
+                                        "name": "first_name",
+                                        "type": "STRING",
+                                        "description": "The first name of the customer."
+                                    }
+                                ]
+                            }
                         }
-                    }
-                }
-        }
+            }
     """
     import os
 

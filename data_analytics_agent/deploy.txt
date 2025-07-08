@@ -1,28 +1,48 @@
-Deploy:
+##########################################################################################
+# Deploy Help
+##########################################################################################
 
--> % adk deploy cloud_run --help
-Usage: adk deploy cloud_run [OPTIONS] AGENT
-
-  Deploys agent to Cloud Run.
-
-  AGENT: The path to the agent source code folder.
-
-  Example:
-
-    adk deploy cloud_run --project=[project] --region=[region] path/to/my_agent
+adk deploy cloud_run --help
 
 Options:
-  --project TEXT          Required. Google Cloud project to deploy the agent.
-  --region TEXT           Required. Google Cloud region to deploy the agent.
-  --service_name TEXT     Optional. The service name to use in Cloud Run (default: 'adk-default-service-name').
-  --app_name TEXT         Optional. App name of the ADK API server (default: the folder name of the AGENT source code).
-  --agent_engine_id TEXT  Optional. Set VertexAI Agent Engine resource ID to use managed session service.
-  --port INTEGER          Optional. The port of the ADK API server (default: 8000).
-  --with_ui               Optional. Deploy ADK Web UI if set. (default: deploy ADK API server only)
-  --temp_folder TEXT      Optional. Temp folder for the generated Cloud Run source files (default: a timestamped folder in the system temp directory).
-  --help                  Show this message and exit.
+  --project TEXT                  Required. Google Cloud project to deploy the agent. When absent, default project from gcloud config is
+                                  used.
+  --region TEXT                   Required. Google Cloud region to deploy the agent. When absent, gcloud run deploy will prompt later.
+  --service_name TEXT             Optional. The service name to use in Cloud Run (default: 'adk-default-service-name').
+  --app_name TEXT                 Optional. App name of the ADK API server (default: the folder name of the AGENT source code).
+  --port INTEGER                  Optional. The port of the server
+  --allow_origins TEXT            Optional. Any additional origins to allow for CORS.
+  --log_level [debug|info|warning|error|critical]
+                                  Optional. Set the logging level
+  --trace_to_cloud                Optional. Whether to enable cloud trace for telemetry.
+  --reload / --no-reload          Optional. Whether to enable auto reload for server. Not supported for Cloud Run.
+  --with_ui                       Optional. Deploy ADK Web UI if set. (default: deploy ADK API server only)
+  --verbosity [debug|info|warning|error|critical]
+                                  Deprecated. Use --log_level instead.
+  --temp_folder TEXT              Optional. Temp folder for the generated Cloud Run source files (default: a timestamped folder in the
+                                  system temp directory).
+  --adk_version TEXT              Optional. The ADK version used in Cloud Run deployment. (default: the version in the dev environment)
+                                  [default: 1.5.0]
+  --eval_storage_uri TEXT         Optional. The evals storage URI to store agent evals, supported URIs: gs://<bucket name>.
+  --session_service_uri TEXT      Optional. The URI of the session service. - Use 'agentengine://<agent_engine_resource_id>' to connect
+                                  to Agent Engine sessions. - Use 'sqlite://<path_to_sqlite_file>' to connect to a SQLite DB. - See
+                                  https://docs.sqlalchemy.org/en/20/core/engines.html#backend-specific-urls for more details on
+                                  supported database URIs.
+  --artifact_service_uri TEXT     Optional. The URI of the artifact service, supported URIs: gs://<bucket name> for GCS artifact
+                                  service.
+  --eval_storage_uri TEXT         Optional. The evals storage URI to store agent evals, supported URIs: gs://<bucket name>.
+  --memory_service_uri TEXT       Optional. The URI of the memory service. - Use 'rag://<rag_corpus_id>' to connect to Vertex AI Rag
+                                  Memory Service. - Use 'agentengine://<agent_engine_resource_id>' to connect to Vertex AI Memory Bank
+                                  Service. e.g. agentengine://12345
+  --session_db_url TEXT           Deprecated. Use --session_service_uri instead.
+  --artifact_storage_uri TEXT     Deprecated. Use --artifact_service_uri instead.
+  --help                          Show this message and exit.
 
 
+
+##########################################################################################
+# APIs to Enable
+##########################################################################################
 gcloud services enable cloudbuild.googleapis.com
 gcloud services enable artifactregistry.googleapis.com
 gcloud services enable cloudbuild.googleapis.com
@@ -33,6 +53,15 @@ gcloud auth application-default set-quota-project governed-data-1pqzajgatl
 
 GRANT vertex ai user to the Cloud Run service account
 
+
+##########################################################################################
+# Security Roles for Cloud Run Service Account
+##########################################################################################
+BigQuery Metadata Viewer
+Cloud Build Service Account
+Editor
+Storage Object Viewer
+Vertex AI User
 
 
 ##########################################################################################
@@ -79,6 +108,27 @@ curl -X POST -H "Authorization: Bearer $TOKEN" \
         "role": "user",
         "parts": [{
         "text": "What is the capital of Florida?"
+        }]
+    },
+    "streaming": false
+    }'    
+
+curl -X POST -H "Authorization: Bearer $TOKEN" \
+    $APP_URL/apps/data_analytics_agent/users/adam_p/sessions/session_02 \
+    -H "Content-Type: application/json" \
+    -d '{"state": {"preferred_language": "English", "visit_count": 0}}'
+
+curl -X POST -H "Authorization: Bearer $TOKEN" \
+    $APP_URL/run_sse \
+    -H "Content-Type: application/json" \
+    -d '{
+    "app_name": "data_analytics_agent",
+    "user_id": "adam_p",
+    "session_id": "session_02",
+    "new_message": {
+        "role": "user",
+        "parts": [{
+        "text": "Count the taxi trips by year."
         }]
     },
     "streaming": false
