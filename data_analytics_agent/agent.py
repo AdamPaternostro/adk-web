@@ -4,12 +4,12 @@ from google.adk.agents import LlmAgent
 from google.adk.planners import BuiltInPlanner
 from google.genai.types import ThinkingConfig
 
-import data_beans_agent.bigquery.bigquery_sql as bq_sql 
-import data_beans_agent.bigquery.bigquery_table_schema as bq_schema
-import data_beans_agent.bigquery.get_bigquery_table_list as bq_tables
-import data_beans_agent.dataplex.dataplex_get_data_governance_for_table as dataplex_table_governance
-import data_beans_agent.dataplex.search_data_catalog as data_catalog_search
-import data_beans_agent.google_search.google_search as google_search
+import data_analytics_agent.bigquery.bigquery_sql as bq_sql 
+import data_analytics_agent.bigquery.bigquery_table_schema as bq_schema
+import data_analytics_agent.bigquery.get_bigquery_table_list as bq_tables
+import data_analytics_agent.dataplex.dataplex_get_data_governance_for_table as dataplex_table_governance
+import data_analytics_agent.dataplex.search_data_catalog as data_catalog_search
+import data_analytics_agent.google_search.google_search as google_search
 
 
 load_dotenv()
