@@ -30,6 +30,7 @@ def _process_and_paginate_results(session, initial_response_data, project_id, jo
         
         page_token = page_data.get('pageToken')
         
+    print(f"all_rows: {all_rows}")
     return all_rows
 
 
@@ -51,19 +52,27 @@ def run_bigquery_sql(sql: str) -> dict:
         sql (str): The full SQL statement to execute on BigQuery.
 
     Returns:
-        dict: This will return one of the following: 
-
+        NOTE: If this is a DML operation the results will be None or null.  The messages will contain if this was a SELECT (return results) 
+              or a DML that does not return rows (results).
+        dict:
         {
             "status": "success",
             "tool_name": "run_bigquery_sql",
             "query": "The SQL statement used",
             "messages": ["List of messages during processing"]
-            "results": [ {"title": "N/A", "snippet": "N/A"} ] 
-        }
-
-
-              1. For a SELECT: { "status": "success", "sql_type": "SELECT", "sql": "sql", "job_id": "job_id", "rows": [] }
-              2. For a DML: { "status": "success", "sql_type": "DML", "sql": "sql", "job_id": "job_id", "rows_affected": 0 }
+            "results": [ 
+                        {
+                          "field-1": "value-1",
+                          "field-2": "value-2",
+                          "field-3": "value-3"
+                        },
+                        {
+                          "field-1": "value-1",
+                          "field-2": "value-2",
+                          "field-3": "value-3"
+                        }                        
+                       ] 
+        }        
     """
     print("--- Starting BigQuery jobs.query Execution ---")
 

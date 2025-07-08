@@ -1,3 +1,15 @@
+PROCESSED ROWS:
+[
+    {'customer_id': '34', 'first_name': 'Eduino', 'last_name': 'Sciacovelli', 'total_spent': '13358.5'}, 
+    {'customer_id': '467', 'first_name': 'Dorian', 'last_name': 'Sullly', 'total_spent': '12138.15'}, 
+    {'customer_id': '161', 'first_name': 'Cad', 'last_name': 'Daw', 'total_spent': '12126.48'}, 
+    {'customer_id': '364', 'first_name': 'Archaimbaud', 'last_name': 'Heath', 'total_spent': '11930.859999999999'}, 
+    {'customer_id': '844', 'first_name': 'Bax', 'last_name': 'Tolworthie', 'total_spent': '11866.28'}
+]
+
+
+RAW:
+
 {
     "kind": "bigquery#queryResponse",
     "schema": {

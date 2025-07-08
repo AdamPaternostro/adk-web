@@ -547,26 +547,43 @@ export class ChatComponent implements OnInit, AfterViewInit, OnDestroy {
       const toolName = part.functionResponse.name;
       const responsePayload = part.functionResponse.response;
 
-      // --- START ADK CHANGE for run_bigquery_sql ---
-      if (toolName === 'run_bigquery_sql' && responsePayload &&
-          responsePayload.status === 'success' && responsePayload.sql_type === 'SELECT' &&
-          responsePayload.sql && Array.isArray(responsePayload.rows)) {
-        
-        const sqlQuery = responsePayload.sql;
-        const rows = responsePayload.rows;
-        const tableHtml = this.generateHtmlTableFromRows(sqlQuery, rows);
+      // --- START: Updated logic for run_bigquery_sql based on new JSON format ---
+      if (toolName === 'run_bigquery_sql' && responsePayload && responsePayload.status === 'success') {
+        // Display any processing messages that came with the response.
+        // These are useful for both SELECT and DML.
+        if (Array.isArray(responsePayload.messages)) {
+          for (const msg of responsePayload.messages) {
+            this.displayToolProgressMessage(responsePayload.tool_name || toolName, msg, chunkJson.id);
+          }
+        }
 
-        this.insertMessageBeforeLoadingMessage({
-          role: 'bot',
-          htmlContent: tableHtml,
-          eventId: chunkJson.id,
-          timestamp: new Date().toISOString(),
-        });
+        // A non-null, array 'results' key indicates a SELECT query that returned data.
+        if (Array.isArray(responsePayload.results)) {
+          const sqlQuery = responsePayload.query || 'SQL Query';
+          const results = responsePayload.results;
+          const tableHtml = this.generateHtmlTableFromRows(sqlQuery, results);
+
+          this.insertMessageBeforeLoadingMessage({
+            role: 'bot',
+            htmlContent: tableHtml,
+            eventId: chunkJson.id,
+            timestamp: new Date().toISOString(),
+          });
+        }
+        // A null 'results' key indicates a DML statement.
+        // A generic success message is added if the API didn't provide specific ones.
+        else if (responsePayload.results === null) {
+          if (!responsePayload.messages || responsePayload.messages.length === 0) {
+            this.displayToolProgressMessage(responsePayload.tool_name || toolName, "DML statement executed successfully.", chunkJson.id);
+          }
+        }
+        // If neither case is met, we've still processed messages, so we just log and exit.
+
         this.storeEvents(part, chunkJson, index); // Log the original event
         this.changeDetectorRef.detectChanges();
         return; // Handled run_bigquery_sql
       }
-      // --- END ADK CHANGE for run_bigquery_sql ---
+      // --- END: Updated logic for run_bigquery_sql ---
 
       // --- START ADK CHANGE for conversational_analytics_query (Vega charts) ---
       else if (toolName === 'chart_tool' && responsePayload &&
