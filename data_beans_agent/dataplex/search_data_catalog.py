@@ -1,6 +1,6 @@
 import json
 import data_beans_agent.rest_api_helper as rest_api_helper
-import data_beans_agent.bigquery_sql as bq_sql 
+import data_beans_agent.bigquery.bigquery_sql as bq_sql 
 
 # https://cloud.google.com/dataplex/docs/search-syntax
 
@@ -69,52 +69,54 @@ def search_data_catalog(query: str) -> dict:
 
     Args:
         query (str): The search query string following the Dataplex syntax outlined above.
-
+        
     Returns:
-        dict: This will return: 
+        dict:
           {
             "status": "success",
+            "tool_name": "search_data_catalog",
+            "query": "The data catalog query used",
+            "messages": ["List of messages during processing"]
             "results": [
-                {
-                    "linkedResource": "projects/governed-data-1pqzajgatl/datasets/governed_data_raw/models/gemini_model",
-                    "dataplexEntry": {
-                        "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_raw/models/gemini_model",
-                        "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-model",
-                        "createTime": "2025-06-12T14:00:04.724264Z",
-                        "updateTime": "2025-06-12T14:00:04.724264Z",
-                        "parentEntry": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_raw",
-                        "fullyQualifiedName": "bigquery:governed-data-1pqzajgatl.governed_data_raw.gemini_model",
-                        "entrySource": {
-                            "resource": "projects/governed-data-1pqzajgatl/datasets/governed_data_raw/models/gemini_model",
-                            "system": "BIGQUERY",
-                            "displayName": "gemini_model",
-                            "ancestors": [
-                                {
-                                    "name": "projects/governed-data-1pqzajgatl/datasets/governed_data_raw",
-                                    "type": "dataplex-types.global.bigquery-dataset"
-                                }
-                            ],
-                            "createTime": "2025-06-12T14:00:04.232Z",
-                            "updateTime": "2025-06-12T14:00:04.280Z",
-                            "location": "us"
-                        }
-                    },
-                    "snippets": {}
-                }
-            ]
-        }         
-    
-
+                            {
+                                "linkedResource": "projects/governed-data-1pqzajgatl/datasets/governed_data_raw/models/gemini_model",
+                                "dataplexEntry": {
+                                    "name": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_raw/models/gemini_model",
+                                    "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-model",
+                                    "createTime": "2025-06-12T14:00:04.724264Z",
+                                    "updateTime": "2025-06-12T14:00:04.724264Z",
+                                    "parentEntry": "projects/601982832853/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_raw",
+                                    "fullyQualifiedName": "bigquery:governed-data-1pqzajgatl.governed_data_raw.gemini_model",
+                                    "entrySource": {
+                                        "resource": "projects/governed-data-1pqzajgatl/datasets/governed_data_raw/models/gemini_model",
+                                        "system": "BIGQUERY",
+                                        "displayName": "gemini_model",
+                                        "ancestors": [
+                                            {
+                                                "name": "projects/governed-data-1pqzajgatl/datasets/governed_data_raw",
+                                                "type": "dataplex-types.global.bigquery-dataset"
+                                            }
+                                        ],
+                                        "createTime": "2025-06-12T14:00:04.232Z",
+                                        "updateTime": "2025-06-12T14:00:04.280Z",
+                                        "location": "us"
+                                    }
+                                },
+                                "snippets": {}
+                            }
+                        ]
+            }         
     """
     import os
 
     project_id = os.getenv("AGENT_ENV_PROJECT_ID")
     dataplex_search_region = os.getenv("AGENT_ENV_DATAPLEX_SEARCH_REGION")
+    messages = []
 
     # The searchEntries endpoint is a POST request with the query in the body
     url = f"https://dataplex.googleapis.com/v1/projects/{project_id}/locations/{dataplex_search_region}:searchEntries"
 
-    # The payload for the POST request (add the project id and page size)
+    # The payload for the POST request
     payload = {
         "pageSize": 50,
         "query": query,
@@ -122,14 +124,17 @@ def search_data_catalog(query: str) -> dict:
         "scope": f"projects/{project_id}" # Just to keep it simple just search this project
     }
 
+    messages.append(f"Calling {url} with a payload of {payload}")
+ 
     try:
         response = rest_api_helper.rest_api_helper(url, "POST", payload)
         print(f"search_data_catalog -> response: {json.dumps(response, indent=2)}")
 
-        return_value =  { "status": "success", "query": query, "results": response["results"] }
+        return_value = { "status": "success", "tool_name": "search_data_catalog", "query": query, "messages": messages, "results": response["results"] }
         print(f"search_data_catalog -> return_value: {json.dumps(return_value, indent=2)}")
-
         return return_value            
 
     except Exception as e:
-        return { "status": "failed", "query": query, "message": "Error when calling rest api: {e}" }
+        messages.append(f"Error when calling rest api: {e}")
+        return_value = { "status": "failed", "tool_name": "search_data_catalog", "query": query, "messages": messages, "results": None }   
+        return return_value

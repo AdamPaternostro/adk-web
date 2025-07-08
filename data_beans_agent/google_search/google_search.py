@@ -12,16 +12,25 @@ def google_search(search_query: str) -> dict:
         search_query (str): The search string
 
     Returns:
-        dict: { "status": "success", "search-string": "search_query", "search-results": [ {"title": "N/A", "snippet": "N/A"}] }
+        dict:
+        {
+            "status": "success",
+            "tool_name": "search_query",
+            "query": "The google search query used",
+            "messages": ["List of messages during processing"]
+            "results": [ {"title": "N/A", "snippet": "N/A"} ] 
+        }
     """
     import os
+
     GOOGLE_API_KEY = os.getenv("AGENT_GOOGLE_API_KEY")
     GOOGLE_CSE_ID = os.getenv("AGENT_GOOGLE_CSE_ID")
+    messages = []
 
     # https://developers.google.com/custom-search/v1/reference/rest/v1/cse/list
     url = f"https://www.googleapis.com/customsearch/v1?key={GOOGLE_API_KEY}&cx={GOOGLE_CSE_ID}&q={search_query}&num=10"
 
-    final_tool_result = None
+    return_value = None
 
     try:
         response = requests.get(url, timeout=10)
@@ -36,23 +45,24 @@ def google_search(search_query: str) -> dict:
                     "snippet": item.get("snippet", "N/A")
                 })
 
-        final_tool_result = { "status": "success", "search-string": search_query, "search-results": results }
+        messages.append(f"Call the url: {url}")
+        return_value = { "status": "success", "tool_name": "google_search", "query": search_query, "messages": messages, "results": results }
 
     except Timeout:
-        error_message = "Request to Google Search API timed out."
-        final_tool_result = { "status": "failed", "message": error_message }
+        messages.append("Request to Google Search API timed out.")
+        return_value = { "status": "failed", "tool_name": "google_search", "query": search_query, "messages": messages, "results": None }
     except HTTPError as http_err:
-        error_message = f"HTTP error occurred: {http_err} (Status code: {http_err.response.status_code})"
+        messages.append(f"HTTP error occurred: {http_err} (Status code: {http_err.response.status_code})")
         try:
             details = str(http_err.response.text)
         except Exception:
             details = "Could not retrieve error details from response."
-        final_tool_result = { "status": "failed", "message": error_message, "details": details }
+        return_value = { "status": "failed", "tool_name": "google_search", "query": search_query, "messages": messages, "results": None }
     except requests.exceptions.RequestException as req_err:
-        error_message = f"Request error occurred: {req_err}"
-        final_tool_result = { "status": "failed", "message": error_message }
+        messages.append(f"Request error occurred: {req_err}")
+        return_value = { "status": "failed", "tool_name": "google_search", "query": search_query, "messages": messages, "results": None }
     except Exception as e: # Catch any other unexpected error
-        error_message = f"An unexpected error occurred in google_search: {str(e)}"
-        final_tool_result = { "status": "failed", "message": error_message }
+        messages.append(f"An unexpected error occurred in google_search: {str(e)}")
+        return_value = { "status": "failed", "tool_name": "google_search", "query": search_query, "messages": messages, "results": None }
 
-    return final_tool_result
+    return return_value

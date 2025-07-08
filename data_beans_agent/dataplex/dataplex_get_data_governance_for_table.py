@@ -1,6 +1,6 @@
 import json
 import data_beans_agent.rest_api_helper as rest_api_helper
-import data_beans_agent.bigquery_sql as bq_sql 
+import data_beans_agent.bigquery.bigquery_sql as bq_sql 
 
 def get_data_governance_for_table(dataset_id: str, table_name: str) -> dict:
     """
@@ -11,10 +11,13 @@ def get_data_governance_for_table(dataset_id: str, table_name: str) -> dict:
         table_name (str): The name of the table.
 
     Returns:
-        dict: This will return: 
-            {
+        dict: 
+        {
             "status": "success",
-            "governance-data": {
+            "tool_name": "get_data_governance_for_table",
+            "query": None,
+            "messages": ["List of messages during processing"]
+            "results": {
                 "name": "projects/governed-data-1pqzajgatl/locations/us/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/governed-data-1pqzajgatl/datasets/governed_data_curated/tables/customer",
                 "entryType": "projects/655216118709/locations/global/entryTypes/bigquery-table",
                 "createTime": "2025-06-12T14:05:40.087281Z",
@@ -31,12 +34,13 @@ def get_data_governance_for_table(dataset_id: str, table_name: str) -> dict:
                     },
                 etc...
                 }
-             }        
+        }     
     """
     import os
 
     project_id = os.getenv("AGENT_ENV_PROJECT_ID")
     bigquery_region = os.getenv("AGENT_ENV_BIGQUERY_REGION")
+    messages = []
 
     url = f"https://dataplex.googleapis.com/v1/projects/{project_id}/locations/{bigquery_region}/entryGroups/@bigquery/entries/bigquery.googleapis.com/projects/{project_id}/datasets/{dataset_id}/tables/{table_name}?view=ALL"
 
@@ -44,10 +48,12 @@ def get_data_governance_for_table(dataset_id: str, table_name: str) -> dict:
         response = rest_api_helper.rest_api_helper(url, "GET", None)
         print(f"get_data_governance_for_table -> response: {json.dumps(response, indent=2)}")
 
-        return_value =  { "status": "success", "governance-data": response }
+        return_value = { "status": "success", "tool_name": "get_data_governance_for_table", "query": None, "messages": messages, "results": response }
         print(f"get_data_governance_for_table -> return_value: {json.dumps(return_value, indent=2)}")
 
         return return_value            
 
     except Exception as e:
-        return { "status": "failed", "message": "Error when calling rest api: {e}" }
+        messages.append(f"Error when calling rest api: {e}")
+        return_value = { "status": "failed", "tool_name": "get_data_governance_for_table", "query": None, "messages": messages, "results": None }   
+        return return_value

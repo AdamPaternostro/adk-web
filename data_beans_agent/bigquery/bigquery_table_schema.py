@@ -10,8 +10,13 @@ def get_bigquery_table_schema(dataset_id: str, table_id: str) -> dict:
         table_id (str): The ID of the table whose schema you want to fetch.
 
     Returns:
-        dict: This will return: 
-                {
+        dict: This will return:         
+        {
+            "status": "success",
+            "tool_name": "get_bigquery_table_schema",
+            "query": None,
+            "messages": ["List of messages during processing"]
+            "results":                 {
                     "status": "success",
                     "schema": {
                         "name": "string",
@@ -33,10 +38,13 @@ def get_bigquery_table_schema(dataset_id: str, table_id: str) -> dict:
                         }
                     }
                 }
+        }
     """
     import os
 
     project_id = os.getenv("AGENT_ENV_PROJECT_ID")
+    messages = []
+    return_value = None
   
     url = f"https://bigquery.googleapis.com/bigquery/v2/projects/{project_id}/datasets/{dataset_id}/tables/{table_id}"
 
@@ -45,14 +53,15 @@ def get_bigquery_table_schema(dataset_id: str, table_id: str) -> dict:
         print(f"get_bigquery_table_schema -> response: {json.dumps(response, indent=2)}")
 
         if "schema" in response:
-            schema = response["schema"]
-
-            return_value =  { "status": "success", "schema": schema }
+            schema = response["schema"]        
+            return_value = { "status": "success", "tool_name": "get_bigquery_table_schema", "query": None, "messages": messages, "results": schema }
             print(f"get_bigquery_table_schema -> return_value: {json.dumps(return_value, indent=2)}")
-
-            return return_value            
         else:
-            # This case is unlikely for a valid table but is good defensive programming.
-             return { "status": "failed", "message": "Schema not found in the API response for the specified table." }  
+            messages.add(f"Schema not found in the API response for the specified table ({table_id}).")
+            return_value = { "status": "failed", "tool_name": "get_bigquery_table_schema", "query": None, "messages": messages, "results": None }
+
+        return return_value 
+      
     except Exception as e:
-        return { "status": "failed", "message": "Error when calling rest api: {e}" }
+        messages.add(f"Error when calling rest api: {e}")
+        return_value = { "status": "failed", "tool_name": "get_bigquery_table_schema", "query": None, "messages": messages, "results": None }

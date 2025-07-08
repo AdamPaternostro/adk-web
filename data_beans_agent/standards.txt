@@ -1,0 +1,9 @@
+# Standards:
+# "status":    ""
+# "tool_name": ""
+# "type":      "sql", dataplex, dml [do we need?]
+# "query": "select *" or "dataplex:ttt"
+# "rows":  'rows': [{'product_category_id': '3','product_category_name': 'furniture','product_category_description': 'Furniture products'},{'product_category_id': '1','product_category_name': 'consumables','product_category_description': 'Consumable goods'}]}
+# "result" : ""???  (if sql query, etc...)
+
+{ "status": "success", "tool_name": "TOOL", "query": "SELECT ?", "rows" : [], "result" : "" }

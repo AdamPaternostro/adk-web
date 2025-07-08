@@ -52,6 +52,16 @@ def run_bigquery_sql(sql: str) -> dict:
 
     Returns:
         dict: This will return one of the following: 
+
+        {
+            "status": "success",
+            "tool_name": "run_bigquery_sql",
+            "query": "The SQL statement used",
+            "messages": ["List of messages during processing"]
+            "results": [ {"title": "N/A", "snippet": "N/A"} ] 
+        }
+
+
               1. For a SELECT: { "status": "success", "sql_type": "SELECT", "sql": "sql", "job_id": "job_id", "rows": [] }
               2. For a DML: { "status": "success", "sql_type": "DML", "sql": "sql", "job_id": "job_id", "rows_affected": 0 }
     """
@@ -61,6 +71,7 @@ def run_bigquery_sql(sql: str) -> dict:
 
     project_id = os.getenv("AGENT_ENV_PROJECT_ID")
     bigquery_region = os.getenv("AGENT_ENV_BIGQUERY_REGION")
+    messages = []
 
     # 1. Authentication and Setup
     try:
@@ -98,28 +109,30 @@ def run_bigquery_sql(sql: str) -> dict:
         job_complete = response_data['jobComplete']
         
     except Exception as e:
-        if is_select_query:
-            return {"status": "error", "sql_type": "SELECT", "sql": sql, "message": f"{e}" }
-        else: # DML/DDL
-            return {"status": "error", "sql_type": "DML", "sql": sql, "message": f"{e}" }        
+        messages.append(f"Error when calling rest api ({query_url}): {e}")
+        return_value = { "status": "failed", "tool_name": "run_bigquery_sql", "query": sql, "messages": messages, "results": None }
+        return return_value
 
     # 3. Handle the response based on whether the job completed in time
     if job_complete:
         print("Query completed within timeout (fast path).")
         if response_data.get('errors'):
-            if is_select_query:
-                return {"status": "error", "sql_type": "SELECT", "sql": sql, "job_id": job_id, "message": f"{json.dumps(response_data['errors'], indent=2)}" }
-            else: # DML/DDL
-                return {"status": "error", "sql_type": "DML", "sql": sql, "job_id": job_id, "message": f"{json.dumps(response_data['errors'], indent=2)}" }        
+            messages.append(f"{json.dumps(response_data['errors'], indent=2)}")
+            return_value = { "status": "failed", "tool_name": "run_bigquery_sql", "query": sql, "messages": messages, "results": None }
+            return return_value
 
         print(f"run_bigquery_sql -> response: {json.dumps(response_data, indent=2)}")
 
         if is_select_query:
             rows = _process_and_paginate_results(session, response_data, project_id, job_id, location, headers)
-            return {"status": "success", "sql_type": "SELECT", "sql": sql, "job_id": job_id, "rows": rows}
+            messages.append("Executed a SELECT query so the results will be poplulated with rows.")
+            return_value = { "status": "success", "tool_name": "run_bigquery_sql", "query": sql, "messages": messages, "results": rows }
+            return return_value
         else: # DML/DDL
             rows_affected = int(response_data.get('numDmlAffectedRows', 0))
-            return {"status": "success", "sql_type": "DML", "sql": sql, "job_id": job_id, "rows_affected": rows_affected}
+            messages.append(f"Executed a DML query which affected {rows_affected} rows.")
+            return_value = { "status": "success", "tool_name": "run_bigquery_sql", "query": sql, "messages": messages, "results": None }
+            return return_value
 
     else:
         print("Query timed out, falling back to polling (slow path)...")
@@ -135,11 +148,9 @@ def run_bigquery_sql(sql: str) -> dict:
             if status_data['status']['state'] == 'DONE':
                 print("Job finished.")
                 if status_data['status'].get('errorResult'):
-                    #raise Exception(json.dumps(status_data['status']['errorResult'], indent=2))
-                    if is_select_query:
-                        return {"status": "error", "sql_type": "SELECT", "sql": sql, "job_id": job_id, "message": f"{json.dumps(status_data['status']['errorResult'], indent=2)}" }
-                    else: # DML/DDL
-                        return {"status": "error", "sql_type": "DML", "sql": sql, "job_id": job_id, "message": f"{json.dumps(status_data['status']['errorResult'], indent=2)}" }                   
+                    messages.append(f"{json.dumps(status_data['status']['errorResult'], indent=2)}")
+                    return_value = { "status": "failed", "tool_name": "run_bigquery_sql", "query": sql, "messages": messages, "results": None }  
+                    return return_value             
                 
                 # Job is done, now process the final result
                 if is_select_query:
@@ -148,8 +159,13 @@ def run_bigquery_sql(sql: str) -> dict:
                     final_results_res = session.get(results_url, headers=headers)
                     final_results_res.raise_for_status()
                     rows = _process_and_paginate_results(session, final_results_res.json(), project_id, job_id, location, headers)
-                    return {"status": "success", "sql_type": "SELECT", "sql": sql, "job_id": job_id, "rows": rows}
+                    messages.append("Executed a SELECT query so the results will be poplulated with rows.")
+                    return_value = { "status": "success", "tool_name": "run_bigquery_sql", "query": sql, "messages": messages, "results": rows }
+                    return return_value
+
                 else: # DML/DDL
                     rows_affected = int(status_data.get('statistics', {}).get('query', {}).get('numDmlAffectedRows', 0))
-                    return {"status": "success", "sql_type": "DML", "sql": sql, "job_id": job_id, "rows_affected": rows_affected}
+                    messages.append(f"Executed a DML query which affected {rows_affected} rows.")
+                    return_value = { "status": "success", "tool_name": "run_bigquery_sql", "query": sql, "messages": messages, "results": None }
+                    return return_value
                 

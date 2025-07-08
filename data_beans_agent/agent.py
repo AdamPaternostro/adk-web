@@ -1,12 +1,17 @@
-from google.adk.agents import LlmAgent
-import data_beans_agent.bigquery_sql as bq_sql 
-import data_beans_agent.bigquery_table_schema as bq_schema
-import data_beans_agent.get_bigquery_table_list as bq_tables
-import data_beans_agent.dataplex_get_data_governance_for_table as dataplex_table_governance
-import data_beans_agent.search_data_catalog as data_catalog_search
-import data_beans_agent.google_search as google_search
-
 from dotenv import load_dotenv
+
+from google.adk.agents import LlmAgent
+from google.adk.planners import BuiltInPlanner
+from google.genai.types import ThinkingConfig
+
+import data_beans_agent.bigquery.bigquery_sql as bq_sql 
+import data_beans_agent.bigquery.bigquery_table_schema as bq_schema
+import data_beans_agent.bigquery.get_bigquery_table_list as bq_tables
+import data_beans_agent.dataplex.dataplex_get_data_governance_for_table as dataplex_table_governance
+import data_beans_agent.dataplex.search_data_catalog as data_catalog_search
+import data_beans_agent.google_search.google_search as google_search
+
+
 load_dotenv()
 
 # This is not using the ADK serach tool, it uses it seperately
@@ -42,8 +47,6 @@ AI LLM Agents that you can use to answer questions:
 - DataCatalog: 
     - Assists with searching the data catalog.
     - Assists with getting the data governance tags on a table (aspect types).
-- ChartTool: 
-    - Only should be called when the user types 'show me a chart'.
 
 Rules:
 - Do not call the same tool agent with the EXACT same parameters to prevent yourself from looping.
@@ -54,7 +57,7 @@ Rules:
 Your name is: Data Beans Agent.
 """
 
-# --- AdamService Agent Definition ---
+"""# --- AdamService Agent Definition ---
 from .adam import adam_html_tool
 
 adam_service_agent = LlmAgent(
@@ -62,9 +65,9 @@ adam_service_agent = LlmAgent(
     description="Provides HTML content for the /adam command.",
     tools=[adam_html_tool],
     model="gemini-2.5-flash"
-)
+)"""
 
-# --- ConversationalAnalyticsService Agent Definition ---
+"""# --- ConversationalAnalyticsService Agent Definition ---
 from .conversational_analytics_query import chart_tool
 
 chart_agent = LlmAgent(
@@ -73,9 +76,7 @@ chart_agent = LlmAgent(
     tools=[chart_tool],
     model="gemini-2.5-flash" 
 )
-
-from google.adk.planners import BuiltInPlanner
-from google.genai.types import ThinkingConfig
+"""
 
 root_agent = LlmAgent(
     name="Coordinator",
@@ -83,7 +84,7 @@ root_agent = LlmAgent(
     instruction=coordinator_system_prmompt,
     description="Main help desk router.",
     # allow_transfer=True is often implicit with sub_agents in AutoFlow
-    sub_agents=[search_agent, bigquery_agent, datacatalog_agent, adam_service_agent, chart_agent],
+    sub_agents=[search_agent, bigquery_agent, datacatalog_agent],
         planner=BuiltInPlanner(
         thinking_config=ThinkingConfig(include_thoughts=True))
 )
