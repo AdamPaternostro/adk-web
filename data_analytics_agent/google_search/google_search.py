@@ -23,8 +23,23 @@ def google_search(search_query: str) -> dict:
     """
     import os
 
-    GOOGLE_API_KEY = os.getenv("AGENT_GOOGLE_API_KEY")
-    GOOGLE_CSE_ID = os.getenv("AGENT_GOOGLE_CSE_ID")
+    # To get your API keys
+    # 1. Go to: https://console.cloud.google.com/apis/credentials
+    # 2. Click "Create Credentials" | "API Key"
+    # 3. Copy the key
+    # 4. Click "Edit API Key" (3 dots on the API Key itself)
+    # 5. Click "Restrict Key" and check off "Custom Search API" and "Generative Language API" [NOT NEEDED]
+    # 6. Click Save
+    #
+    # 1. Make sure the API  https://console.cloud.google.com/apis/api/customsearch.googleapis.com is enabled
+    # 2. Make sure the API  https://console.cloud.google.com/apis/api/generativelanguage.googleapis.com is enable [NOT NEEDED]
+    #
+    # 1. Go here: https://programmablesearchengine.google.com/controlpanel/create
+    # 2. Enter a name and select "Search Entire Web"
+    # 3. Copy the CSE Id (you can edit it and copy the "Search engine ID" which is the GOOGLE_CSE_ID)
+
+    GOOGLE_API_KEY = os.getenv("AGENT_ENV_GOOGLE_API_KEY")
+    GOOGLE_CSE_ID = os.getenv("AGENT_ENV_GOOGLE_CSE_ID")
     messages = []
 
     # https://developers.google.com/custom-search/v1/reference/rest/v1/cse/list

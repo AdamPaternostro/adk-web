@@ -7,9 +7,15 @@ from google.genai.types import ThinkingConfig
 import data_analytics_agent.bigquery.bigquery_sql as bq_sql 
 import data_analytics_agent.bigquery.bigquery_table_schema as bq_schema
 import data_analytics_agent.bigquery.get_bigquery_table_list as bq_tables
-import data_analytics_agent.dataplex.dataplex_get_data_governance_for_table as dataplex_table_governance
-import data_analytics_agent.dataplex.search_data_catalog as data_catalog_search
+
 import data_analytics_agent.google_search.google_search as google_search
+
+import data_analytics_agent.dataplex.data_governance as data_governance
+import data_analytics_agent.dataplex.search_data_catalog as data_catalog_search
+import data_analytics_agent.dataplex.data_profile as data_profile
+import data_analytics_agent.dataplex.data_insights as data_insights
+import data_analytics_agent.dataplex.data_quality as data_quality
+import data_analytics_agent.dataplex.data_discovery as data_discovery
 
 
 load_dotenv()
@@ -30,10 +36,68 @@ bigquery_agent = LlmAgent(name="BigQuery",
 
 datacatalog_agent = LlmAgent(name="DataCatalog", 
                              description="Searches the data catalog.",
-                             tools=[ data_catalog_search.search_data_catalog,
-                                     bq_tables.get_bigquery_table_list,
-                                     dataplex_table_governance.get_data_governance_for_table],
+                             tools=[ bq_tables.get_bigquery_table_list,
+                                     data_catalog_search.search_data_catalog,                                     
+                                     data_governance.get_data_governance_for_table
+                                   ],
                              model="gemini-2.5-flash")
+
+datascan_agent = LlmAgent(name="DataScan", 
+                             description="Provides the ability to manage data scans.",
+                             tools=[ data_profile.create_data_profile_scan,
+                                     data_profile.start_data_profile_scan,
+                                     data_profile.exists_data_profile_scan,
+                                     data_profile.get_data_profile_scan_state,
+                                     data_profile.get_data_profile_scans,
+                                     data_profile.update_bigquery_table_dataplex_labels
+                                   ],
+                             model="gemini-2.5-flash")
+
+datainsight_agent = LlmAgent(name="DataInsight", 
+                             description="Provides the ability to manage data insights.",
+                             tools=[ data_insights.create_data_insight_scan,
+                                     data_insights.start_data_insight_scan,
+                                     data_insights.exists_data_insight_scan,
+                                     data_insights.get_data_insight_scan_state,
+                                     data_insights.get_data_insight_scans,
+                                     data_insights.update_bigquery_table_dataplex_labels_for_insights
+                                   ],
+                             model="gemini-2.5-flash")
+
+dataquality_agent = LlmAgent(name="DataQuality", 
+                             description="Provides the ability to manage data quality scans.",
+                             tools=[ data_quality.create_data_quality_scan,
+                                     data_quality.start_data_quality_scan,
+                                     data_quality.exists_data_quality_scan,
+                                     data_quality.get_data_quality_scans,
+                                     data_quality.get_data_quality_scan_state,
+                                     data_quality.update_bigquery_table_dataplex_labels_for_quality
+                                   ],
+                             model="gemini-2.5-flash")
+
+dataquality_agent = LlmAgent(name="DataQuality", 
+                             description="Provides the ability to manage data quality scans.",
+                             tools=[ data_quality.create_data_quality_scan,
+                                     data_quality.start_data_quality_scan,
+                                     data_quality.exists_data_quality_scan,
+                                     data_quality.get_data_quality_scans,
+                                     data_quality.get_data_quality_scan_state,
+                                     data_quality.update_bigquery_table_dataplex_labels_for_quality
+                                   ],
+                             model="gemini-2.5-flash")
+
+datadiscovery_agent = LlmAgent(name="DataDiscovery", 
+                             description="Provides the ability to manage data discovery of files on Google Cloud Storage scans.",
+                             tools=[ data_discovery.create_data_discovery_scan,
+                                     data_discovery.start_data_discovery_scan,
+                                     data_discovery.exists_data_discovery_scan,
+                                     data_discovery.get_data_discovery_scans,
+                                     data_discovery.get_data_discovery_scan_state
+                                   ],
+                             model="gemini-2.5-flash")
+####
+# Main Agent - Supervisor Pattern using Sub-Agents
+
 
 coordinator_system_prmompt = """You are a helpful AI assistant that can utlize the below AI LLM Agents.
 
@@ -47,6 +111,14 @@ AI LLM Agents that you can use to answer questions:
 - DataCatalog: 
     - Assists with searching the data catalog.
     - Assists with getting the data governance tags on a table (aspect types).
+- DataScan:
+    - Assists with data profile scans.
+- DataInsight:
+    - Assists with data insight scans.
+- DataQuality:
+    -Assists with data quality scans.
+- DataDiscovery:
+    -Assists with data discovery scans.
 
 Rules:
 - Do not call the same tool agent with the EXACT same parameters to prevent yourself from looping.
@@ -57,34 +129,21 @@ Rules:
 Your name is: Data Beans Agent.
 """
 
-"""# --- AdamService Agent Definition ---
-from .adam import adam_html_tool
+# allow_transfer=True is often implicit with sub_agents in AutoFlow
 
-adam_service_agent = LlmAgent(
-    name="AdamService",
-    description="Provides HTML content for the /adam command.",
-    tools=[adam_html_tool],
-    model="gemini-2.5-flash"
-)"""
-
-"""# --- ConversationalAnalyticsService Agent Definition ---
-from .conversational_analytics_query import chart_tool
-
-chart_agent = LlmAgent(
-    name="ConversationalAnalyticsService",
-    description="Only should be called when the user types 'show me a chart'.",
-    tools=[chart_tool],
-    model="gemini-2.5-flash" 
-)
-"""
-
+# Main Agent using Gemini Pro as coordinator
 root_agent = LlmAgent(
     name="Coordinator",
     model="gemini-2.5-pro",
     instruction=coordinator_system_prmompt,
     description="Main help desk router.",
-    # allow_transfer=True is often implicit with sub_agents in AutoFlow
-    sub_agents=[search_agent, bigquery_agent, datacatalog_agent],
+    sub_agents=[search_agent, 
+                bigquery_agent, 
+                datacatalog_agent, 
+                datascan_agent, 
+                datainsight_agent, 
+                dataquality_agent,
+                datadiscovery_agent],
         planner=BuiltInPlanner(
         thinking_config=ThinkingConfig(include_thoughts=True))
 )
