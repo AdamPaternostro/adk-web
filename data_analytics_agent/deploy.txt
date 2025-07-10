@@ -65,6 +65,13 @@ Vertex AI User
 
 
 ##########################################################################################
+# To Run
+##########################################################################################
+source .venv/bin/activate
+npm run serve --backend=http://localhost:8000
+adk api_server --allow_origins=http://localhost:4200 --host=0.0.0.0
+
+##########################################################################################
 # Deploy
 ##########################################################################################
 
@@ -74,7 +81,7 @@ export GOOGLE_GENAI_USE_VERTEXAI=True                   # We will use the Vertex
 export GOOGLE_CLOUD_PROJECT="governed-data-1pqzajgatl"  # Project of Vertex and Cloud Run
 export GOOGLE_CLOUD_LOCATION="us-central1"              # Region to deploy
 export AGENT_PATH="./data_analytics_agent"              # Directory name
-export SERVICE_NAME="data-analytics-agent-service-02"   # You can change on each deployment for A/B testing
+export SERVICE_NAME="data-analytics-agent-service-06"   # You can change on each deployment for A/B testing
 export APP_NAME="data_analytics_agent"                  # This needs to the directory name
 
 adk deploy cloud_run \
