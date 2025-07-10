@@ -1,4 +1,4 @@
-def rest_api_helper(url: str, http_verb: str, request_body: str) -> str:
+def rest_api_helper(url: str, http_verb: str, request_body: str) -> dict:
   """Calls the Google Cloud REST API passing in the current users credentials"""
 
   import google.auth.transport.requests

@@ -4,8 +4,8 @@ from google.adk.agents import LlmAgent
 from google.adk.planners import BuiltInPlanner
 from google.genai.types import ThinkingConfig
 
-import data_analytics_agent.bigquery.bigquery_sql as bigquery_sql 
-import data_analytics_agent.bigquery.bigquery_table_schema as bigquery_table_schema
+import data_analytics_agent.bigquery.run_bigquery_sql as run_bigquery_sql 
+import data_analytics_agent.bigquery.get_bigquery_table_schema as get_bigquery_table_schema
 import data_analytics_agent.bigquery.get_bigquery_table_list as get_bigquery_table_list
 
 import data_analytics_agent.google_search.google_search as google_search
@@ -34,8 +34,8 @@ search_agent = LlmAgent(name="Search",
 bigquery_agent = LlmAgent(name="BigQuery",
                           description="Runs BigQuery queries.",
                           tools=[ get_bigquery_table_list.get_bigquery_table_list,
-                                  bigquery_table_schema.get_bigquery_table_schema, 
-                                  bigquery_sql.run_bigquery_sql,                                   
+                                  get_bigquery_table_schema.get_bigquery_table_schema, 
+                                  run_bigquery_sql.run_bigquery_sql,                                   
                                 ],
                           model="gemini-2.5-flash")
 
@@ -103,7 +103,8 @@ datadiscovery_agent = LlmAgent(name="DataDiscovery",
 
 conversational_analytics_agent = LlmAgent(name="ConversationalAnalyticsAPI", 
                              description="This agent is used manage and create Google Conversational Analytics API resources.",
-                             tools=[ conversational_analytics_auto_create_agent.create_conversational_analytics_data_agent,
+                             tools=[ get_bigquery_table_list.get_bigquery_table_list,
+                                     conversational_analytics_auto_create_agent.create_conversational_analytics_data_agent,
                                     
                                      #conversational_analytics_chat.conversational_analytics_data_agent_chat_stateful,
                                      #conversational_analytics_chat.conversational_analytics_data_agent_chat_stateless,

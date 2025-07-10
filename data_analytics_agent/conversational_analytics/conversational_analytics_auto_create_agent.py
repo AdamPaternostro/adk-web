@@ -3,7 +3,7 @@ import json
 import yaml
 import data_analytics_agent.rest_api_helper as rest_api_helper
 import data_analytics_agent.conversational_analytics.conversational_analytics_data_agent as conversational_analytics_data_agent
-import data_analytics_agent.bigquery.bigquery_sql as bigquery_helper
+import data_analytics_agent.bigquery.get_bigquery_table_schema as get_bigquery_table_schema
 import data_analytics_agent.gemini.gemini_helper as gemini_helper
 
 
@@ -63,6 +63,13 @@ def create_conversational_analytics_data_agent(conversational_analytics_data_age
     table_descriptions = ""
     table_names = ""
 
+    if bigquery_table_list is None or len(bigquery_table_list) == 0:
+        messages.append("The bigquery_table_list is empty or null.")
+        return {
+            "status": "failed", "tool_name": tool_name, "query": None,
+            "messages": messages, "results": None
+        }
+    
     messages.append("Preparing data sources and gathering table schemas.")
     for item in bigquery_table_list:
         table_id = f"{project_id}.{item['dataset_name']}.{item['table_name']}"
@@ -72,7 +79,7 @@ def create_conversational_analytics_data_agent(conversational_analytics_data_age
             "datasetId": item["dataset_name"],
             "tableId": item["table_name"],
         })
-        table_description = bigquery_helper.run_bigquery_get_table_schema(table_id) 
+        table_description = get_bigquery_table_schema.get_bigquery_table_schema(item['dataset_name'], item['table_name']) 
         table_descriptions += f"- {table_id}: {table_description}\n"
 
     bigquery_data_source = {"bq": {"tableReferences": table_references}}
@@ -80,7 +87,166 @@ def create_conversational_analytics_data_agent(conversational_analytics_data_age
 
     # --- Step 3: Use Gemini to generate the system instruction YAML ---
     # The full, long prompt from your original code goes here.
-    conversational_analytics_prompt = f"""...""" 
+    conversational_analytics_prompt = f"""I need to create a model that will be used for natural language to SQL.
+
+        Goal:
+        - Generate a valid Yaml file that is based upon the example provided.
+
+        Tables to include in the model:
+        {table_names}
+
+        Descriptions and Schema for each table:
+        {table_descriptions}
+
+        Break the problem down into steps.
+        - Think through each table one by one.
+        - Think through how the tables can join.
+        - Create some valid golden queries.
+
+        Example Yaml file:
+
+        - system_description:
+            You are an expert sales analyst and understand how to answer questions about
+            the sales data for a fictitious e-commence store.
+        - tables:
+            - table:
+                - name: governed-data-1pqzajgatl.conversation_analytics.orders
+                - description: orders for The Look fictitious e-commerce store.
+                - synonyms: sales
+                - tags: 'sale, order, sales_order'
+                - fields:
+                    - field:
+                        - name: order_id
+                        - description: unique identifier for each order
+                    - field:
+                        - name: user_id
+                        - description: unique identifier for each user
+                    - field:
+                        - name: status
+                        - description: status of the order
+                        - sample_values:
+                            - complete
+                            - shipped
+                            - returned
+                    - field:
+                        - name: created_at
+                        - description: date and time when the order was created in timestamp format
+                    - field:
+                        - name: returned_at
+                        - description: >-
+                            date and time when the order was returned in timestamp
+                            format
+                    - field:
+                        - name: num_of_item
+                        - description: number of items in the order
+                        - aggregations: 'sum, avg'
+                    - field:
+                        - name: earnings
+                        - description: total sales from the order
+                        - aggregations: 'sum, avg'
+                    - field:
+                        - name: cost
+                        - description: total cost to get the items for the order
+                        - aggregations: 'sum, avg'
+                - measures:
+                    - measure:
+                        - name: profit
+                        - description: raw profit
+                        - exp: cost - earnings
+                        - synonyms: gains
+            - table:
+                - name: governed-data-1pqzajgatl.conversation_analytics.users
+                - description: user of The Look fictitious e-commerce store.
+                - synonyms: customers
+                - tags: 'user, customer, buyer'
+                - fields:
+                    - field:
+                        - name: id
+                        - description: unique identifier for each user
+                    - field:
+                        - name: first_name
+                        - description: first name of the user
+                        - tag: person
+                        - sample_values: 'graham, sara, brian'
+                    - field:
+                        - name: last_name
+                        - description: first name of the user
+                        - tag: person
+                        - sample_values: 'warmer, stilles, smith'
+                    - field:
+                        - name: region
+                        - description: region of the user
+                        - sample_values:
+                            - west
+                            - east
+                            - northwest
+                            - south
+                    - field:
+                        - name: email
+                        - description: email of the user
+                        - tag: contact
+                        - sample_values: '222larabrown@gmail.com, cloudysanfrancisco@gmail.com'
+        - golden_queries:
+        - golden_query:
+            - natural_language_query: How many orders are there?
+            - sql_query: SELECT COUNT(*) FROM governed-data-1pqzajgatl.conversation_analytics.orders
+        - golden_query:
+            - natural_language_query: How many orders were shipped?
+            - sql_query: >-
+                        SELECT COUNT(*) FROM governed-data-1pqzajgatl.conversation_analytics.orders
+                        WHERE status = 'shipped'
+        - golden_query:
+            - natural_language_query: How many unique customers are there?
+            - sql_query: >-
+                        SELECT COUNT(DISTINCT id) FROM
+                            governed-data-1pqzajgatl.conversation_analytics.users
+        - golden_query:
+            - natural_language_query: How many southern users have cymbalgroup email id?
+            - sql_query: >-
+                        SELECT COUNT(DISTINCT id) FROM
+                        governed-data-1pqzajgatl.conversation_analytics.users WHERE users.region =
+                        'south' AND users.email LIKE '%@cymbalgroup.com';
+        - golden_action_plans:
+        - golden_action_plan:
+            - natural_language_query: Show me the number of orders broken down by status.
+            - action_plan:
+            - step: >-
+                    Run a SQL query on the table
+                    governed-data-1pqzajgatl.conversation_analytics.orders to get a
+                    breakdown of order count by status.
+            - step: >-
+                    Create a vertical bar plot using the retrieved data,
+                    with one bar per status.
+        - relationships:
+        - relationship:
+            - name: earnings_to_user
+            - description: >-
+                        Sales table is related to the users table and can be joined for
+                        aggregated view.
+            - relationship_type: many-to-one
+            - join_type: left
+            - left_table: governed-data-1pqzajgatl.conversation_analytics.orders
+            - right_table: governed-data-1pqzajgatl.conversation_analytics.users
+            - relationship_columns: '// Join columns - left_column:''user_id'' - right_column:''id'''
+        - glossaries:
+            - glossary:
+                - term: complete
+                - description: complete status
+                - synonyms: 'finish, done, fulfilled'
+            - glossary:
+                - term: shipped
+                - description: shipped status
+            - glossary:
+                - term: returned
+                - description: returned status
+            - glossary:
+                - term: OMPF
+                - description: Order Management and Product Fulfillment
+        - additional_instructions:
+            - text: All the sales data is for Looker organization.
+            - text: Orders can be of three categories food, clothes, electronics.
+        """
+
     response_schema = {
         "type": "object",
         "properties": {"generated_yaml": {"type": "string"}},
@@ -89,6 +255,7 @@ def create_conversational_analytics_data_agent(conversational_analytics_data_age
 
     messages.append("Generating system instruction YAML with Gemini...")
     try:
+        print(conversational_analytics_prompt)
         gemini_response = gemini_helper.gemini_llm(conversational_analytics_prompt, response_schema=response_schema)
         gemini_response_json = json.loads(gemini_response)
         system_instruction = gemini_response_json["generated_yaml"]

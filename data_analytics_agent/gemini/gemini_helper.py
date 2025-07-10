@@ -23,7 +23,7 @@ def retry_condition(error):
   return False
 
 @retry(wait=wait_exponential(multiplier=1, min=1, max=60), stop=stop_after_attempt(10), retry=retry_if_exception(retry_condition), before_sleep=before_sleep_log(logging.getLogger(), logging.INFO))
-def gemini_llm(prompt, model="gemini-1.5-flash", response_schema=None, temperature=1, topP=1, topK=32):
+def gemini_llm(prompt, model="gemini-2.5-flash", response_schema=None, temperature=1, topP=1, topK=32):
     """
     Calls the Gemini LLM with a given prompt and handles the response.
     """

@@ -1,6 +1,6 @@
 import json
 import data_analytics_agent.rest_api_helper as rest_api_helper
-import data_analytics_agent.bigquery.bigquery_sql as bq_sql 
+import data_analytics_agent.bigquery.run_bigquery_sql as bq_sql 
 
 def get_bigquery_table_list() -> dict:
     """
