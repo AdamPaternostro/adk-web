@@ -46,7 +46,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.test_name == "test-data-eng-agent":
-        repository_name = "adam-agent-10"
+        repository_name = "adam-agent-11"
         workspace_name = "default"
         prompt = """Make the files fields (borough,zone and service_zone) all uppercase in the dataset:data_eng_dataset table:location and saved to a new table in the same dataset named: main_test"""
 
