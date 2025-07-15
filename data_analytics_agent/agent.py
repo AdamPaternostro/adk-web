@@ -21,6 +21,7 @@ import data_analytics_agent.conversational_analytics.conversational_analytics_au
 import data_analytics_agent.conversational_analytics.conversational_analytics_chat as conversational_analytics_chat
 import data_analytics_agent.conversational_analytics.conversational_analytics_conversation as conversational_analytics_conversation
 import data_analytics_agent.conversational_analytics.conversational_analytics_data_agent as conversational_analytics_data_agent
+import data_analytics_agent.data_engineering_agent.data_engineering_agent as data_engineering_agent
 
 
 load_dotenv()
@@ -123,7 +124,11 @@ conversational_analytics_agent = LlmAgent(name="ConversationalAnalyticsAPI",
                                    ],
                              model="gemini-2.5-flash")
 
-
+data_engineering_sub_agent = LlmAgent(name="DataEngineering", 
+                             description="Provides the ability to create and update data engineering pipelines using natural language prompts.",
+                             tools=[ data_engineering_agent.execute_data_engineering_task
+                                   ],
+                             model="gemini-2.5-flash")
 
 
 ################################################################################
@@ -154,6 +159,8 @@ AI LLM Agents that you can use to answer questions:
 - ConversationalAnalyticsAPI:
     - This agent will manage conversational analyitics API requests for conversational analyitics infrastucture.
     - This agent DOES NOT ANSWER conversational analyitics queries by the user like "How much are my sales".  Do not direct requests to this agent.
+DataEngineering
+    - This agent will create and update pipelines or dataform tasks using natural language.
 
 Rules:
 - Do not call the same tool agent with the EXACT same parameters to prevent yourself from looping.
@@ -179,7 +186,8 @@ root_agent = LlmAgent(
                 datainsight_agent, 
                 dataquality_agent,
                 datadiscovery_agent,
-                conversational_analytics_agent],
+                conversational_analytics_agent,
+                data_engineering_sub_agent],
         planner=BuiltInPlanner(
         thinking_config=ThinkingConfig(include_thoughts=True))
 )

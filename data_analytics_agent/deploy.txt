@@ -69,6 +69,8 @@ Vertex AI User
 ##########################################################################################
 source .venv/bin/activate
 npm run serve --backend=http://localhost:8000
+
+source .venv/bin/activate
 adk api_server --allow_origins=http://localhost:4200 --host=0.0.0.0
 
 ##########################################################################################

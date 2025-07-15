@@ -78,3 +78,25 @@ def gemini_llm(prompt, model="gemini-2.5-flash", response_schema=None, temperatu
             raise RuntimeError(f"Error parsing LLM response: {e}. Full response: {response.text}")
     else:
         raise RuntimeError(f"Error with prompt:'{prompt}'  Status:'{response.status_code}' Text:'{response.text}'")
+    
+
+
+def llm_as_a_judge(original_prompt: str, response_from_processing: str) -> bool:
+    """
+    Determines if the prompt has run correctly
+    """
+    response_schema = {
+        "type": "object",
+        "properties": {"processing_status": {"type": "boolean"}},
+        "required": ["processing_status"]
+    }
+
+    prompt = f"""Respond back with True if you think the below process request executed successfully or False if it looks like it failed.
+
+    Processing Request: {original_prompt}
+
+    Response from Processing: {response_from_processing}
+    """
+    gemini_response = gemini_llm(prompt, response_schema=response_schema)
+    gemini_response_json = json.loads(gemini_response)
+    return bool(gemini_response_json["processing_status"])

@@ -120,7 +120,9 @@ def search_data_catalog(query: str) -> dict:
     payload = {
         "pageSize": 50,
         "query": query,
-        "semanticSearch": False,  # Should I do false since I cannot use filter then?
+        # If you do "True" then you get results that are not specific for specific filters.
+        # e.g. it does not obey the exact aspect type search syntax and instead treats it like a string
+        "semanticSearch": False,
         "scope": f"projects/{project_id}" # Just to keep it simple just search this project
     }
 

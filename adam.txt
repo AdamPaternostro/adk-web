@@ -1,3 +1,26 @@
+curl \
+  'https://dataform.googleapis.com/v1/projects/governed-data-1pqzajgatl/locations/us-central1/repositories/adam-agent-01/workflowInvocations/1752589094-25d15b44-0dc2-4375-9b66-520f1270857b?key=[YOUR_API_KEY]' \
+  --header 'Authorization: Bearer [YOUR_ACCESS_TOKEN]' \
+  --header 'Accept: application/json' \
+  --compressed
+
+
+{
+  "name": "projects/governed-data-1pqzajgatl/locations/us-central1/repositories/adam-agent-01/workflowInvocations/1752589094-25d15b44-0dc2-4375-9b66-520f1270857b",
+  "compilationResult": "projects/601982832853/locations/us-central1/repositories/adam-agent-01/compilationResults/9bb5451f-ae2d-4fe3-8ce6-d7f99784637c",
+  "state": "SUCCEEDED",
+  "invocationTiming": {
+    "startTime": "2025-07-15T14:18:14.211381Z",
+    "endTime": "2025-07-15T14:18:18.870977163Z"
+  },
+  "resolvedCompilationResult": "projects/601982832853/locations/us-central1/repositories/adam-agent-01/compilationResults/9bb5451f-ae2d-4fe3-8ce6-d7f99784637c",
+  "internalMetadata": "{\"db_metadata_insert_time\":\"2025-07-15T14:18:14.218422Z\",\"quota_server_enabled\":true,\"service_account\":\"service-601982832853@gcp-sa-dataform.iam.gserviceaccount.com\"}"
+}
+
+
+
+
+
 npm install string-to-color
 
 
