@@ -46,15 +46,24 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.test_name == "test-data-eng-agent":
-        repository_name = "adam-agent-07"
+        repository_name = "adam-agent-10"
         workspace_name = "default"
         prompt = """Make the files fields (borough,zone and service_zone) all uppercase in the dataset:data_eng_dataset table:location and saved to a new table in the same dataset named: main_test"""
 
-        execute_data_engineering_task_result = data_engineering_agent.execute_data_engineering_task(repository_name, workspace_name, prompt)
+        execute_data_engineering_task_result = data_engineering_agent.execute_data_engineering_task(repository_name, "PIPELINE", prompt)
 
         print()
         print()
         print(f"execute_data_engineering_task_result: {execute_data_engineering_task_result}")
+
+
+        clean_workflow_name = execute_data_engineering_task_result["workflow_name"]
+        workflow_invocation_id = execute_data_engineering_task_result["workflow_invocation_id"]
+        get_worflow_invocation_status_result = data_engineering_agent.get_worflow_invocation_status(clean_workflow_name, workflow_invocation_id)
+
+        print()
+        print()
+        print(f"get_worflow_invocation_status_result: {get_worflow_invocation_status_result}")      
 
     else:
         print(f"Error: Test '{args.test_name}' not found.")

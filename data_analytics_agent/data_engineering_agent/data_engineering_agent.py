@@ -863,7 +863,7 @@ def compile_and_run_dataform_workflow(repository_name: str, workspace_name: str)
             "tool_name": "compile_and_run_dataform_workflow",
             "query": None,
             "messages": messages,
-            #"to-check-on-the-execution-status": invoke_result["name"],
+            "workflow_invocation_id": invoke_result["name"].rsplit('/', 1)[-1],
             "results": invoke_result 
         }
 
@@ -907,6 +907,8 @@ def execute_data_engineering_task(workflow_name: str, workflow_type: str, prompt
                   "tool_name": "execute_data_engineering_task",
                   "query": None,
                   "messages": ["A complete log of all steps taken"],
+                  "workflow_name": "This is the clean generated name of the workflow (dataform repository).",
+                  "workflow_invocation_id": "This is the id that can be used to check on the workflow status."
                   "results": { ... results of the final step, or error details ... }
               }
     """
@@ -944,6 +946,7 @@ def execute_data_engineering_task(workflow_name: str, workflow_type: str, prompt
         s_name = re.sub(r'[^a-z0-9-]', '', workflow_name.lower().replace(" ", "-"))
         repository_name = f"{s_name}-{os.getenv('AGENT_ENV_UNIQUE_ID', 'workflow')}"
         response["messages"].append(f"Sanitized workflow name to '{repository_name}'.")
+        response["workflow_name"] = repository_name
 
         print()
         print()
@@ -1060,6 +1063,7 @@ def execute_data_engineering_task(workflow_name: str, workflow_type: str, prompt
             response["messages"].append(f"You can view your workflow at https://console.cloud.google.com/bigquery/dataform/locations/{location}/repositories/{repository_name}/workspaces/{workspace_name}")
 
             # If all steps succeeded, set the final results
+            response["workflow_invocation_id"] = compile_and_run_dataform_workflow_result["workflow_invocation_id"]
             response["results"] = compile_and_run_dataform_workflow_result["results"]        
 
         else:
@@ -1078,3 +1082,80 @@ def execute_data_engineering_task(workflow_name: str, workflow_type: str, prompt
         print(error_message) # Also log to console
 
     return response
+
+
+def get_worflow_invocation_status(repository_name: str, workflow_invocation_id: str) -> dict:
+    """
+    Checks on the execution status of a workflow.
+
+    Args:
+        repository_name (str): The ID of the Dataform repository to compile and run.
+        workflow_invocation_id (str): The ID (guid) of workflow invocations id executing a pipeline.  It will return 
+            a workflow_invocation_id value which can be used to check on the execution status.
+
+    Returns:
+        dict: A dictionary containing the status and a boolean result.
+        {
+            "status": "success" or "failed",
+            "tool_name": "get_worflow_invocation_status",
+            "query": None,
+            "messages": ["List of messages during processing"],
+            "results": {
+                "name": "projects/governed-data-1pqzajgatl/locations/us-central1/repositories/adam-agent-10-workflow/workflowInvocations/1752598992-06e003bc-aad3-477f-b761-02629a4d554f",
+                "compilationResult": "projects/601982832853/locations/us-central1/repositories/adam-agent-10-workflow/compilationResults/d4a2fa7c-c546-428a-814a-b8eece65a559",
+                "state": "SUCCEEDED",
+                "invocationTiming": {
+                    "startTime": "2025-07-15T17:03:12.313196Z",
+                    "endTime": "2025-07-15T17:03:17.650637343Z"
+                },
+                "resolvedCompilationResult": "projects/601982832853/locations/us-central1/repositories/adam-agent-10-workflow/compilationResults/d4a2fa7c-c546-428a-814a-b8eece65a559",
+                "internalMetadata": "{\"db_metadata_insert_time\":\"2025-07-15T17:03:12.321373Z\",\"quota_server_enabled\":true,\"service_account\":\"service-601982832853@gcp-sa-dataform.iam.gserviceaccount.com\"}"
+                }
+        }
+    """
+    project_id = os.getenv("AGENT_ENV_PROJECT_ID")
+    dataform_region = os.getenv("AGENT_ENV_DATAFORM_REGION")
+    messages = []
+
+    # The URL to list all repositories in the specified project and region. [1]
+    url = f"https://dataform.googleapis.com/v1/projects/{project_id}/locations/{dataform_region}/repositories/{repository_name}/workflowInvocations/{workflow_invocation_id}"
+    print(url)
+
+    try:
+        messages.append(f"Checkin on workflow invoation status with workflow_invocation_id: '{workflow_invocation_id}'.")
+        # Call the REST API to get the list of all existing repositories. [1]
+        json_result = rest_api_helper.rest_api_helper(url, "GET", None)
+        print(json_result)
+
+        return {
+            "status": "success",
+            "tool_name": "get_worflow_invocation_status",
+            "query": None,
+            "messages": messages,
+            "results": json_result
+        }
+
+    except Exception as e:
+        print(e)
+        # Check if the string representation of the error contains '404'
+        if '404' in str(e):
+            messages.append(f"Workflow Invocation not found for '{workflow_invocation_id}'. This is an expected outcome.")
+            return {
+                "status": "success",
+                "tool_name": "get_worflow_invocation_status",
+                "query": None,
+                "messages": messages,
+                "results": { "state" : "NOT_FOUND" }
+            }
+        else:
+            # Handle all other errors as failures
+            error_message = f"An unexpected error occurred while checking for existence of file: {e}"
+            messages.append(error_message)
+            return {
+                "status": "failed",
+                "tool_name": "get_worflow_invocation_status",
+                "query": None,
+                "messages": messages,
+                "results": None
+            }
+
