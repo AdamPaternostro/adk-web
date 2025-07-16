@@ -839,6 +839,8 @@ def compile_and_run_dataform_workflow(repository_name: str, workspace_name: str)
         compile_result = rest_api_helper.rest_api_helper(compile_url, "POST", compile_request_body)
         compilation_result_name = compile_result.get("name")
 
+        # You might want to check the status of the compilation and only start it if it is "success"!
+        
         if not compilation_result_name:
             raise Exception("Failed to get compilation result name from the compilation API response.")
 
@@ -943,8 +945,7 @@ def execute_data_engineering_task(workflow_name: str, workflow_type: str, prompt
         workspace_name = os.getenv("AGENT_ENV_DATAFORM_WORKSPACE_DEFAULT_NAME", "default")
         location =  os.getenv("AGENT_ENV_DATAFORM_REGION", "us-central1")
         
-        s_name = re.sub(r'[^a-z0-9-]', '', workflow_name.lower().replace(" ", "-"))
-        repository_name = f"{s_name}-{os.getenv('AGENT_ENV_UNIQUE_ID', 'workflow')}"
+        repository_name = re.sub(r'[^a-z0-9-]', '', workflow_name.lower().replace(" ", "-"))        
         response["messages"].append(f"Sanitized workflow name to '{repository_name}'.")
         response["workflow_name"] = repository_name
 

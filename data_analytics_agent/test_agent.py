@@ -46,24 +46,29 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.test_name == "test-data-eng-agent":
-        repository_name = "adam-agent-11"
+        repository_name = "auto-agent-21"
         workspace_name = "default"
-        prompt = """Make the files fields (borough,zone and service_zone) all uppercase in the dataset:data_eng_dataset table:location and saved to a new table in the same dataset named: main_test"""
+        dataform_repo_or_bigquery_pipeline = "PIPELINE" # "DATAFORM" # PIPELINE
+        prompt = """Create a bigquery pipeline named "auto-agent-21"
+        Make the files fields (borough, zone and service_zone) all uppercase in the
+        dataset:data_eng_dataset table:location and saved to a new table in the same dataset named: auto_agent_21"""
 
-        execute_data_engineering_task_result = data_engineering_agent.execute_data_engineering_task(repository_name, "PIPELINE", prompt)
+        # prompt = "bla bla bla"  # cause error for rollback
+
+        execute_data_engineering_task_result = data_engineering_agent.execute_data_engineering_task(repository_name, dataform_repo_or_bigquery_pipeline, prompt)
 
         print()
         print()
         print(f"execute_data_engineering_task_result: {execute_data_engineering_task_result}")
 
+        if execute_data_engineering_task_result["status"] == "success":
+            clean_workflow_name = execute_data_engineering_task_result["workflow_name"]
+            workflow_invocation_id = execute_data_engineering_task_result["workflow_invocation_id"]
+            get_worflow_invocation_status_result = data_engineering_agent.get_worflow_invocation_status(clean_workflow_name, workflow_invocation_id)
 
-        clean_workflow_name = execute_data_engineering_task_result["workflow_name"]
-        workflow_invocation_id = execute_data_engineering_task_result["workflow_invocation_id"]
-        get_worflow_invocation_status_result = data_engineering_agent.get_worflow_invocation_status(clean_workflow_name, workflow_invocation_id)
-
-        print()
-        print()
-        print(f"get_worflow_invocation_status_result: {get_worflow_invocation_status_result}")      
+            print()
+            print()
+            print(f"get_worflow_invocation_status_result: {get_worflow_invocation_status_result}")      
 
     else:
         print(f"Error: Test '{args.test_name}' not found.")

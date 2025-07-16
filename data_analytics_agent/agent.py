@@ -126,7 +126,8 @@ conversational_analytics_agent = LlmAgent(name="ConversationalAnalyticsAPI",
 
 data_engineering_sub_agent = LlmAgent(name="DataEngineering", 
                              description="Provides the ability to create and update data engineering pipelines using natural language prompts.",
-                             tools=[ data_engineering_agent.execute_data_engineering_task
+                             tools=[ data_engineering_agent.execute_data_engineering_task,
+                                     data_engineering_agent.get_worflow_invocation_status
                                    ],
                              model="gemini-2.5-flash")
 
@@ -161,6 +162,7 @@ AI LLM Agents that you can use to answer questions:
     - This agent DOES NOT ANSWER conversational analyitics queries by the user like "How much are my sales".  Do not direct requests to this agent.
 DataEngineering
     - This agent will create and update pipelines or dataform tasks using natural language.
+    - You can also check the execution status of a pipeline.
 
 Rules:
 - Do not call the same tool agent with the EXACT same parameters to prevent yourself from looping.
